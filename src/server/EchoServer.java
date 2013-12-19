@@ -1,8 +1,14 @@
+package server;
 // This file contains material supporting section 3.7 of the textbook:
 // "Object Oriented Software Engineering" and is issued under the open-source
 // license found at www.lloseng.com 
 
+
 import java.io.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 import ocsf.server.*;
 
 /**
@@ -23,6 +29,7 @@ public class EchoServer extends AbstractServer
    * The default port to listen on.
    */
   final public static int DEFAULT_PORT = 5555;
+  private Connection conn;
   
   //Constructors ****************************************************
   
@@ -34,6 +41,21 @@ public class EchoServer extends AbstractServer
   public EchoServer(int port) 
   {
     super(port);
+    try 
+	{
+		Class.forName("com.mysql.jdbc.Driver").newInstance();
+	} catch (Exception ex) {/* handle the error*/}
+
+	try 
+	{
+		conn = DriverManager.getConnection("jdbc:mysql://localhost/vcp-prot","root","aeovwsz");
+		System.out.println("SQL connection succeed");
+	} catch (SQLException ex) 
+	{/* handle any errors*/
+		System.out.println("SQLException: " + ex.getMessage());
+		System.out.println("SQLState: " + ex.getSQLState());
+		System.out.println("VendorError: " + ex.getErrorCode());
+	}
   }
 
   
@@ -84,27 +106,8 @@ public class EchoServer extends AbstractServer
    */
   public static void main(String[] args) 
   {
-    int port = 0; //Port to listen on
-
-    try
-    {
-      port = Integer.parseInt(args[0]); //Get port from command line
-    }
-    catch(Throwable t)
-    {
-      port = DEFAULT_PORT; //Set port to 5555
-    }
-	
-    EchoServer sv = new EchoServer(port);
-    
-    try 
-    {
-      sv.listen(); //Start listening for connections
-    } 
-    catch (Exception ex) 
-    {
-      System.out.println("ERROR - Could not listen for clients!");
-    }
+    ServerGUI sg = new ServerGUI();
+    sg.setVisible(true);
   }
 }
 //End of EchoServer class
