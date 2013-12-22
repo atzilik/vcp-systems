@@ -1,4 +1,4 @@
-package server;
+package gui;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -7,6 +7,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+
+import server.EchoServer;
 
 import client.ClientConsole;
 
