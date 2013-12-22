@@ -4,6 +4,8 @@ package server;
 // license found at www.lloseng.com 
 
 
+import gui.ServerGUI;
+
 import java.io.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
