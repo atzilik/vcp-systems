@@ -1,17 +1,17 @@
-package GuiMenu;
+package gui;
 
 import java.awt.Dimension;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class ChackInMenu extends JFrame{
+public class CheckOutMenu extends JFrame{
 	private JTextField textField;
 	private JTextField textField_1;
-	public ChackInMenu() {
+	public CheckOutMenu() {
 		setSize(new Dimension(400, 300));
 		getContentPane().setLayout(null);
 		

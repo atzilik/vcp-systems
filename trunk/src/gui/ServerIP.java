@@ -7,8 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 
-public class IPFrame extends JFrame{
-	public IPFrame(int port) throws UnknownHostException{
+public class ServerIP extends JFrame{
+	public ServerIP(int port) throws UnknownHostException{
 		getContentPane().setLayout(null);
 		
 		JLabel lblIp = new JLabel("IP:");

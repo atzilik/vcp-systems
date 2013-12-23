@@ -13,12 +13,12 @@ import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class ClientGUI extends JFrame{
+public class Client extends JFrame{
 	private JTextField textField_IP;
 	private JTextField textField_Port;
-	private String host;
 	private int port;
-	public ClientGUI() {
+	private Login lg;
+	public Client() {
 		setSize(new Dimension(400, 300));
 		setTitle("Server Connection");
 		getContentPane().setLayout(null);
@@ -39,27 +39,27 @@ public class ClientGUI extends JFrame{
 		textField_IP.setColumns(10);
 		
 		textField_Port = new JTextField();
+		textField_Port.setText(Integer.toString(ClientConsole.DEFAULT_PORT));
 		textField_Port.setBounds(213, 125, 86, 20);
 		getContentPane().add(textField_Port);
 		textField_Port.setColumns(10);
 		
+		
 		JButton btnConnect = new JButton("Connect");
 		btnConnect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				host = (textField_IP.getText().equals(""))?"localhost":textField_IP.getText();
-				port = (textField_Port.getText().equals(""))?ClientConsole.DEFAULT_PORT:Integer.parseInt(textField_Port.getText());
-				
-				ClientConsole cc = new ClientConsole(host, port);
-				//cc.accept();
-				JOptionPane.showMessageDialog(new JPanel(), "Conncetion to the Server was successful");
+				port = Integer.parseInt(textField_Port.getText());
+				setVisible(false);
+				lg = new Login(textField_IP.getText(), port);
 			}
 		});
+		
 		btnConnect.setBounds(176, 190, 89, 23);
 		getContentPane().add(btnConnect);
 	}
 	
 	public static void main(String[] args){
-		ClientGUI cg = new ClientGUI();
+		Client cg = new Client();
 		cg.setVisible(true);
 	}
 
