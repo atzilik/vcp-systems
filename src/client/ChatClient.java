@@ -6,7 +6,13 @@ package client;
 
 import ocsf.client.*;
 import common.*;
+import gui.CustomerComplaintMenu;
+import gui.CustomerMenu;
+
 import java.io.*;
+
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 /**
  * This class overrides some of the methods defined in the abstract
@@ -56,7 +62,16 @@ public class ChatClient extends AbstractClient
    */
   public void handleMessageFromServer(Object msg) 
   {
-    clientUI.display(msg.toString());
+//    clientUI.display(msg.toString());
+	  if (msg.equals("Login Success"))
+	  {
+		  CustomerMenu cm = new CustomerMenu();
+	  }
+	  else if (msg.equals("No Entery"))
+	  {
+		  JOptionPane.showMessageDialog(new JPanel(), "Wrong user name or password.");
+	  }
+	  
   }
 
   /**
@@ -64,7 +79,7 @@ public class ChatClient extends AbstractClient
    *
    * @param message The message from the UI.    
    */
-  public void handleMessageFromClientUI(String message)
+  public void handleMessageFromClientUI(Object message)
   {
     try
     {

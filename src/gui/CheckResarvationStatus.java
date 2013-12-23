@@ -1,4 +1,4 @@
-package GuiMenu;
+package gui;
 
 import java.awt.Dimension;
 
@@ -9,10 +9,10 @@ import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-public class ChackResarvationStatus extends JFrame{
+public class CheckResarvationStatus extends JFrame{
 	private JTextField textField;
 	private JTextField textField_1;
-	public ChackResarvationStatus() {
+	public CheckResarvationStatus() {
 		setSize(new Dimension(400, 300));
 		getContentPane().setLayout(null);
 	
