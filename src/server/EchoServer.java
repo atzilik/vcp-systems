@@ -4,21 +4,16 @@ package server;
 // license found at www.lloseng.com 
 
 
-import gui.CustomerMenu;
 import gui.Server;
-
 import java.io.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-
-import com.sun.corba.se.pept.transport.ConnectionCache;
-
+import logic.FullMember;
+import logic.STDCustomer;
+import logic.STDMember;
 import ocsf.server.*;
 
 /**
@@ -39,7 +34,7 @@ public class EchoServer extends AbstractServer
 	 * The default port to listen on.
 	 */
 	final public static int DEFAULT_PORT = 5555;
-	private Connection conn;
+	private Connection con;
 	private String sqlUser;
 	private String sqlPass;
 	private String dbName;
@@ -61,7 +56,7 @@ public class EchoServer extends AbstractServer
 
 		try 
 		{
-			conn = DriverManager.getConnection("jdbc:mysql://localhost/" + dbName,sqlU,sqlP);
+			con = DriverManager.getConnection("jdbc:mysql://localhost/" + dbName,sqlU,sqlP);
 			System.out.println("SQL connection succeed");
 		} catch (SQLException ex) 
 		{/* handle any errors*/
@@ -93,7 +88,7 @@ public class EchoServer extends AbstractServer
 		//		}
 		if (command[0].equals("check login"))
 		{
-			checkLogin(command, conn, client);
+			checkLogin(command, client);
 		}
 	}
 
@@ -128,35 +123,81 @@ public class EchoServer extends AbstractServer
 	 *          if no argument is entered.
 	 */
 
-	public void checkLogin(String[] op, Connection con, ConnectionToClient client){
+	public void checkLogin(String[] op, ConnectionToClient client){
 		try 
 		{
-			String query = "SELECT * FROM $tableName WHERE UserName=? and Password=?;";
-			PreparedStatement ps = con.prepareStatement(query.replace("$tableName", op[3].equals("yes")?"customers":"workers"));
+			PreparedStatement ps = con.prepareStatement("SELECT * FROM users WHERE userName=? and password=?;");
 			ps.setString(1, op[1]);
 			ps.setString(2, op[2]);
-
-			ResultSet rs = ps.executeQuery();
-
-			if (rs.first() == false)
+			ResultSet user = ps.executeQuery();
+			
+			if (user.isBeforeFirst() == false)
+			//user doesn't exist
 			{
 				sendToClient(client, "No Entery");
 			}
 			else
 			{
-				sendToClient(client, "Login Success");
+				user.next();
+				if (user.getString(3) != null)
+					//worker
+				{
+
+				}
+				else
+					//customer
+				{
+					loadCustomer(client, user.getString(4), user.getString(5));
+				}
 			}
-			rs.close();
+			user.close();
 		} catch (SQLException e) {e.printStackTrace();}
 	}
 
-	public void sendToClient(ConnectionToClient client, String msg){
+	public void sendToClient(ConnectionToClient client, Object msg){
 		try {
 			client.sendToClient(msg);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
+	}
+
+	public void loadCustomer(ConnectionToClient client, String customerId, String customerType) throws SQLException{
+		String tableName = null;
+		switch(Integer.parseInt(customerType))
+		//1 - regular, 2 - standard, 3 - full
+		{
+		case 1: tableName = "customers";break;
+		case 2: tableName = "std_members";break;
+		case 3: tableName = "full_members";break;
+		}
+		String query = "SELECT * FROM $tableName WHERE id=?;";
+		PreparedStatement ps = con.prepareStatement(query.replace("$tableName", tableName));
+		ps.setString(1, customerId);
+		ResultSet cst = ps.executeQuery();
+		cst.next();
+		switch(Integer.parseInt(customerType))
+		//1 - regular, 2 - standard, 3 - full
+		{
+		case 1: {
+			STDCustomer stdCst = new STDCustomer(cst.getString(1), cst.getString(2), cst.getString(3), cst.getString(4), cst.getString(5), cst.getString(6), cst.getString(7));
+			sendToClient(client, stdCst);
+			break;
+		}
+		case 2: {
+			STDMember stdMem = new STDMember(cst.getString(3), cst.getString(2), cst.getString(4), cst.getString(5), cst.getString(6), cst.getString(1), cst.getString(7), cst.getBoolean(10), cst.getInt(8), cst.getString(9));
+			sendToClient(client, stdMem);
+			break;
+		}
+		case 3: {
+			FullMember fMem = new FullMember(cst.getString(3), cst.getString(2), cst.getString(4), cst.getString(5), cst.getString(6), cst.getString(1), cst.getString(7), cst.getBoolean(8));
+			sendToClient(client, fMem);
+			break;
+		}
+		}
+		cst.close();
 
 	}
 

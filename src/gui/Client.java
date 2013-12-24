@@ -14,11 +14,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class Client extends JFrame{
+	private ClientConsole cc;
 	private JTextField textField_IP;
 	private JTextField textField_Port;
-	private int port;
-	private Login lg;
 	public Client() {
+		
 		setSize(new Dimension(400, 300));
 		setTitle("Server Connection");
 		getContentPane().setLayout(null);
@@ -48,9 +48,11 @@ public class Client extends JFrame{
 		JButton btnConnect = new JButton("Connect");
 		btnConnect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				port = Integer.parseInt(textField_Port.getText());
+				cc = new ClientConsole(textField_IP.getText(),Integer.parseInt(textField_Port.getText()));
+				JOptionPane.showMessageDialog(new JPanel(), "Conncetion to the Server was successful");
 				setVisible(false);
-				lg = new Login(textField_IP.getText(), port);
+				Login lg = new Login(cc);
+				
 			}
 		});
 		

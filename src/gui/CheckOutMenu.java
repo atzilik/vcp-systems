@@ -14,6 +14,7 @@ public class CheckOutMenu extends JFrame{
 	public CheckOutMenu() {
 		setSize(new Dimension(400, 300));
 		getContentPane().setLayout(null);
+		setLocationRelativeTo(null);
 		
 		JLabel lblId = new JLabel("Id");
 		lblId.setBounds(61, 47, 69, 20);
@@ -40,6 +41,7 @@ public class CheckOutMenu extends JFrame{
 		});
 		btnSubmit.setBounds(126, 165, 115, 29);
 		getContentPane().add(btnSubmit);
+		setVisible(true);
 	}
 
 }

@@ -9,16 +9,21 @@ import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-public class CheckResarvationStatus extends JFrame{
+public class CheckReservationStatus extends JFrame{
+	private CustomerMenu cm;
 	private JTextField textField;
 	private JTextField textField_1;
-	public CheckResarvationStatus() {
+	public CheckReservationStatus(final CustomerMenu cm) {
+		this.cm = cm;
 		setSize(new Dimension(400, 300));
 		getContentPane().setLayout(null);
+		setLocationRelativeTo(null);
 	
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				cm.setVisible(true);
 			}
 		});
 		btnCancel.setBounds(130, 187, 115, 29);
@@ -49,6 +54,7 @@ public class CheckResarvationStatus extends JFrame{
 		textField_1.setBounds(89, 72, 146, 26);
 		getContentPane().add(textField_1);
 		textField_1.setColumns(10);
+		setVisible(true);
 	}
 
 }
