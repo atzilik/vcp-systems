@@ -19,6 +19,7 @@ public class ReservationMenu extends JFrame{
 	public ReservationMenu() {
 		setSize(new Dimension(500, 400));
 		getContentPane().setLayout(null);
+		setLocationRelativeTo(null);
 		
 		JLabel lblCid = new JLabel("Cid");
 		lblCid.setBounds(15, 16, 69, 20);
@@ -97,6 +98,7 @@ public class ReservationMenu extends JFrame{
 		});
 		btnCreate.setBounds(241, 288, 115, 29);
 		getContentPane().add(btnCreate);
+		setVisible(true);
 	}
 
 }

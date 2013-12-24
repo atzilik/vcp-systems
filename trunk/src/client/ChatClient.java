@@ -8,11 +8,14 @@ import ocsf.client.*;
 import common.*;
 import gui.CustomerComplaintMenu;
 import gui.CustomerMenu;
+import gui.Login;
 
 import java.io.*;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
+import logic.Customer;
 
 /**
  * This class overrides some of the methods defined in the abstract
@@ -25,85 +28,105 @@ import javax.swing.JPanel;
  */
 public class ChatClient extends AbstractClient
 {
-  //Instance variables **********************************************
-  
-  /**
-   * The interface type variable.  It allows the implementation of 
-   * the display method in the client.
-   */
-  ChatIF clientUI; 
+	//Instance variables **********************************************
 
-  
-  //Constructors ****************************************************
-  
-  /**
-   * Constructs an instance of the chat client.
-   *
-   * @param host The server to connect to.
-   * @param port The port number to connect on.
-   * @param clientUI The interface type variable.
-   */
-  
-  public ChatClient(String host, int port, ChatIF clientUI) 
-    throws IOException 
-  {
-    super(host, port); //Call the superclass constructor
-    this.clientUI = clientUI;
-    openConnection();
-  }
+	/**
+	 * The interface type variable.  It allows the implementation of 
+	 * the display method in the client.
+	 */
+	ChatIF clientUI; 
+	private boolean login;
 
-  
-  //Instance methods ************************************************
-    
-  /**
-   * This method handles all data that comes in from the server.
-   *
-   * @param msg The message from the server.
-   */
-  public void handleMessageFromServer(Object msg) 
-  {
-//    clientUI.display(msg.toString());
-	  if (msg.equals("Login Success"))
-	  {
-		  CustomerMenu cm = new CustomerMenu();
-	  }
-	  else if (msg.equals("No Entery"))
-	  {
-		  JOptionPane.showMessageDialog(new JPanel(), "Wrong user name or password.");
-	  }
-	  
-  }
 
-  /**
-   * This method handles all data coming from the UI            
-   *
-   * @param message The message from the UI.    
-   */
-  public void handleMessageFromClientUI(Object message)
-  {
-    try
-    {
-    	sendToServer(message);
-    }
-    catch(IOException e)
-    {
-      clientUI.display
-        ("Could not send message to server.  Terminating client.");
-      quit();
-    }
-  }
-  
-  /**
-   * This method terminates the client.
-   */
-  public void quit()
-  {
-    try
-    {
-      closeConnection();
-    }
-    catch(IOException e) {}
-    System.exit(0);
-  }
+	//Constructors ****************************************************
+
+	/**
+	 * Constructs an instance of the chat client.
+	 *
+	 * @param host The server to connect to.
+	 * @param port The port number to connect on.
+	 * @param clientUI The interface type variable.
+	 */
+
+	public ChatClient(String host, int port, ChatIF clientUI) 
+			throws IOException 
+			{
+		super(host, port); //Call the superclass constructor
+		this.clientUI = clientUI;
+		openConnection();
+		login = false;
+			}
+
+
+	//Instance methods ************************************************
+
+	/**
+	 * This method handles all data that comes in from the server.
+	 *
+	 * @param msg The message from the server.
+	 */
+	public void handleMessageFromServer(Object msg) 
+	{
+		//    clientUI.display(msg.toString());
+		if (msg instanceof String)
+		{
+			if (msg.equals("No Entery"))
+			{
+				login = false;
+				JOptionPane.showMessageDialog(new JPanel(), "Wrong user name or password.");
+				
+			}
+		}
+		else if (msg instanceof Customer)
+		{
+			login = true;
+			CustomerMenu cm = new CustomerMenu((Customer)msg);
+		}
+
+
+	}
+
+	/**
+	 * This method handles all data coming from the UI            
+	 *
+	 * @param message The message from the UI.    
+	 */
+	public void handleMessageFromClientUI(Object message)
+	{
+		try
+		{
+			sendToServer(message);
+		}
+		catch(IOException e)
+		{
+			clientUI.display
+			("Could not send message to server.  Terminating client.");
+			quit();
+		}
+	}
+
+	/**
+	 * This method terminates the client.
+	 */
+	public void quit()
+	{
+		try
+		{
+			closeConnection();
+		}
+		catch(IOException e) {}
+		System.exit(0);
+	}
+
+
+	public boolean isLogin() {
+		return login;
+	}
+
+
+	public void setLogin(boolean login) {
+		this.login = login;
+	}
+
 }
 //End of ChatClient class
