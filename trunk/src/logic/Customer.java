@@ -10,7 +10,14 @@ public class Customer implements Serializable{
 	protected String lName;
 	protected String email;
 	
-	
+	/**
+	 * 
+	 * @param id
+	 * @param carId
+	 * @param fName
+	 * @param lName
+	 * @param email
+	 */
 	public Customer(String id, String carId, String fName,
 			String lName, String email) {
 		this.id = id;
