@@ -9,6 +9,7 @@ import common.*;
 import gui.CustomerComplaintMenu;
 import gui.CustomerMenu;
 import gui.Login;
+import gui.WorkerMenu;
 
 import java.io.*;
 
@@ -16,6 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import logic.Customer;
+import logic.Worker;
 
 /**
  * This class overrides some of the methods defined in the abstract
@@ -83,7 +85,11 @@ public class ChatClient extends AbstractClient
 			CustomerMenu cm = new CustomerMenu((Customer)msg);
 		}
 
-
+		else if (msg instanceof Worker)
+		{
+			login = true;
+			WorkerMenu wr = new WorkerMenu((Worker)msg);
+		}
 	}
 
 	/**

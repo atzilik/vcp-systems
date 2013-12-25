@@ -2,7 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/OCSF"/>
-	<classpathentry kind="lib" path="C:/Users/Gal/Dropbox/מעבדה בהנדסת תכנה/מעבדות/lab5/Lab5_jdbc/mysql-connector-java-3.1.11-bin.jar" sourcepath="C:/Users/Gal/Dropbox/מעבדה בהנדסת תכנה/מעבדות/lab5/Lab5_jdbc/mysql-connector-java-3.1.11-bin.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Alon/Desktop/mysql-connector-java-3.1.11-bin.jar" sourcepath="C:/Users/Gal/Dropbox/מעבדה בהנדסת תכנה/מעבדות/lab5/Lab5_jdbc/mysql-connector-java-3.1.11-bin.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
