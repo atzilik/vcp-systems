@@ -13,6 +13,7 @@ public class AddCarMenu extends JFrame{
 	public AddCarMenu() {
 		setSize(new Dimension(400, 300));
 		getContentPane().setLayout(null);
+		setLocationRelativeTo(null);
 		
 		JLabel lblCarid = new JLabel("CarId");
 		lblCarid.setBounds(53, 60, 69, 20);
