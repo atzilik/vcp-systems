@@ -9,25 +9,17 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class CheckInMenu extends JFrame{
-	private JTextField textField;
+	private CustomerMenu cm;
 	private JTextField textField_1;
-	public CheckInMenu() {
+	public CheckInMenu(final CustomerMenu cm) {
+		this.cm = cm;
 		setSize(new Dimension(400, 300));
 		getContentPane().setLayout(null);
 		setLocationRelativeTo(null);
 		
-		JLabel lblId = new JLabel("Id");
-		lblId.setBounds(61, 47, 69, 20);
-		getContentPane().add(lblId);
-		
 		JLabel lblCarid = new JLabel("CarId");
 		lblCarid.setBounds(61, 87, 69, 20);
 		getContentPane().add(lblCarid);
-		
-		textField = new JTextField();
-		textField.setBounds(118, 44, 146, 26);
-		getContentPane().add(textField);
-		textField.setColumns(10);
 		
 		textField_1 = new JTextField();
 		textField_1.setBounds(118, 84, 146, 26);
@@ -39,8 +31,18 @@ public class CheckInMenu extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnSubmit.setBounds(126, 165, 115, 29);
+		btnSubmit.setBounds(51, 165, 115, 29);
 		getContentPane().add(btnSubmit);
+		
+		JButton btnCancel = new JButton("Cancel");
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				cm.setVisible(true);
+			}
+		});
+		btnCancel.setBounds(216, 165, 115, 29);
+		getContentPane().add(btnCancel);
 		setVisible(true);
 	}
 
