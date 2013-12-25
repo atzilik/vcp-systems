@@ -11,9 +11,14 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import logic.CeoWorker;
+import logic.CustomerService;
 import logic.FullMember;
+import logic.ParkingLotManager;
 import logic.STDCustomer;
 import logic.STDMember;
+import logic.Worker;
 import ocsf.server.*;
 
 /**
@@ -142,7 +147,7 @@ public class EchoServer extends AbstractServer
 				if (user.getString(3) != null)
 					//worker
 				{
-
+					loadWorker(client, user.getString(3), user.getString(5));
 				}
 				else
 					//customer
@@ -163,11 +168,16 @@ public class EchoServer extends AbstractServer
 		}
 
 	}
-
+/**
+ * loads customer details
+ * @param client
+ * @param customerId
+ * @param customerType 1 - regular, 2 - standard, 3 - full
+ * @throws SQLException
+ */
 	public void loadCustomer(ConnectionToClient client, String customerId, String customerType) throws SQLException{
 		String tableName = null;
 		switch(Integer.parseInt(customerType))
-		//1 - regular, 2 - standard, 3 - full
 		{
 		case 1: tableName = "customers";break;
 		case 2: tableName = "std_members";break;
@@ -179,7 +189,6 @@ public class EchoServer extends AbstractServer
 		ResultSet cst = ps.executeQuery();
 		cst.next();
 		switch(Integer.parseInt(customerType))
-		//1 - regular, 2 - standard, 3 - full
 		{
 		case 1: {
 			STDCustomer stdCst = new STDCustomer(cst.getString(1), cst.getString(2), cst.getString(3), cst.getString(4), cst.getString(5), cst.getString(6), cst.getString(7));
@@ -200,6 +209,45 @@ public class EchoServer extends AbstractServer
 		cst.close();
 
 	}
+	/**
+	 * loads worker details
+	 * @param client
+	 * @param workID
+	 * @param type: 1 - CEO, 2 - parking Lot Manager, 3 - worker, 4- customer service
+	 * @throws SQLException
+	 */
+	public void loadWorker(ConnectionToClient client, String workID, String type) throws SQLException{
+		PreparedStatement ps = con.prepareStatement("SELECT * FROM workers WHERE id=?");
+		ps.setString(1, workID);
+		ResultSet wkr = ps.executeQuery();
+		wkr.next();
+		switch(Integer.parseInt(type))
+		{
+		case 1: {
+			CeoWorker ceowkr = new CeoWorker(wkr.getString(1), wkr.getString(2), wkr.getString(3), wkr.getString(4), wkr.getInt(5));
+			sendToClient(client, ceowkr);
+			break;
+		}
+		case 2: {
+			ParkingLotManager plmgr = new ParkingLotManager(wkr.getString(1), wkr.getString(2), wkr.getString(3), wkr.getString(4), wkr.getInt(5));
+			sendToClient(client, plmgr);
+			break;
+		}
+		case 3: {
+			Worker wokr = new Worker(wkr.getString(1), wkr.getString(2), wkr.getString(3), wkr.getString(4), wkr.getInt(5));
+			sendToClient(client, wokr);
+			break;
+		}
+		case 4: {
+			CustomerService cs = new CustomerService(wkr.getString(1), wkr.getString(2), wkr.getString(3), wkr.getString(4), wkr.getInt(5));
+			sendToClient(client, cs);
+			break;
+			}
+		}
+		wkr.close();
+
+	}
+
 
 	public static void main(String[] args) 
 	{
