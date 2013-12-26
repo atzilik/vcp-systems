@@ -20,6 +20,8 @@ public class MainRegistrationMenu extends JFrame {
 		JButton btnOpenFullMember = new JButton("Open full member registration");
 		btnOpenFullMember.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				FullMemberRegistration fmr = new FullMemberRegistration();
+				setVisible(false);	
 			}
 		});
 		btnOpenFullMember.setBounds(49, 69, 289, 29);
@@ -28,6 +30,9 @@ public class MainRegistrationMenu extends JFrame {
 		JButton btnOpenStandardRegistration = new JButton("Open standard registration");
 		btnOpenStandardRegistration.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				StandardMemberRegistration smr = new StandardMemberRegistration();
+				setVisible(false);	
+				
 			}
 		});
 		btnOpenStandardRegistration.setBounds(49, 140, 289, 29);

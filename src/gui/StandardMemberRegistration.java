@@ -25,5 +25,6 @@ public class StandardMemberRegistration extends FullMemberRegistration{
 		JComboBox comboBox = new JComboBox();
 		comboBox.setBounds(127, 122, 109, 26);
 		getContentPane().add(comboBox);
+		setVisible(true);
 	}
 }
