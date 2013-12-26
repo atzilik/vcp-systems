@@ -7,7 +7,8 @@ import javax.swing.JComboBox;
 
 public class StandardMemberRegistration extends FullMemberRegistration{
 	private JTextField textField;
-	public StandardMemberRegistration() {
+	public StandardMemberRegistration(MainRegistrationMenu mrm) {
+		super(mrm);
 		
 		JLabel lblEstimateChackOut = new JLabel("Estimate chack out hour");
 		lblEstimateChackOut.setBounds(36, 92, 190, 20);
