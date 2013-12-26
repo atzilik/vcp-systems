@@ -1,24 +1,18 @@
 package gui;
 
-import java.awt.Dimension;
-
-import javax.swing.JFrame;
 import javax.swing.JButton;
-import javax.swing.JTextPane;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class ReportDisabledParkingSpace extends JFrame {
+public class ReportDisabledParkingSpace extends Frame {
 	private JTextField textField;
 	private JTextField textField_1;
 	public ReportDisabledParkingSpace() {
+		super();
 		setTitle("Report Disable Parking Space");
-		
-		setSize(new Dimension(400, 300));
-		getContentPane().setLayout(null);
-		
+	
 		JButton btnCreate = new JButton("Create");
 		btnCreate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -44,7 +38,6 @@ public class ReportDisabledParkingSpace extends JFrame {
 		textField_1.setBounds(148, 74, 146, 26);
 		getContentPane().add(textField_1);
 		textField_1.setColumns(10);
-		setLocationRelativeTo(null);
 		
 	}
 }

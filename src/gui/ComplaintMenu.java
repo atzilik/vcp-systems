@@ -1,23 +1,18 @@
 package gui;
 
-import java.awt.Dimension;
 
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class ComplaintMenu extends JFrame {
+public class ComplaintMenu extends Frame {
 	private JTextField textField;
 	private JTextField textField_1;
 	public ComplaintMenu() {
-		
+		super();
 		setTitle("Complaint Menu");
-		
-		setSize(new Dimension(400, 300));
-		getContentPane().setLayout(null);
 		
 		JLabel lblAnswer = new JLabel("Answer:");
 		lblAnswer.setBounds(58, 40, 46, 14);

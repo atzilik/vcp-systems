@@ -1,22 +1,16 @@
 package gui;
 
-import java.awt.Dimension;
-
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class ReserveParkingSpace extends JFrame {
+public class ReserveParkingSpace extends Frame {
 	private JTextField textField;
 	public ReserveParkingSpace() {
 		
 		setTitle("Reserve Parking Space");
-		
-		setSize(new Dimension(400, 300));
-		getContentPane().setLayout(null);
 		
 		JLabel lblParkingLotId = new JLabel("Parking Lot ID:");
 		lblParkingLotId.setBounds(68, 45, 79, 14);

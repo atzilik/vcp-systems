@@ -1,17 +1,11 @@
 package gui;
 
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
-
-import java.awt.Dimension;
-import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
-
 import server.EchoServer;
 
-import client.ClientConsole;
 
 
 import java.awt.event.ActionListener;
@@ -19,7 +13,7 @@ import java.awt.event.ActionEvent;
 import java.net.UnknownHostException;
 
 
-public class Server extends JFrame{
+public class Server extends Frame{
 	private int port;
 	private JTextField textField_Port;
 	EchoServer sv;
@@ -28,9 +22,7 @@ public class Server extends JFrame{
 	private JTextField txtVcpprot;
 
 	public Server() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(new Dimension(400, 300));
-		setLocationRelativeTo(null);
+		super();
 		setTitle("Server Setup");
 		getContentPane().setLayout(null);
 
@@ -101,4 +93,5 @@ public class Server extends JFrame{
 		
 		
 	}
+
 }

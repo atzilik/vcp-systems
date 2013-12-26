@@ -9,9 +9,12 @@ import common.*;
 import gui.CustomerComplaintMenu;
 import gui.CustomerMenu;
 import gui.Login;
+import gui.ReservationMenu;
 import gui.WorkerMenu;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Map;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -75,20 +78,33 @@ public class ChatClient extends AbstractClient
 			if (msg.equals("No Entery"))
 			{
 				login = false;
-				JOptionPane.showMessageDialog(new JPanel(), "Wrong user name or password.");
+				JOptionPane.showMessageDialog(new JPanel(), "Wrong user name or password.", "Error", JOptionPane.ERROR_MESSAGE);
 				
+			}
+			else if (msg.equals("Insert reservation"))
+				JOptionPane.showMessageDialog(new JPanel(), "Reservation taken.");
+		}
+		else if (msg instanceof ArrayList)
+		{
+			ArrayList<Object> list = (ArrayList<Object>) msg;
+			if (list.get(0).equals("Get Parking Lots"))
+			{
+				ReservationMenu rm = new ReservationMenu((CustomerMenu)list.get(1),(Map<String, Integer>)list.get(2));
+				rm.setVisible(true);
 			}
 		}
 		else if (msg instanceof Customer)
 		{
 			login = true;
 			CustomerMenu cm = new CustomerMenu((Customer)msg);
+			cm.setVisible(true);
 		}
 
 		else if (msg instanceof Worker)
 		{
 			login = true;
 			WorkerMenu wr = new WorkerMenu((Worker)msg);
+			wr.setVisible(true);
 		}
 	}
 

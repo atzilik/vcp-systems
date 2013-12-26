@@ -1,23 +1,19 @@
 package gui;
 
-import java.awt.Dimension;
 
-import javax.swing.JFrame;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-public class CheckReservationStatus extends JFrame{
+public class CheckReservationStatus extends Frame{
 	private CustomerMenu cm;
 	private JTextField textField;
 	private JTextField textField_1;
 	public CheckReservationStatus(final CustomerMenu cm) {
+		super();
 		this.cm = cm;
-		setSize(new Dimension(400, 300));
-		getContentPane().setLayout(null);
-		setLocationRelativeTo(null);
 	
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {
@@ -54,7 +50,6 @@ public class CheckReservationStatus extends JFrame{
 		textField_1.setBounds(89, 72, 146, 26);
 		getContentPane().add(textField_1);
 		textField_1.setColumns(10);
-		setVisible(true);
 	}
 
 }

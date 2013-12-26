@@ -1,22 +1,19 @@
 package gui;
 
-import java.awt.Dimension;
 
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class KioskReservationMenu extends JFrame{
+public class KioskReservationMenu extends Frame{
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
 	public KioskReservationMenu() {
-		setSize(new Dimension(400, 300));
-		getContentPane().setLayout(null);
+		super();
 		
 		JLabel lblCid = new JLabel("Cid");
 		lblCid.setBounds(24, 28, 69, 20);

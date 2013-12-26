@@ -1,36 +1,28 @@
 package gui;
 
-import java.awt.Dimension;
-import javax.swing.JFrame;
 import javax.swing.JButton;
+
+import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 import logic.Customer;
 import logic.STDCustomer;
-import logic.STDMember;
-
 import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-
-public class CustomerMenu extends JFrame{
+public class CustomerMenu extends Frame{
 	private Customer cst;
 	/**
 	 * 
 	 * @param cst 
 	 */
 	public CustomerMenu(Customer cst){
+		super();
+		setSize(new Dimension(600, 400));
 		this.cst = cst;
 		setTitle("Main Menu");
-		setSize(new Dimension(587, 364));
-		getContentPane().setLayout(null);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setLocationRelativeTo(null);
-		
-		
-		
+
 		if (cst instanceof STDCustomer)
 		{
 			openSTDCustomerMenu();
@@ -152,26 +144,34 @@ public class CustomerMenu extends JFrame{
 		if (str.equals("CheckReservationStatus"))
 		{
 			CheckReservationStatus crs = new CheckReservationStatus(this);
+			crs.setVisible(true);
 		}
 		else if (str.equals("CustomerComplaintMenu"))
 		{
 			CustomerComplaintMenu ccm = new CustomerComplaintMenu(this);
+			ccm.setVisible(true);
 		}
 		else if (str.equals("ReserveInAdvance") || str.equals("ReserveNow"))
 		{
-			ReservationMenu rm = new ReservationMenu(this);
+			List<Object> list = new ArrayList<Object>();
+			list.add("Get Parking Lots");
+			list.add(this);
+			Login.getCc().accept(list);
 		}
 		else if (str.equals("MemberRegister"))
 		{
 			MainRegistrationMenu mrm = new MainRegistrationMenu(this);
+			mrm.setVisible(true);
 		}
 		else if (str.equals("Check in"))
 		{
 			CheckInMenu cim = new CheckInMenu(this);
+			cim.setVisible(true);
 		}
 		else if (str.equals("Check out"))
 		{
 			CheckOutMenu com = new CheckOutMenu(this);
+			com.setVisible(true);
 		}
 
 	}
