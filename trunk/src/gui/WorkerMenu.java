@@ -1,6 +1,6 @@
 package gui;
 
-import javax.swing.JFrame;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -9,13 +9,13 @@ import javax.swing.JLabel;
 
 import logic.Worker;
 
-public class WorkerMenu extends JFrame {
+public class WorkerMenu extends Frame {
 	private Worker wkr;
 	public WorkerMenu(Worker wkr){
+		super();
 		this.wkr=wkr;
 		setTitle("Worker Menu");
 		setSize(477, 320);
-		getContentPane().setLayout(null);
 		JButton btn_ReserverLocalParkingSpace = new JButton("<html>Reserve Local<br />Parking Space</html>");
 		btn_ReserverLocalParkingSpace.setVerticalAlignment(SwingConstants.TOP);
 		btn_ReserverLocalParkingSpace.addActionListener(new ActionListener() {
@@ -49,8 +49,5 @@ public class WorkerMenu extends JFrame {
 		JLabel lblNewLabel = new JLabel("Hello" + " " +wkr.getfName() + " " + wkr.getlName());
 		lblNewLabel.setBounds(121, 11, 123, 14);
 		getContentPane().add(lblNewLabel);
-		setLocationRelativeTo(null);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setVisible(true);
 	}
 }

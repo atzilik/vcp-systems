@@ -1,19 +1,14 @@
 package gui;
 
-import java.awt.Dimension;
 
-import javax.swing.JFrame;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class RateRequests extends JFrame {
+public class RateRequests extends Frame {
 	public RateRequests() {
-		
+		super();
 		setTitle("Rate Request");
-		
-		setSize(new Dimension(400, 300));
-		getContentPane().setLayout(null);
 		
 		JButton btnNewButton = new JButton("Accept Request");
 		btnNewButton.addActionListener(new ActionListener() {

@@ -1,29 +1,23 @@
 package gui;
 
-import javax.swing.JFrame;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
-
 import client.ClientConsole;
-
-import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class Client extends JFrame{
+public class Client extends Frame{
 	private ClientConsole cc;
 	private JTextField textField_IP;
 	private JTextField textField_Port;
 	public Client() {
+		super();
 		
-		setSize(new Dimension(400, 300));
 		setTitle("Server Connection");
-		getContentPane().setLayout(null);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setLocationRelativeTo(null);
 		
 		JLabel lblServerIp = new JLabel("Server IP:");
 		lblServerIp.setBounds(93, 74, 70, 14);
@@ -52,7 +46,7 @@ public class Client extends JFrame{
 				JOptionPane.showMessageDialog(new JPanel(), "Conncetion to the Server was successful");
 				setVisible(false);
 				Login lg = new Login(cc);
-				
+				lg.setVisible(true);
 			}
 		});
 		

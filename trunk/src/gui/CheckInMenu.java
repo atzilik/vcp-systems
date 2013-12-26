@@ -1,21 +1,17 @@
 package gui;
 
-import java.awt.Dimension;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class CheckInMenu extends JFrame{
+public class CheckInMenu extends Frame{
 	private CustomerMenu cm;
 	private JTextField textField_1;
 	public CheckInMenu(final CustomerMenu cm) {
+		super();
 		this.cm = cm;
-		setSize(new Dimension(400, 300));
-		getContentPane().setLayout(null);
-		setLocationRelativeTo(null);
 		
 		JLabel lblCarid = new JLabel("CarId");
 		lblCarid.setBounds(61, 87, 69, 20);
@@ -43,7 +39,6 @@ public class CheckInMenu extends JFrame{
 		});
 		btnCancel.setBounds(216, 165, 115, 29);
 		getContentPane().add(btnCancel);
-		setVisible(true);
 	}
 
 }

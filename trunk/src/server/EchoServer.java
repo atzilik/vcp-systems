@@ -4,6 +4,7 @@ package server;
 // license found at www.lloseng.com 
 
 
+import gui.CustomerMenu;
 import gui.Server;
 import java.io.*;
 import java.sql.Connection;
@@ -11,6 +12,10 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import logic.CeoWorker;
 import logic.CustomerService;
@@ -83,18 +88,27 @@ public class EchoServer extends AbstractServer
 	public void handleMessageFromClient
 	(Object msg, ConnectionToClient client)
 	{
-		//	    System.out.println("Message received: " + msg + " from " + client);
-		//	    this.sendToAllClients(msg);
-
-		String[] command = (String[])msg;
-		//		switch (command[0])
-		//		{
-		//		case "check login": checkLogin(command, conn);
-		//		}
-		if (command[0].equals("check login"))
+		if (msg instanceof String[])
 		{
-			checkLogin(command, client);
+			String[] command = (String[])msg;
+			if (command[0].equals("check login"))
+			{
+				checkLogin(command, client);
+			}
+			else if (command[0].equals("Insert reservation"))
+			{
+				insertReservation(client, command);
+			}
 		}
+		else if (msg instanceof ArrayList)
+		{
+			ArrayList<Object> list = (ArrayList<Object>) msg;
+			if (list.get(0).equals("Get Parking Lots"))
+			{
+				getParkingLotsId(client, (CustomerMenu)list.get(1));
+			}
+		}
+
 	}
 
 
@@ -135,9 +149,9 @@ public class EchoServer extends AbstractServer
 			ps.setString(1, op[1]);
 			ps.setString(2, op[2]);
 			ResultSet user = ps.executeQuery();
-			
+
 			if (user.isBeforeFirst() == false)
-			//user doesn't exist
+				//user doesn't exist
 			{
 				sendToClient(client, "No Entery");
 			}
@@ -168,16 +182,11 @@ public class EchoServer extends AbstractServer
 		}
 
 	}
-/**
- * loads customer details
- * @param client
- * @param customerId
- * @param customerType 1 - regular, 2 - standard, 3 - full
- * @throws SQLException
- */
+
 	public void loadCustomer(ConnectionToClient client, String customerId, String customerType) throws SQLException{
 		String tableName = null;
 		switch(Integer.parseInt(customerType))
+		//1 - regular, 2 - standard, 3 - full
 		{
 		case 1: tableName = "customers";break;
 		case 2: tableName = "std_members";break;
@@ -189,6 +198,7 @@ public class EchoServer extends AbstractServer
 		ResultSet cst = ps.executeQuery();
 		cst.next();
 		switch(Integer.parseInt(customerType))
+		//1 - regular, 2 - standard, 3 - full
 		{
 		case 1: {
 			STDCustomer stdCst = new STDCustomer(cst.getString(1), cst.getString(2), cst.getString(3), cst.getString(4), cst.getString(5), cst.getString(6), cst.getString(7));
@@ -209,6 +219,7 @@ public class EchoServer extends AbstractServer
 		cst.close();
 
 	}
+	
 	/**
 	 * loads worker details
 	 * @param client
@@ -248,6 +259,41 @@ public class EchoServer extends AbstractServer
 
 	}
 
+	public void getParkingLotsId(ConnectionToClient client, CustomerMenu cm) 
+	{
+		try
+		{
+			PreparedStatement ps = con.prepareStatement("SELECT * FROM parkinglots");
+			ResultSet rs = ps.executeQuery();
+			List<Object> parkingLots = new ArrayList<Object>();
+			parkingLots.add("Get Parking Lots");
+			parkingLots.add(cm);
+			Map<String,Integer> mp = new HashMap<String,Integer>();
+			while(rs.next())
+			{
+				mp.put(rs.getString(2), rs.getInt(1));
+			}
+			parkingLots.add(mp);
+			rs.close();
+			sendToClient(client, parkingLots);
+		}catch (SQLException e) {e.printStackTrace();}
+
+	}
+
+	public void insertReservation(ConnectionToClient client, String[] details)
+	{
+		try{
+			PreparedStatement ps = con.prepareStatement("INSERT INTO reservations (reservationId,carId,customerId,parkingLotId,estCinDate,estCinHour,estCotDate,estCotHour) VALUES(?,?,?,?,?,?,?,?);");
+			for (int i = 1 ; i < details.length - 1; i++)
+			{
+				ps.setString(i, details[i]);
+			}
+			ps.executeUpdate();
+			ps.close();
+			sendToClient(client,"Insert reservation");
+			
+		}catch(SQLException e) {e.printStackTrace();}
+	}
 
 	public static void main(String[] args) 
 	{

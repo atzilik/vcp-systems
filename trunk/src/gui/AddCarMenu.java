@@ -1,20 +1,15 @@
 package gui;
 
-import java.awt.Dimension;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class AddCarMenu extends JFrame{
+public class AddCarMenu extends Frame{
 	private JTextField textField;
 	public AddCarMenu() {
-		setSize(new Dimension(400, 300));
-		getContentPane().setLayout(null);
-		setLocationRelativeTo(null);
-		
+		super();
 		JLabel lblCarid = new JLabel("CarId");
 		lblCarid.setBounds(53, 60, 69, 20);
 		getContentPane().add(lblCarid);
@@ -39,6 +34,11 @@ public class AddCarMenu extends JFrame{
 		});
 		btnClose.setBounds(207, 150, 115, 29);
 		getContentPane().add(btnClose);
+	}
+	@Override
+	public void show() {
+		// TODO Auto-generated method stub
+		setVisible(true);
 	}
 
 }

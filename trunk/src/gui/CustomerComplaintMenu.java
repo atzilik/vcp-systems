@@ -1,24 +1,19 @@
 package gui;
 
-import java.awt.Dimension;
 
-import javax.swing.JFrame;
-import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class CustomerComplaintMenu extends JFrame{
+public class CustomerComplaintMenu extends Frame{
 	private CustomerMenu cm;
 	
 	public CustomerComplaintMenu(final CustomerMenu cm){
+		super();
 		this.cm = cm;
-		setSize(new Dimension(400, 300));
-		getContentPane().setLayout(null);
-		setLocationRelativeTo(null);
-
+	
 		JTextArea textArea = new JTextArea();
 		textArea.setBounds(128, 51, 196, 101);
 		getContentPane().add(textArea);
@@ -44,7 +39,6 @@ public class CustomerComplaintMenu extends JFrame{
 		});
 		btnSubmit.setBounds(209, 179, 115, 29);
 		getContentPane().add(btnSubmit);
-		setVisible(true);
 	}
 
 }

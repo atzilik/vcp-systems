@@ -1,25 +1,31 @@
 package gui;
 
 import java.awt.Dimension;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Random;
+import java.util.Set;
 
-public class ReservationMenu extends JFrame{
+public class ReservationMenu extends Frame{
 	private CustomerMenu cm;
+	private Map<String,Integer> parkingLots;
 	private JTextField textFieldCarNum;
+	private final JComboBox comboBoxParkLot;
 	private JTextField textField_estCotDate;
 	private JTextField textField_estCotHour;
 	private JTextField textField_estCinDate;
-	public ReservationMenu(final CustomerMenu cm) {
+	private JTextField textField_estCinHour;
+	public ReservationMenu(final CustomerMenu cm, final Map<String,Integer> parkingLots) {
+		super();
 		this.cm = cm;
+		this.parkingLots = parkingLots;
 		setSize(new Dimension(501, 402));
-		getContentPane().setLayout(null);
-		setLocationRelativeTo(null);
 		
 		JLabel lblCid = new JLabel("Car number");
 		lblCid.setBounds(15, 16, 69, 20);
@@ -42,9 +48,14 @@ public class ReservationMenu extends JFrame{
 		getContentPane().add(textFieldCarNum);
 		textFieldCarNum.setColumns(10);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(82, 54, 146, 26);
-		getContentPane().add(comboBox);
+		comboBoxParkLot = new JComboBox();
+		comboBoxParkLot.setBounds(82, 54, 146, 26);
+		Set keys = parkingLots.keySet();
+		for (Iterator i = keys.iterator(); i.hasNext();)
+		{
+			comboBoxParkLot.addItem(i.next());
+		}
+		getContentPane().add(comboBoxParkLot);
 		
 		textField_estCotDate = new JTextField();
 		textField_estCotDate.setBounds(214, 186, 146, 26);
@@ -67,6 +78,20 @@ public class ReservationMenu extends JFrame{
 		JButton btnSubmit = new JButton("Submit");
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				String arr[] = new String[10];
+				arr[0] = "Insert reservation";
+				Random rnd = new Random();
+				arr[1] = Integer.toString(100000 + rnd.nextInt(900000));
+				arr[2] = textFieldCarNum.getText();
+				arr[3] = cm.getCst().getId();
+				arr[4] = Integer.toString(parkingLots.get(comboBoxParkLot.getSelectedItem()));
+				arr[5] = textField_estCinDate.getText();
+				arr[6] = textField_estCinHour.getText();
+				arr[7] = textField_estCotDate.getText();
+				arr[8] = textField_estCotHour.getText();
+			Login.getCc().accept(arr);
+				
 			}
 		});
 		btnSubmit.setBounds(40, 299, 115, 29);
@@ -85,7 +110,7 @@ public class ReservationMenu extends JFrame{
 		lblEstimateCheckInhour.setBounds(15, 142, 184, 20);
 		getContentPane().add(lblEstimateCheckInhour);
 		
-		JTextField textField_estCinHour = new JTextField();
+		textField_estCinHour = new JTextField();
 		textField_estCinHour.setColumns(10);
 		textField_estCinHour.setBounds(214, 142, 146, 26);
 		getContentPane().add(textField_estCinHour);
@@ -100,7 +125,5 @@ public class ReservationMenu extends JFrame{
 		btnCancel.setBounds(334, 299, 115, 29);
 		getContentPane().add(btnCancel);
 		
-		
-		setVisible(true);
 	}
 }
