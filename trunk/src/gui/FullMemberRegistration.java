@@ -40,6 +40,7 @@ public class FullMemberRegistration extends JFrame{
 		});
 		btnCreate.setBounds(134, 199, 115, 29);
 		getContentPane().add(btnCreate);
+		setVisible(true);
 	}
 
 }
