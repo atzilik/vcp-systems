@@ -7,30 +7,45 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.factories.FormFactory;
+import com.jgoodies.forms.layout.RowSpec;
 
 public class FullMemberRegistration extends JFrame{
+	private MainRegistrationMenu mrm;
 	private JTextField textField;
 	private JTextField textField_1;
-	public FullMemberRegistration() {
+	public FullMemberRegistration(final MainRegistrationMenu mrm) {
+		this.mrm = mrm;
 		setSize(new Dimension(400, 300));
-		getContentPane().setLayout(null);
+		getContentPane().setLayout(new FormLayout(new ColumnSpec[] {
+				ColumnSpec.decode("39px"),
+				FormFactory.RELATED_GAP_COLSPEC,
+				FormFactory.DEFAULT_COLSPEC,
+				ColumnSpec.decode("69px"),
+				FormFactory.UNRELATED_GAP_COLSPEC,
+				ColumnSpec.decode("146px"),},
+			new RowSpec[] {
+				RowSpec.decode("21px"),
+				RowSpec.decode("26px"),
+				FormFactory.UNRELATED_GAP_ROWSPEC,
+				RowSpec.decode("26px"),
+				RowSpec.decode("116px"),
+				RowSpec.decode("29px"),}));
 		
 		JLabel lblCid = new JLabel("Cid");
-		lblCid.setBounds(39, 24, 69, 20);
-		getContentPane().add(lblCid);
+		getContentPane().add(lblCid, "4, 2, fill, center");
 		
 		textField = new JTextField();
-		textField.setBounds(123, 21, 146, 26);
-		getContentPane().add(textField);
+		getContentPane().add(textField, "6, 2, fill, fill");
 		textField.setColumns(10);
 		
 		JLabel lblStartDate = new JLabel("Start date");
-		lblStartDate.setBounds(39, 60, 69, 20);
-		getContentPane().add(lblStartDate);
+		getContentPane().add(lblStartDate, "4, 4, fill, center");
 		
 		textField_1 = new JTextField();
-		textField_1.setBounds(123, 57, 146, 26);
-		getContentPane().add(textField_1);
+		getContentPane().add(textField_1, "6, 4, fill, fill");
 		textField_1.setColumns(10);
 		
 		JButton btnCreate = new JButton("Create");
@@ -38,8 +53,16 @@ public class FullMemberRegistration extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnCreate.setBounds(134, 199, 115, 29);
-		getContentPane().add(btnCreate);
+		getContentPane().add(btnCreate, "2, 6, 3, 1, fill, fill");
+		
+		JButton btnCancel = new JButton("Cancel");
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				setVisible(false);
+				mrm.setVisible(true);
+			}
+		});
+		getContentPane().add(btnCancel, "6, 6");
 		setVisible(true);
 	}
 
