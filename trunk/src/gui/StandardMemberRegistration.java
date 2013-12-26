@@ -2,9 +2,7 @@ package gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
@@ -40,6 +38,5 @@ public class StandardMemberRegistration extends FullMemberRegistration{
 		});
 		btnCancel.setBounds(220, 199, 115, 29);
 		getContentPane().add(btnCancel);
-		setVisible(true);
 	}
 }
