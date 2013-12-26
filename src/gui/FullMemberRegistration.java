@@ -1,21 +1,19 @@
 package gui;
 
-import java.awt.Dimension;
-import javax.swing.JFrame;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class FullMemberRegistration extends JFrame{
+public class FullMemberRegistration extends Frame{
 	protected MainRegistrationMenu mrm;
 	private JTextField textField;
 	private JTextField textField_1;
 	public FullMemberRegistration(final MainRegistrationMenu mrm) {
+		super();
 		this.mrm = mrm;
-		setSize(new Dimension(400, 300));
-		getContentPane().setLayout(null);
 
 		JLabel lblCid = new JLabel("Cid");
 		lblCid.setBounds(39, 24, 69, 20);
@@ -52,7 +50,6 @@ public class FullMemberRegistration extends JFrame{
 		});
 		btnCancel.setBounds(220, 199, 115, 29);
 		getContentPane().add(btnCancel);
-		setVisible(true);
 	}
 
 }
