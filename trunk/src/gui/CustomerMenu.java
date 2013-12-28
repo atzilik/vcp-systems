@@ -23,6 +23,7 @@ public class CustomerMenu extends Frame{
 		this.cst = cst;
 		setTitle("Main Menu");
 
+		
 		if (cst instanceof STDCustomer)
 		{
 			openSTDCustomerMenu();
@@ -31,7 +32,7 @@ public class CustomerMenu extends Frame{
 		{
 			openMemberMenu();
 		}
-		
+
 	}
 
 	public void openSTDCustomerMenu(){
@@ -74,7 +75,7 @@ public class CustomerMenu extends Frame{
 		});
 		btnMemberRegister.setBounds(50, 156, 135, 42);
 		getContentPane().add(btnMemberRegister);
-		
+
 		JButton btnReserveNow = new JButton("Reserve now");
 		btnReserveNow.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -83,7 +84,7 @@ public class CustomerMenu extends Frame{
 		});
 		btnReserveNow.setBounds(399, 156, 119, 45);
 		getContentPane().add(btnReserveNow);
-		
+
 		JButton btnCheckIn = new JButton("Check in");
 		btnCheckIn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -92,7 +93,7 @@ public class CustomerMenu extends Frame{
 		});
 		btnCheckIn.setBounds(126, 73, 119, 45);
 		getContentPane().add(btnCheckIn);
-		
+
 		JButton btnCheckOut_1 = new JButton("Check out");
 		btnCheckOut_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -101,7 +102,7 @@ public class CustomerMenu extends Frame{
 		});
 		btnCheckOut_1.setBounds(326, 73, 119, 45);
 		getContentPane().add(btnCheckOut_1);
-		
+
 		setVisible(true);
 
 	}
@@ -115,7 +116,7 @@ public class CustomerMenu extends Frame{
 		});
 		btnNewButton.setBounds(111, 77, 122, 61);
 		getContentPane().add(btnNewButton);
-		
+
 		JButton btnCheckOut = new JButton("Check out");
 		btnCheckOut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -124,7 +125,7 @@ public class CustomerMenu extends Frame{
 		});
 		btnCheckOut.setBounds(325, 77, 122, 61);
 		getContentPane().add(btnCheckOut);
-		
+
 		JButton btnIssueComplaint_1 = new JButton("Issue complaint");
 		btnIssueComplaint_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -133,47 +134,56 @@ public class CustomerMenu extends Frame{
 		});
 		btnIssueComplaint_1.setBounds(209, 171, 122, 61);
 		getContentPane().add(btnIssueComplaint_1);
-		
+
 		setVisible(true);
 	}
 
 
 	public void openWindow(String str){
 		setVisible(false);
-		
-		if (str.equals("CheckReservationStatus"))
+
+		switch(str)
 		{
+		case "CheckReservationStatus": {
 			CheckReservationStatus crs = new CheckReservationStatus(this);
 			crs.setVisible(true);
+			break;
 		}
-		else if (str.equals("CustomerComplaintMenu"))
-		{
+		case "CustomerComplaintMenu": {
 			CustomerComplaintMenu ccm = new CustomerComplaintMenu(this);
 			ccm.setVisible(true);
+			break;
 		}
-		else if (str.equals("ReserveInAdvance") || str.equals("ReserveNow"))
-		{
+		case "ReserveInAdvance":{
 			List<Object> list = new ArrayList<Object>();
 			list.add("Get Parking Lots");
 			list.add(this);
 			Login.getCc().accept(list);
+			break;
 		}
-		else if (str.equals("MemberRegister"))
-		{
+		case "ReserveNow": {
+			List<Object> list = new ArrayList<Object>();
+			list.add("Get Parking Lots");
+			list.add(this);
+			Login.getCc().accept(list);
+			break;
+		}
+
+		case "MemberRegister": {
 			MainRegistrationMenu mrm = new MainRegistrationMenu(this);
 			mrm.setVisible(true);
+			break;
 		}
-		else if (str.equals("Check in"))
-		{
+		case "Check in": {
 			CheckInMenu cim = new CheckInMenu(this);
 			cim.setVisible(true);
+			break;
 		}
-		else if (str.equals("Check out"))
-		{
+		case "Check out": {
 			CheckOutMenu com = new CheckOutMenu(this);
 			com.setVisible(true);
 		}
-
+		}
 	}
 
 	public Customer getCst() {

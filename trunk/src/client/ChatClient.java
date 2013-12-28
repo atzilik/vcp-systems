@@ -75,14 +75,18 @@ public class ChatClient extends AbstractClient
 		//    clientUI.display(msg.toString());
 		if (msg instanceof String)
 		{
-			if (msg.equals("No Entery"))
+			switch((String)msg)
 			{
+			case "No Entery": {
 				login = false;
 				JOptionPane.showMessageDialog(new JPanel(), "Wrong user name or password.", "Error", JOptionPane.ERROR_MESSAGE);
-				
+				break;
 			}
-			else if (msg.equals("Insert reservation"))
+			case "Insert reservation": {
 				JOptionPane.showMessageDialog(new JPanel(), "Reservation taken.");
+				break;
+			}
+			}	
 		}
 		else if (msg instanceof ArrayList)
 		{
