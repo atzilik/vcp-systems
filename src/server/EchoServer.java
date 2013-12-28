@@ -91,13 +91,16 @@ public class EchoServer extends AbstractServer
 		if (msg instanceof String[])
 		{
 			String[] command = (String[])msg;
-			if (command[0].equals("check login"))
+			switch (command.clone()[0])
 			{
+			case "check login": {
 				checkLogin(command, client);
+				break;
 			}
-			else if (command[0].equals("Insert reservation"))
-			{
+			case "Insert reservation": {
 				insertReservation(client, command);
+				break;
+			}
 			}
 		}
 		else if (msg instanceof ArrayList)
