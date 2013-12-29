@@ -58,8 +58,11 @@ public class ChangeRateMenu extends Frame {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnSend.setBounds(142, 216, 89, 23);
+		btnSend.setBounds(97, 214, 89, 23);
 		getContentPane().add(btnSend);
+		
+		JButton btnCancel = new JButton("Cancel");
+		btnCancel.setBounds(205, 214, 89, 23);
+		getContentPane().add(btnCancel);
 	}
-
 }

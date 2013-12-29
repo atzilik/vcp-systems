@@ -11,7 +11,7 @@ public class Worker implements Serializable {
 	
 	public Worker(String id, String fName, String lName, String email,
 			int parkingLotID) {
-		super();
+//		super();
 		this.id = id;
 		this.fName = fName;
 		this.lName = lName;

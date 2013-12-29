@@ -51,7 +51,7 @@ public class Server extends Frame{
 		getContentPane().add(lblSqlPassword);
 		
 		textField_SqlP = new JPasswordField();
-		textField_SqlP.setText("aeovwsz");
+		textField_SqlP.setText("Braude");
 		textField_SqlP.setBounds(159, 132, 86, 20);
 		getContentPane().add(textField_SqlP);
 		textField_SqlP.setColumns(10);
