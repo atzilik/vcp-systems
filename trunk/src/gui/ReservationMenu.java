@@ -67,9 +67,14 @@ public class ReservationMenu extends Frame{
 		getContentPane().add(textField_estCotHour);
 		textField_estCotHour.setColumns(10);
 		
-		JButton btnAddCar = new JButton("Add car");
+		JButton btnAddCar = new JButton("Clear");
 		btnAddCar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				textFieldCarNum.setText(null);
+				textField_estCinDate.setText(null);
+				textField_estCinHour.setText(null);
+				textField_estCotDate.setText(null);
+				textField_estCotHour.setText(null);
 			}
 		});
 		btnAddCar.setBounds(193, 299, 115, 29);
