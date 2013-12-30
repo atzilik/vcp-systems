@@ -12,6 +12,13 @@ public class MessageLogin extends Message {
 
 	private String userName;
 	private String password;
+	private Customer cust;
+	private Worker wrk;
+	
+	public MessageLogin(){
+		cust = null;
+		wrk = null;
+	}
 	
 	public MessageLogin(String userName, String password) {
 		this.userName = userName;
@@ -73,16 +80,16 @@ public class MessageLogin extends Message {
 		//1 - regular, 2 - standard, 3 - full
 		{
 		case 1: {
-			STDCustomer stdCst = new STDCustomer(cst.getString(1), cst.getString(2), cst.getString(3), cst.getString(4), cst.getString(5), cst.getString(6), cst.getString(7));
-			return new MessageLoginReply(stdCst);
+			cust = new STDCustomer(cst.getString(1), cst.getString(2), cst.getString(3), cst.getString(4), cst.getString(5), cst.getString(6), cst.getString(7));
+			return this;
 		}
 		case 2: {
-			STDMember stdMem = new STDMember(cst.getString(3), cst.getString(2), cst.getString(4), cst.getString(5), cst.getString(6), cst.getString(1), cst.getString(7), cst.getBoolean(10), cst.getInt(8), cst.getString(9));
-			return new MessageLoginReply(stdMem);
+			cust = new STDMember(cst.getString(3), cst.getString(2), cst.getString(4), cst.getString(5), cst.getString(6), cst.getString(1), cst.getString(7), cst.getBoolean(10), cst.getInt(8), cst.getString(9));
+			return this;
 		}
 		case 3: {
-			FullMember fMem = new FullMember(cst.getString(3), cst.getString(2), cst.getString(4), cst.getString(5), cst.getString(6), cst.getString(1), cst.getString(7), cst.getBoolean(8));
-			return new MessageLoginReply(fMem);
+			cust = new FullMember(cst.getString(3), cst.getString(2), cst.getString(4), cst.getString(5), cst.getString(6), cst.getString(1), cst.getString(7), cst.getBoolean(8));
+			return this;
 		}
 		}
 		cst.close();
@@ -99,26 +106,32 @@ public class MessageLogin extends Message {
 		switch(Integer.parseInt(type))
 		{
 		case 1: {
-			CeoWorker ceowkr = new CeoWorker(wkr.getString(1), wkr.getString(2), wkr.getString(3), wkr.getString(4), wkr.getInt(5));
-			return new MessageLoginReply(ceowkr);
+			wrk = new CeoWorker(wkr.getString(1), wkr.getString(2), wkr.getString(3), wkr.getString(4), wkr.getInt(5));
+			return this;
 		}
 		case 2: {
-			ParkingLotManager plmgr = new ParkingLotManager(wkr.getString(1), wkr.getString(2), wkr.getString(3), wkr.getString(4), wkr.getInt(5));
-			return new MessageLoginReply(plmgr);
+			wrk = new ParkingLotManager(wkr.getString(1), wkr.getString(2), wkr.getString(3), wkr.getString(4), wkr.getInt(5));
+			return this;
 		}
 		case 3: {
-			Worker wokr = new Worker(wkr.getString(1), wkr.getString(2), wkr.getString(3), wkr.getString(4), wkr.getInt(5));
-			return new MessageLoginReply(wokr);
+			wrk = new Worker(wkr.getString(1), wkr.getString(2), wkr.getString(3), wkr.getString(4), wkr.getInt(5));
+			return this;
 		}
 		case 4: {
-			CustomerService cs = new CustomerService(wkr.getString(1), wkr.getString(2), wkr.getString(3), wkr.getString(4), wkr.getInt(5));
-			return new MessageLoginReply(cs);
+			wrk = new CustomerService(wkr.getString(1), wkr.getString(2), wkr.getString(3), wkr.getString(4), wkr.getInt(5));
+			return this;
 		}
 		}
 		wkr.close();
 		ps.close();
 		return null;
 
+	}
+	
+	public boolean isEmpty(){
+		if (cust == null && wrk == null)
+			return true;
+		return false;
 	}
 
 }
