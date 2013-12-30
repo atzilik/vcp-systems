@@ -7,12 +7,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTable;
 
-public class ReportDisabledParkingSpace extends Frame {
+public class ReportDisabledParkingSpace extends AbstractGUIComponent {
 	private JTextField textField;
 	private JTextField textField_1;
 	public ReportDisabledParkingSpace() {
-		super();
-		setTitle("Report Disable Parking Space");
+		super();		
 	
 		JButton btnCreate = new JButton("Create");
 		btnCreate.addActionListener(new ActionListener() {
@@ -20,24 +19,24 @@ public class ReportDisabledParkingSpace extends Frame {
 			}
 		});
 		btnCreate.setBounds(148, 207, 89, 23);
-		getContentPane().add(btnCreate);
+		add(btnCreate);
 		
 		JLabel lblPlace = new JLabel("Place:");
 		lblPlace.setBounds(79, 44, 46, 14);
-		getContentPane().add(lblPlace);
+		add(lblPlace);
 		
 		textField = new JTextField();
 		textField.setBounds(148, 38, 146, 26);
-		getContentPane().add(textField);
+		add(textField);
 		textField.setColumns(10);
 		
 		JLabel lblReason = new JLabel("Reason:");
 		lblReason.setBounds(79, 80, 46, 14);
-		getContentPane().add(lblReason);
+		add(lblReason);
 		
 		textField_1 = new JTextField();
 		textField_1.setBounds(148, 74, 146, 26);
-		getContentPane().add(textField_1);
+		add(textField_1);
 		textField_1.setColumns(10);
 		
 	}

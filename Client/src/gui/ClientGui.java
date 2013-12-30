@@ -1,7 +1,6 @@
 package gui;
 
 
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -11,14 +10,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import client.Client;
 
-public class ClientGui extends AbstractGUIComponent{
+public class ClientGui extends AbstractGUIComponent {
+	private Client client;
 	private JTextField textField_IP;
 	private JTextField textField_Port;
 	public ClientGui() {
 		super();
-		
-//		setTitle("Server Connection");
-		
+						
 		JLabel lblServerIp = new JLabel("Server IP:");
 		lblServerIp.setBounds(93, 74, 70, 14);
 		add(lblServerIp);
@@ -43,6 +41,7 @@ public class ClientGui extends AbstractGUIComponent{
 		JButton btnConnect = new JButton("Connect");
 		btnConnect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				client = new Client(textField_IP.getText(),Integer.parseInt(textField_Port.getText()));
 				JOptionPane.showMessageDialog(new JPanel(), "Conncetion to the Server was successful");
 				setVisible(false);
 				Login lg = new Login();
@@ -55,10 +54,8 @@ public class ClientGui extends AbstractGUIComponent{
 	}
 	
 	public static void main(String[] args){
-		JFrame mainFrame = new JFrame();
-		mainFrame.setSize(640, 480);
-		mainFrame.setContentPane(new ClientGui());
-		mainFrame.setVisible(true);
+		ClientGui cg = new ClientGui();
+		cg.setVisible(true);
 	}
 
 }

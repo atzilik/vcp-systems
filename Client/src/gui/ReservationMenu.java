@@ -12,11 +12,7 @@ import java.util.Set;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
-
-import Messages.MessageInsertReservation;
 
 import client.Client;
 
@@ -98,13 +94,8 @@ public class ReservationMenu extends AbstractGUIComponent {
 				arr[6] = textField_estCinHour.getText();
 				arr[7] = textField_estCotDate.getText();
 				arr[8] = textField_estCotHour.getText();
-				MessageInsertReservation msg = new MessageInsertReservation(arr);
 				try {
-					client.sendToServer(msg);
-					if(client.getMessage().isTransactionSucceeded())
-						JOptionPane.showMessageDialog(new JPanel(), "Reservation taken.\nReservation number: " + arr[1]);
-					else
-						JOptionPane.showMessageDialog(new JPanel(), "Error");
+					client.sendToServer(arr);
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
