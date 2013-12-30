@@ -1,26 +1,24 @@
 package gui;
 
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
 import Messages.MessageLogin;
 
-import java.awt.Component;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 
-public class Login extends AbstractGUIComponent{
+public class Login extends AbstractGUIComponent {
 	private JTextField userName;
 	private JPasswordField pass;
 	
 
 	public Login(){
-//		super();
-//		setTitle("Login");
+		super();
+		
 		JLabel lblUserName = new JLabel("User Name:");
 		lblUserName.setBounds(85, 69, 71, 14);
 		add(lblUserName);
@@ -42,19 +40,22 @@ public class Login extends AbstractGUIComponent{
 		JButton btnSubmit = new JButton("Submit");
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				client.send(new MessageLogin(userName.getText(), new String(pass.getPassword())));
-				MessageLogin ml = (MessageLogin)client.getMessage();
-				if (ml.isEmpty())
-				//no such user
-				{
-					JOptionPane.showMessageDialog(null, "Wrong username or password.", "Error", JOptionPane.ERROR_MESSAGE);
+				try {
+					client.sendToServer(new MessageLogin(userName.getText(), new String(pass.getPassword())));
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
-				else
-				//TODO 
-				{
-					
-				}
-
+//				String[] arr = new String[3];
+//				arr[0] = "check login";
+//				arr[1] = userName.getText();
+//				arr[2] = new String(pass.getPassword());
+//				try {
+//					getC().sendToServer(arr);
+//				} catch (IOException e1) {
+//					// TODO Auto-generated catch block
+//					e1.printStackTrace();
+//				}
 //				new Thread(new Runnable() {
 //					
 //					@Override

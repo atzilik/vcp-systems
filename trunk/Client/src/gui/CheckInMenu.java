@@ -6,7 +6,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class CheckInMenu extends Frame{
+public class CheckInMenu extends AbstractGUIComponent {
 	private CustomerMenu cm;
 	private JTextField textField_1;
 	public CheckInMenu(final CustomerMenu cm) {
@@ -15,11 +15,11 @@ public class CheckInMenu extends Frame{
 		
 		JLabel lblCarid = new JLabel("CarId");
 		lblCarid.setBounds(61, 87, 69, 20);
-		getContentPane().add(lblCarid);
+		add(lblCarid);
 		
 		textField_1 = new JTextField();
 		textField_1.setBounds(118, 84, 146, 26);
-		getContentPane().add(textField_1);
+		add(textField_1);
 		textField_1.setColumns(10);
 		
 		JButton btnSubmit = new JButton("Submit");
@@ -28,7 +28,7 @@ public class CheckInMenu extends Frame{
 			}
 		});
 		btnSubmit.setBounds(51, 165, 115, 29);
-		getContentPane().add(btnSubmit);
+		add(btnSubmit);
 		
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {
@@ -38,7 +38,7 @@ public class CheckInMenu extends Frame{
 			}
 		});
 		btnCancel.setBounds(216, 165, 115, 29);
-		getContentPane().add(btnCancel);
+		add(btnCancel);
 	}
 
 }

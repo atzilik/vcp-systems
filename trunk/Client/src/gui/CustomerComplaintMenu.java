@@ -7,7 +7,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class CustomerComplaintMenu extends Frame{
+public class CustomerComplaintMenu extends AbstractGUIComponent {
 	private CustomerMenu cm;
 	
 	public CustomerComplaintMenu(final CustomerMenu cm){
@@ -16,7 +16,7 @@ public class CustomerComplaintMenu extends Frame{
 	
 		JTextArea textArea = new JTextArea();
 		textArea.setBounds(128, 51, 196, 101);
-		getContentPane().add(textArea);
+		add(textArea);
 
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {
@@ -26,11 +26,11 @@ public class CustomerComplaintMenu extends Frame{
 			}
 		});
 		btnCancel.setBounds(37, 179, 115, 29);
-		getContentPane().add(btnCancel);
+		add(btnCancel);
 
 		JLabel lblReason = new JLabel("Reason");
 		lblReason.setBounds(37, 51, 69, 20);
-		getContentPane().add(lblReason);
+		add(lblReason);
 
 		JButton btnSubmit = new JButton("Submit");
 		btnSubmit.addActionListener(new ActionListener() {
@@ -38,7 +38,7 @@ public class CustomerComplaintMenu extends Frame{
 			}
 		});
 		btnSubmit.setBounds(209, 179, 115, 29);
-		getContentPane().add(btnSubmit);
+		add(btnSubmit);
 	}
 
 }

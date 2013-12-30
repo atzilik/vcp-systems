@@ -5,7 +5,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class MainRegistrationMenu extends Frame {
+public class MainRegistrationMenu extends AbstractGUIComponent {
 	private CustomerMenu cm;
 	public MainRegistrationMenu(final CustomerMenu cm){
 		super();
@@ -18,7 +18,7 @@ public class MainRegistrationMenu extends Frame {
 			}
 		});
 		btnOpenFullMember.setBounds(49, 69, 289, 29);
-		getContentPane().add(btnOpenFullMember);
+		add(btnOpenFullMember);
 
 		JButton btnOpenStandardRegistration = new JButton("Open standard registration");
 		btnOpenStandardRegistration.addActionListener(new ActionListener() {
@@ -28,7 +28,7 @@ public class MainRegistrationMenu extends Frame {
 			}
 		});
 		btnOpenStandardRegistration.setBounds(49, 140, 289, 29);
-		getContentPane().add(btnOpenStandardRegistration);
+		add(btnOpenStandardRegistration);
 
 		JButton btnNewButton = new JButton("Cancel");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -38,7 +38,7 @@ public class MainRegistrationMenu extends Frame {
 			}
 		});
 		btnNewButton.setBounds(148, 212, 89, 23);
-		getContentPane().add(btnNewButton);
+		add(btnNewButton);
 	}
 	public void openWindow(String str){
 		if (str.equals("Full"))

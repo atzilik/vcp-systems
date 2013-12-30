@@ -6,17 +6,17 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class AddCarMenu extends Frame{
+public class AddCarMenu extends AbstractGUIComponent{
 	private JTextField textField;
 	public AddCarMenu() {
 		super();
 		JLabel lblCarid = new JLabel("CarId");
 		lblCarid.setBounds(53, 60, 69, 20);
-		getContentPane().add(lblCarid);
+		add(lblCarid);
 		
 		textField = new JTextField();
 		textField.setBounds(132, 57, 146, 26);
-		getContentPane().add(textField);
+		add(textField);
 		textField.setColumns(10);
 		
 		JButton btnApplay = new JButton("Applay");
@@ -25,7 +25,7 @@ public class AddCarMenu extends Frame{
 			}
 		});
 		btnApplay.setBounds(52, 150, 115, 29);
-		getContentPane().add(btnApplay);
+		add(btnApplay);
 		
 		JButton btnClose = new JButton("Close");
 		btnClose.addActionListener(new ActionListener() {
@@ -33,7 +33,7 @@ public class AddCarMenu extends Frame{
 			}
 		});
 		btnClose.setBounds(207, 150, 115, 29);
-		getContentPane().add(btnClose);
+		add(btnClose);
 	}
 	@Override
 	public void show() {
