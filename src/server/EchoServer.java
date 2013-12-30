@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import logic.CeoWorker;
 import logic.CustomerService;
@@ -94,12 +95,19 @@ public class EchoServer extends AbstractServer
 			switch (command.clone()[0])
 			{
 			case "check login": {
-				checkLogin(command, client);
+				checkLogin(client, command);
 				break;
 			}
 			case "Insert reservation": {
 				insertReservation(client, command);
 				break;
+			}
+			case "Cancel Reservation": {
+				cancelReservation(client,command);
+				break;
+			}
+			case "SubmitComplaint": {
+				submitComplaint(client, command);
 			}
 			}
 		}
@@ -145,7 +153,7 @@ public class EchoServer extends AbstractServer
 	 *          if no argument is entered.
 	 */
 
-	public void checkLogin(String[] op, ConnectionToClient client){
+	public void checkLogin(ConnectionToClient client, String[] op){
 		try 
 		{
 			PreparedStatement ps = con.prepareStatement("SELECT * FROM users WHERE userName=? and password=?;");
@@ -222,7 +230,7 @@ public class EchoServer extends AbstractServer
 		cst.close();
 
 	}
-	
+
 	/**
 	 * loads worker details
 	 * @param client
@@ -256,7 +264,7 @@ public class EchoServer extends AbstractServer
 			CustomerService cs = new CustomerService(wkr.getString(1), wkr.getString(2), wkr.getString(3), wkr.getString(4), wkr.getInt(5));
 			sendToClient(client, cs);
 			break;
-			}
+		}
 		}
 		wkr.close();
 
@@ -293,9 +301,83 @@ public class EchoServer extends AbstractServer
 			}
 			ps.executeUpdate();
 			ps.close();
-			sendToClient(client,"Insert reservation");
+			String[] arr = new String[2];
+			arr[0] = "Insert reservation";
+			arr[1] = details[1];
+			sendToClient(client,arr);
+
+		}
+		catch(SQLException e) {
+//			e.printStackTrace();
+			System.out.println(e.getMessage());
+			if (e.getMessage().contains("Duplicate entry"))
+			{
+				Random rnd = new Random();
+				details[1] = Integer.toString(100000 + rnd.nextInt(900000));
+				insertReservation(client, details);
+			}
+		}
+	}
+	
+	public void cancelReservation(ConnectionToClient client, String[] details)
+	{
+		try{
+			PreparedStatement ps = con.prepareStatement("SELECT * FROM reservations WHERE reservationId=? and customerId=?");
+			ps.setString(1, details[1]);
+			ps.setString(2, details[2]);
+			ResultSet rs = ps.executeQuery();
 			
-		}catch(SQLException e) {e.printStackTrace();}
+			if (rs.isBeforeFirst() == false)
+			{
+				sendToClient(client, "WrongReserveNum");
+			}
+			else
+			{
+				rs.next();
+				if (!details[2].equals(rs.getString(3)))
+				{
+					sendToClient(client, "WrongReserveNum");
+				}
+				else
+				{
+					PreparedStatement ps1 = con.prepareStatement("DELETE FROM reservations WHERE reservationId=?");
+					ps1.setString(1, rs.getString(1));
+					ps1.executeUpdate();
+					ps.close();
+					sendToClient(client, "CancelResSucess");
+				}
+				rs.close();
+			}
+			ps.close();
+		}catch (SQLException e) {e.printStackTrace();}
+	}
+	
+	public void submitComplaint(ConnectionToClient client, String[] details)
+	{
+		try{
+			
+			PreparedStatement ps = con.prepareStatement("INSERT INTO complaints (complaintID,customerID,details) VALUES(?,?,?);");
+			ps.setString(1, details[1]);
+			ps.setString(2, details[2]);
+			ps.setString(3, details[3]);
+			
+			ps.executeUpdate();
+			ps.close();
+			
+			String[] msg = new String[2];
+			msg[0] = "SubmitComplaint";
+			msg[1] = details[1];
+			sendToClient(client, msg);
+			}catch(SQLException e) {
+//				e.printStackTrace();
+				System.out.println(e.getMessage());
+				if (e.getMessage().contains("Duplicate entry"))
+				{
+					Random rnd = new Random();
+					details[1] = Integer.toString(100000 + rnd.nextInt(900000));
+					submitComplaint(client, details);
+				}
+			}
 	}
 
 	public static void main(String[] args) 

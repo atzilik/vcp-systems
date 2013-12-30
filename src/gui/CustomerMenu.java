@@ -36,10 +36,10 @@ public class CustomerMenu extends Frame{
 	}
 
 	public void openSTDCustomerMenu(){
-		JButton btnCheckRes = new JButton("Check reservation");
+		JButton btnCheckRes = new JButton("Cancel reservation");
 		btnCheckRes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				openWindow("CheckReservationStatus");
+				openWindow("CancelReservation");
 			}
 		});
 		btnCheckRes.setBounds(98, 242, 147, 42);
@@ -104,7 +104,6 @@ public class CustomerMenu extends Frame{
 		getContentPane().add(btnCheckOut_1);
 
 		setVisible(true);
-
 	}
 
 	public void openMemberMenu(){
@@ -144,8 +143,8 @@ public class CustomerMenu extends Frame{
 
 		switch(str)
 		{
-		case "CheckReservationStatus": {
-			CheckReservationStatus crs = new CheckReservationStatus(this);
+		case "CancelReservation": {
+			CancelReservation crs = new CancelReservation(this);
 			crs.setVisible(true);
 			break;
 		}
@@ -155,17 +154,15 @@ public class CustomerMenu extends Frame{
 			break;
 		}
 		case "ReserveInAdvance":{
-			List<Object> list = new ArrayList<Object>();
-			list.add("Get Parking Lots");
-			list.add(this);
-			Login.getCc().accept(list);
+//			getClient()
+//			getClient().accept(list);
 			break;
 		}
 		case "ReserveNow": {
 			List<Object> list = new ArrayList<Object>();
 			list.add("Get Parking Lots");
 			list.add(this);
-			Login.getCc().accept(list);
+//			Login.getCc().accept(list);
 			break;
 		}
 

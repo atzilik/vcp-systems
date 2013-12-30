@@ -16,6 +16,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Map;
 
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -77,38 +78,32 @@ public class ChatClient extends AbstractClient
 		{
 			switch((String)msg)
 			{
-			case "No Entery": {
-				login = false;
-				JOptionPane.showMessageDialog(new JPanel(), "Wrong user name or password.", "Error", JOptionPane.ERROR_MESSAGE);
+			case "CancelResSucess": {
+				JOptionPane.showMessageDialog(new JPanel(), "Reservation canceled.");
 				break;
 			}
-			case "Insert reservation": {
-				JOptionPane.showMessageDialog(new JPanel(), "Reservation taken.");
+			case "WrongReserveNum": {
+				JOptionPane.showMessageDialog(new JPanel(), "Reservation numbered doesn't exist.");
 				break;
+			}
+			case "SubmitComplaint": {
+				JOptionPane.showMessageDialog(new JPanel(), "Complaint Taken.");
 			}
 			}	
 		}
-		else if (msg instanceof ArrayList)
+		else if (msg instanceof String[])
 		{
-			ArrayList<Object> list = (ArrayList<Object>) msg;
-			if (list.get(0).equals("Get Parking Lots"))
+			String[] cmd = (String[])msg;
+			switch(cmd[0])
 			{
-				ReservationMenu rm = new ReservationMenu((CustomerMenu)list.get(1),(Map<String, Integer>)list.get(2));
-				rm.setVisible(true);
+			case "Insert reservation": {
+				JOptionPane.showMessageDialog(new JPanel(), "Reservation taken.\nReservation number: " + cmd[1]);
+				break;
 			}
-		}
-		else if (msg instanceof Customer)
-		{
-			login = true;
-			CustomerMenu cm = new CustomerMenu((Customer)msg);
-			cm.setVisible(true);
-		}
-
-		else if (msg instanceof Worker)
-		{
-			login = true;
-			WorkerMenu wr = new WorkerMenu((Worker)msg);
-			wr.setVisible(true);
+			case "SubmitComplaint": {
+				JOptionPane.showMessageDialog(new JPanel(), "Complaint taken.\nComplaint number: " + cmd[1]);
+			}
+			}
 		}
 	}
 
