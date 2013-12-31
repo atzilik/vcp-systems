@@ -2,44 +2,43 @@ package gui;
 
 import javax.swing.JButton;
 
-import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JLabel;
-
-import client.Client;
 import DataObjects.Customer;
-import DataObjects.STDCustomer;
+import DataObjects.FullMember;
+import Messages.MessageGetParkingLotsID;
+import Messages.MessageGetParkingLotsIDReply;
 public class CustomerMenu extends AbstractGUIComponent {
 	private Customer cst;	
+	private IGUINavigator navigator;
 	/**
 	 * 
 	 * @param cst 
 	 */
-	public CustomerMenu(Customer cst){
-		super();
-		setSize(new Dimension(600, 400));
+	public CustomerMenu(final IGUINavigator navigator, Customer cst){
 		this.cst = cst;	
-
-		if (cst instanceof STDCustomer)
-		{
-			openSTDCustomerMenu();
-		}
-		else
+		this.navigator = navigator;
+		setLayout(null);
+		if (cst instanceof FullMember)
 		{
 			openMemberMenu();
 		}
-		
+		else
+		{
+			openCustomerMenu();
+		}
+
 	}
 
-	public void openSTDCustomerMenu(){
-		JButton btnCheckRes = new JButton("Check reservation");
+	public void openCustomerMenu(){
+		JButton btnCheckRes = new JButton("Cancel reservation");
 		btnCheckRes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				openWindow("CheckReservationStatus");
+				navigator.goToCancelReservation(cst);
 			}
 		});
 		btnCheckRes.setBounds(98, 242, 147, 42);
@@ -48,7 +47,7 @@ public class CustomerMenu extends AbstractGUIComponent {
 		JButton btnIssueComplaint = new JButton("Issue complaint");
 		btnIssueComplaint.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				openWindow("CustomerComplaintMenu");
+				navigator.goToIssueComplaint(cst);
 			}
 		});
 		btnIssueComplaint.setBounds(326, 242, 135, 42);
@@ -57,7 +56,7 @@ public class CustomerMenu extends AbstractGUIComponent {
 		JButton btnReservation = new JButton("<html>Reserve<br />in advance</html>");
 		btnReservation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				openWindow("ReserveInAdvance");
+				reserve();
 			}
 		});
 		btnReservation.setBounds(227, 156, 119, 45);
@@ -70,34 +69,34 @@ public class CustomerMenu extends AbstractGUIComponent {
 		JButton btnMemberRegister = new JButton("Member register");
 		btnMemberRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				openWindow("MemberRegister");
+				navigator.goToMemberRegister(cst);
 			}
 		});
 		btnMemberRegister.setBounds(50, 156, 135, 42);
 		add(btnMemberRegister);
-		
+
 		JButton btnReserveNow = new JButton("Reserve now");
 		btnReserveNow.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				openWindow("ReserveNow");
+				reserve();
 			}
 		});
 		btnReserveNow.setBounds(399, 156, 119, 45);
 		add(btnReserveNow);
-		
+
 		JButton btnCheckIn = new JButton("Check in");
 		btnCheckIn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				openWindow("Check in");
+				navigator.goToCheckIn(cst);
 			}
 		});
 		btnCheckIn.setBounds(126, 73, 119, 45);
 		add(btnCheckIn);
-		
+
 		JButton btnCheckOut_1 = new JButton("Check out");
 		btnCheckOut_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				openWindow("Check out");
+				navigator.goToCheckOut(cst);
 			}
 		});
 		btnCheckOut_1.setBounds(326, 73, 119, 45);
@@ -108,81 +107,38 @@ public class CustomerMenu extends AbstractGUIComponent {
 		JButton btnNewButton = new JButton("Check in");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				openWindow("Check in");
+				navigator.goToCheckIn(cst);
 			}
 		});
 		btnNewButton.setBounds(111, 77, 122, 61);
 		add(btnNewButton);
-		
+
 		JButton btnCheckOut = new JButton("Check out");
 		btnCheckOut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				openWindow("Check out");
+				navigator.goToCheckOut(cst);
 			}
 		});
 		btnCheckOut.setBounds(325, 77, 122, 61);
 		add(btnCheckOut);
-		
+
 		JButton btnIssueComplaint_1 = new JButton("Issue complaint");
 		btnIssueComplaint_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				openWindow("CustomerComplaintMenu");
+				navigator.goToIssueComplaint(cst);
 			}
 		});
 		btnIssueComplaint_1.setBounds(209, 171, 122, 61);
 		add(btnIssueComplaint_1);
-		
+
 		setVisible(true);
 	}
 
-
-	public void openWindow(String str){
+	public void reserve(){
+		client.send(new MessageGetParkingLotsID());
+		MessageGetParkingLotsIDReply gpir = (MessageGetParkingLotsIDReply)client.getMessage();
+		navigator.goToReservation(cst, gpir.getMp());
 		
-		if (str.equals("CheckReservationStatus"))
-		{
-			CheckReservationStatus crs = new CheckReservationStatus(this);
-			crs.setVisible(true);
-		}
-		else if (str.equals("CustomerComplaintMenu"))
-		{
-			CustomerComplaintMenu ccm = new CustomerComplaintMenu(this);
-			ccm.setVisible(true);
-		}
-		else if (str.equals("ReserveInAdvance") || str.equals("ReserveNow"))
-		{
-			List<Object> list = new ArrayList<Object>();
-			list.add("Get Parking Lots");
-			list.add(this);
-			try {
-				client.sendToServer(list);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		else if (str.equals("MemberRegister"))
-		{
-			MainRegistrationMenu mrm = new MainRegistrationMenu(this);
-			mrm.setVisible(true);
-		}
-		else if (str.equals("Check in"))
-		{
-			CheckInMenu cim = new CheckInMenu(this);
-			cim.setVisible(true);
-		}
-		else if (str.equals("Check out"))
-		{
-			CheckOutMenu com = new CheckOutMenu(this);
-			com.setVisible(true);
-		}
-
 	}
-
-	public Customer getCst() {
-		return cst;
-	}
-
-	public void setCst(Customer cst) {
-		this.cst = cst;
-	}
+	
 }

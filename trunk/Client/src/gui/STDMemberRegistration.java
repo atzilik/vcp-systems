@@ -1,24 +1,21 @@
 package gui;
 
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import javax.swing.JButton;
+import javax.swing.JComboBox;
 
 import DataObjects.Customer;
-import Messages.MessageFullMemberRegister;
-import Messages.MessageFullMemberRegisterReply;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.util.Random;
-
-public class FullMemberRegistration extends AbstractGUIComponent {
+public class STDMemberRegistration extends AbstractGUIComponent {
+	private JTextField textField_hour;
 	protected Customer cst;
 	private JTextField textField_carNum;
 	private JTextField textField_date;
-	public FullMemberRegistration(final IGUINavigator navigator, final Customer cst) {
-		this.cst = cst;
+	public STDMemberRegistration(final IGUINavigator navigator, Customer cst) {
+
 		setLayout(null);
 
 		JLabel lblCid = new JLabel("Car number");
@@ -52,25 +49,29 @@ public class FullMemberRegistration extends AbstractGUIComponent {
 		JButton btnCreate = new JButton("Submit");
 		btnCreate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String[] arr = new String[8];
-				arr[0] = Integer.toString(100000 + new Random().nextInt(900000));
-				arr[1] = textField_carNum.getText();
-				arr[2] = cst.getId();
-				arr[3] = cst.getfName();
-				arr[4] = cst.getlName();
-				arr[5] = cst.getEmail();
-				arr[6] = textField_date.getText();
-				arr[7] = "1";
-				client.send(new MessageFullMemberRegister(arr));
-				MessageFullMemberRegisterReply fmrr = (MessageFullMemberRegisterReply)client.getMessage();
-				fmrr.doAction();
-				navigator.goBack();
 			}
 		});
 		btnCreate.setBounds(90, 233, 86, 34);
 		add(btnCreate);
 		
+		JLabel lblEstimateChackOut = new JLabel("Estimate check out hour");
+		lblEstimateChackOut.setBounds(70, 139, 190, 20);
+		add(lblEstimateChackOut);
+
+		textField_hour = new JTextField();
+		textField_hour.setBounds(215, 139, 87, 20);
+		add(textField_hour);
+		textField_hour.setColumns(10);
+
+		JLabel lblParkingLot = new JLabel("Parking lot");
+		lblParkingLot.setBounds(70, 172, 90, 20);
+		add(lblParkingLot);
+
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(157, 170, 109, 26);
+		add(comboBox);
+		
 		
 	}
-	
+
 }

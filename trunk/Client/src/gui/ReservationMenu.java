@@ -14,10 +14,15 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import DataObjects.Customer;
+import Messages.MessageInsertReservation;
+import Messages.MessageInsertReservationReply;
+
 import client.Client;
+import java.awt.BorderLayout;
 
 public class ReservationMenu extends AbstractGUIComponent {
-	private CustomerMenu cm;
+	private Customer cst;
 	private Map<String,Integer> parkingLots;	
 	private JTextField textFieldCarNum;
 	private final JComboBox comboBoxParkLot;
@@ -25,11 +30,12 @@ public class ReservationMenu extends AbstractGUIComponent {
 	private JTextField textField_estCotHour;
 	private JTextField textField_estCinDate;
 	private JTextField textField_estCinHour;
-	public ReservationMenu(final CustomerMenu cm, final Map<String,Integer> parkingLots) {
-		super();
-		this.cm = cm;
-		this.parkingLots = parkingLots;
+	public ReservationMenu(final IGUINavigator navigator, final Customer cst, Map<String,Integer> mp) {
+
+		this.cst = cst;
+		this.parkingLots = mp;
 		setSize(new Dimension(501, 402));
+		setLayout(null);
 
 		JLabel lblCid = new JLabel("Car number");
 		lblCid.setBounds(15, 16, 69, 20);
@@ -71,36 +77,24 @@ public class ReservationMenu extends AbstractGUIComponent {
 		add(textField_estCotHour);
 		textField_estCotHour.setColumns(10);
 
-		JButton btnAddCar = new JButton("Add car");
-		btnAddCar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnAddCar.setBounds(193, 299, 115, 29);
-		add(btnAddCar);
+		
 
 		JButton btnSubmit = new JButton("Submit");
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				String arr[] = new String[10];
-				arr[0] = "Insert reservation";
-				Random rnd = new Random();
-				arr[1] = Integer.toString(100000 + rnd.nextInt(900000));
-				arr[2] = textFieldCarNum.getText();
-				arr[3] = cm.getCst().getId();
-				arr[4] = Integer.toString(parkingLots.get(comboBoxParkLot.getSelectedItem()));
-				arr[5] = textField_estCinDate.getText();
-				arr[6] = textField_estCinHour.getText();
-				arr[7] = textField_estCotDate.getText();
-				arr[8] = textField_estCotHour.getText();
-				try {
-					client.sendToServer(arr);
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-
+				String arr[] = new String[8];
+				arr[0] = Integer.toString(100000 + new Random().nextInt(900000));
+				arr[1] = textFieldCarNum.getText();
+				arr[2] = cst.getId();
+				arr[3] = Integer.toString(parkingLots.get(comboBoxParkLot.getSelectedItem()));
+				arr[4] = textField_estCinDate.getText();
+				arr[5] = textField_estCinHour.getText();
+				arr[6] = textField_estCotDate.getText();
+				arr[7] = textField_estCotHour.getText();
+				client.send(new MessageInsertReservation(arr));
+				MessageInsertReservationReply irr = (MessageInsertReservationReply)client.getMessage();
+				irr.doAction();
+				navigator.goBack();
 			}
 		});
 		btnSubmit.setBounds(40, 299, 115, 29);
@@ -123,16 +117,16 @@ public class ReservationMenu extends AbstractGUIComponent {
 		textField_estCinHour.setColumns(10);
 		textField_estCinHour.setBounds(214, 142, 146, 26);
 		add(textField_estCinHour);
-
+		
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
-				cm.setVisible(true);
+				navigator.goBack();
 			}
 		});
-		btnCancel.setBounds(334, 299, 115, 29);
+		btnCancel.setBounds(210, 299, 115, 29);
 		add(btnCancel);
+
 
 	}
 }
