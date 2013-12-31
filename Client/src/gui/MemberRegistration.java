@@ -2,19 +2,21 @@ package gui;
 
 
 import javax.swing.JButton;
+
+import DataObjects.Customer;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class MainRegistrationMenu extends AbstractGUIComponent {
-	private CustomerMenu cm;
-	public MainRegistrationMenu(final CustomerMenu cm){
-		super();
-		this.cm = cm;
-
+public class MemberRegistration extends AbstractGUIComponent {
+	private Customer cst;
+	public MemberRegistration(final IGUINavigator navigator, final Customer cst){
+		this.cst = cst;
+		setLayout(null);
 		JButton btnOpenFullMember = new JButton("Open full member registration");
 		btnOpenFullMember.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				openWindow("Full");      
+				navigator.goToFullMemberRegisteration(cst);     
 			}
 		});
 		btnOpenFullMember.setBounds(49, 69, 289, 29);
@@ -23,7 +25,7 @@ public class MainRegistrationMenu extends AbstractGUIComponent {
 		JButton btnOpenStandardRegistration = new JButton("Open standard registration");
 		btnOpenStandardRegistration.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				openWindow("Standard");
+				navigator.goToSTDMemberRegisteration(cst);
 
 			}
 		});
@@ -33,26 +35,11 @@ public class MainRegistrationMenu extends AbstractGUIComponent {
 		JButton btnNewButton = new JButton("Cancel");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
-				cm.setVisible(true);
+				navigator.goToCustomerMenu(cst);
 			}
 		});
 		btnNewButton.setBounds(148, 212, 89, 23);
 		add(btnNewButton);
 	}
-	public void openWindow(String str){
-		if (str.equals("Full"))
-		{
-			FullMemberRegistration fmr = new FullMemberRegistration(this);
-			setVisible(false);
-			fmr.setVisible(true);
-		}
-		else
-		{
-			StandardMemberRegistration smr = new StandardMemberRegistration(this);
-			setVisible(false); 
-			smr.setVisible(true);
-		}
 
-	}
 }

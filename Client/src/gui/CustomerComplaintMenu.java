@@ -4,16 +4,18 @@ package gui;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
+
+import DataObjects.Customer;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class CustomerComplaintMenu extends AbstractGUIComponent {
-	private CustomerMenu cm;
+	private Customer cst;
 	
-	public CustomerComplaintMenu(final CustomerMenu cm){
-		super();
-		this.cm = cm;
-	
+	public CustomerComplaintMenu(final IGUINavigator navigator, Customer cst){
+		this.cst = cst;
+		setLayout(null);
 		JTextArea textArea = new JTextArea();
 		textArea.setBounds(128, 51, 196, 101);
 		add(textArea);
@@ -21,11 +23,10 @@ public class CustomerComplaintMenu extends AbstractGUIComponent {
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
-				cm.setVisible(true);
+				navigator.goBack();
 			}
 		});
-		btnCancel.setBounds(37, 179, 115, 29);
+		btnCancel.setBounds(219, 179, 115, 29);
 		add(btnCancel);
 
 		JLabel lblReason = new JLabel("Reason");
@@ -37,7 +38,7 @@ public class CustomerComplaintMenu extends AbstractGUIComponent {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnSubmit.setBounds(209, 179, 115, 29);
+		btnSubmit.setBounds(54, 179, 115, 29);
 		add(btnSubmit);
 	}
 

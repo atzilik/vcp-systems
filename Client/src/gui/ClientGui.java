@@ -44,8 +44,8 @@ public class ClientGui extends AbstractGUIComponent {
 				client = new Client(textField_IP.getText(),Integer.parseInt(textField_Port.getText()));
 				JOptionPane.showMessageDialog(new JPanel(), "Conncetion to the Server was successful");
 				setVisible(false);
-				Login lg = new Login();
-				lg.setVisible(true);
+//				Login lg = new Login();
+//				lg.setVisible(true);
 			}
 		});
 		
