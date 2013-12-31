@@ -25,11 +25,11 @@ public class MessageCancelReservationReply extends Message {
 		// TODO Auto-generated method stub
 		if (completed == true)
 		{
-			JOptionPane.showMessageDialog(null, "Reservation number" + reservationNum + " canceled.");
+			JOptionPane.showMessageDialog(null, "Reservation number " + reservationNum + " was canceled.");
 		}
 		else
 		{
-			JOptionPane.showMessageDialog(null, "Reservation number" + reservationNum + " doesn't exist.", "Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Reservation number " + reservationNum + " doesn't exist.", "Error", JOptionPane.ERROR_MESSAGE);
 		}
 		return null;
 	}

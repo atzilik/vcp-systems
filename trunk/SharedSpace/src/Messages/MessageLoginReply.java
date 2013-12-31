@@ -2,24 +2,22 @@ package Messages;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-
-import DataObjects.Customer;
 import DataObjects.Worker;
 
 
 
 public class MessageLoginReply extends Message {
 
-	private Customer cust;
+	private String customerID;
 	private Worker wrk;
 	
 	public MessageLoginReply(){
-		cust = null;
+		customerID = null;
 		wrk = null;
 	}
 	
-	public MessageLoginReply(Customer cust){
-		this.cust = cust;
+	public MessageLoginReply(String customerID){
+		this.customerID = customerID;
 
 	}
 	
@@ -27,8 +25,8 @@ public class MessageLoginReply extends Message {
 		this.wrk = wrk;
 	}
 	
-	public Customer getCust() {
-		return cust;
+	public String getCustomerID() {
+		return customerID;
 	}
 
 
@@ -38,13 +36,13 @@ public class MessageLoginReply extends Message {
 
 
 	public boolean isEmpty(){
-		if (cust == null && wrk == null)
+		if (customerID == null && wrk == null)
 			return true;
 		return false;
 	}
 	
 	public boolean isCustomer(){
-		if (cust != null)
+		if (customerID != null)
 			return true;
 		return false;
 	}

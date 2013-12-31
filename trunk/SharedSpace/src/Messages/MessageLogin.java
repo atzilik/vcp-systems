@@ -47,56 +47,56 @@ public class MessageLogin extends Message {
 				else
 					//customer
 				{
-					return loadCustomer(user.getString(4), user.getString(5));
+					return new MessageLoginReply(user.getString(4));
 				}
 			}
 		} catch (SQLException e) {e.printStackTrace();}
 		return null;
 	}
 	
-	public Message loadCustomer (String customerId, String customerType) throws SQLException{
-		String query = null;
-		switch(Integer.parseInt(customerType))
-		//1 - regular, 2 - standard, 3 - full
-		{
-		case 1: {
-			query = "SELECT * FROM customers WHERE id=?;";
-			break;
-		}
-		case 2: {
-			query = "SELECT * FROM std_members WHERE memberID=?;";
-			break;
-		}
-		case 3: {
-			query = "SELECT * FROM full_members WHERE memberID=?;";
-			break;
-		}
-		}
-		PreparedStatement ps = con.prepareStatement(query);
-		ps.setString(1, customerId);
-		ResultSet cst = ps.executeQuery();
-		cst.next();
-		switch(Integer.parseInt(customerType))
-		//1 - regular, 2 - standard, 3 - full
-		{
-		case 1: {
-			Customer stdCust = new Customer(cst.getString(1), cst.getString(2), cst.getString(3), cst.getString(4), cst.getString(5));
-			return new MessageLoginReply(stdCust);
-		}
-		case 2: {
-			STDMember stdMem = new STDMember(cst.getString(3), cst.getString(2), cst.getString(4), cst.getString(5), cst.getString(6), cst.getString(1), cst.getString(7), cst.getBoolean(10), cst.getInt(8), cst.getString(9));
-			return new MessageLoginReply(stdMem);
-		}
-		case 3: {
-			FullMember fullMem = new FullMember(cst.getString(3), cst.getString(2), cst.getString(4), cst.getString(5), cst.getString(6), cst.getString(1), cst.getString(7), cst.getBoolean(8));
-			return new MessageLoginReply(fullMem);
-		}
-		}
-		cst.close();
-		ps.close();
-		return null;
-
-	}
+//	public Message loadCustomer (String customerId, String customerType) throws SQLException{
+//		String query = null;
+//		switch(Integer.parseInt(customerType))
+//		//1 - regular, 2 - standard, 3 - full
+//		{
+//		case 1: {
+//			query = "SELECT * FROM customers WHERE id=?;";
+//			break;
+//		}
+//		case 2: {
+//			query = "SELECT * FROM std_members WHERE memberID=?;";
+//			break;
+//		}
+//		case 3: {
+//			query = "SELECT * FROM full_members WHERE memberID=?;";
+//			break;
+//		}
+//		}
+//		PreparedStatement ps = con.prepareStatement(query);
+//		ps.setString(1, customerId);
+//		ResultSet cst = ps.executeQuery();
+//		cst.next();
+//		switch(Integer.parseInt(customerType))
+//		//1 - regular, 2 - standard, 3 - full
+//		{
+//		case 1: {
+//			Customer stdCust = new Customer(cst.getString(1), cst.getString(2), cst.getString(3), cst.getString(4), cst.getString(5));
+//			return new MessageLoginReply(stdCust);
+//		}
+//		case 2: {
+//			STDMember stdMem = new STDMember(cst.getString(3), cst.getString(2), cst.getString(4), cst.getString(5), cst.getString(6), cst.getString(1), cst.getString(7), cst.getBoolean(10), cst.getInt(8), cst.getString(9));
+//			return new MessageLoginReply(stdMem);
+//		}
+//		case 3: {
+//			FullMember fullMem = new FullMember(cst.getString(3), cst.getString(2), cst.getString(4), cst.getString(5), cst.getString(6), cst.getString(1), cst.getString(7), cst.getBoolean(8));
+//			return new MessageLoginReply(fullMem);
+//		}
+//		}
+//		cst.close();
+//		ps.close();
+//		return null;
+//
+//	}
 	
 	public Message loadWorker(String workID, String type) throws SQLException{
 		PreparedStatement ps = con.prepareStatement("SELECT * FROM workers WHERE id=?");
