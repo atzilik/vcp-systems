@@ -8,7 +8,8 @@ import javax.swing.JButton;
 
 import Messages.MessageLogin;
 import Messages.MessageLoginReply;
-
+import Messages.MessageGetCarsID;
+import Messages.MessageGetCarsIDReply;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
@@ -51,8 +52,10 @@ public class Login extends AbstractGUIComponent {
 				mlr.doAction();
 				//customer
 				if (mlr.isCustomer() == true)
-				{
-					navigator.goToCustomerMenu(mlr.getCust());
+				{				
+					client.send(new MessageGetCarsID(mlr.getCustomerID()));
+					MessageGetCarsIDReply gcir = (MessageGetCarsIDReply)client.getMessage();
+					navigator.goToCustomerCarMenu(mlr.getCustomerID(), gcir.getLs());
 				}
 				//worker
 				else

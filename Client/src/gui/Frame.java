@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.Dimension;
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.JFrame;
@@ -165,6 +166,15 @@ public class Frame extends JFrame implements IGUINavigator {
 		lastScreen = (JPanel) getContentPane();
 		STDMemberRegistration smr = new STDMemberRegistration(this, customer);
 		setContentPane(smr);		
+		validate();
+	}
+
+	@Override
+	public void goToCustomerCarMenu(String customerID, List<String> ls) {
+		// TODO Auto-generated method stub
+		lastScreen = (JPanel) getContentPane();
+		CustomerCarMenu ccm = new CustomerCarMenu(this, customerID, ls);
+		setContentPane(ccm);		
 		validate();
 	}
 	
