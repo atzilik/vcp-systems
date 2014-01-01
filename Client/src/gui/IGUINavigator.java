@@ -6,11 +6,12 @@ import java.util.Map;
 import javax.swing.JPanel;
 
 import DataObjects.Customer;
+import DataObjects.Worker;
 
 public interface IGUINavigator {
 	
-	public void goToCustomerCarMenu(String customerID, List<String> ls);
 	public void goToCustomerMenu(Customer customer);
+	public void goToWorkerMenu(Worker worker);
 	public void goToCancelReservation(Customer customer);
 	public void goToIssueComplaint(Customer customer);
 	public void goToReservation(Customer customer, Map<String,Integer> mp);

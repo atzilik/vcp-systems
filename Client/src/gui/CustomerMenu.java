@@ -104,6 +104,9 @@ public class CustomerMenu extends AbstractGUIComponent {
 	}
 
 	public void openMemberMenu(){
+		JLabel lblname = new JLabel(cst.getfName() + " " + cst.getlName());
+		lblname.setBounds(221, 31, 215, 14);
+		add(lblname);
 		JButton btnNewButton = new JButton("Check in");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
