@@ -2,14 +2,14 @@ package Messages;
 
 import javax.swing.JOptionPane;
 
-public class MessageFullMemberRegisterReply extends Message {
+public class MessageMemberRegisterReply extends Message {
 	private String memberID;
 
-	public MessageFullMemberRegisterReply(){
+	public MessageMemberRegisterReply(){
 		memberID = null;
 	}
 
-	public MessageFullMemberRegisterReply(String memberID){
+	public MessageMemberRegisterReply(String memberID){
 		this.memberID = memberID;
 	}
 

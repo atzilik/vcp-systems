@@ -1,31 +1,11 @@
 package DataObjects;
 
 public class STDCustomer extends Customer {
-	private String estCheckIn;
-	private String estCheckOut;
 
 	public STDCustomer(String id, String carId, String fName, String lName,
-			String email, String estCheckIn, String estCheckOut) {
+			String email) {
 		super(id, carId, fName, lName, email);
-		this.estCheckIn = estCheckIn;
-		this.estCheckOut = estCheckOut;
+		// TODO Auto-generated constructor stub
 	}
-
-	public String getEstCheckIn() {
-		return estCheckIn;
-	}
-
-	public void setEstCheckIn(String estCheckIn) {
-		this.estCheckIn = estCheckIn;
-	}
-
-	public String getEstCheckOut() {
-		return estCheckOut;
-	}
-
-	public void setEstCheckOut(String estCheckOut) {
-		this.estCheckOut = estCheckOut;
-	}
-
 
 }

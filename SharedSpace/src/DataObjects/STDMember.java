@@ -6,9 +6,9 @@ public class STDMember extends FullMember {
 	
 	
 	public STDMember(String id, String carId, String fName, String lName,
-			String email, String memberId, String startDate, boolean active,
+			String email, String memberId, String startDate,
 			int parkingLotId, String stdCheckOut) {
-		super(id, carId, fName, lName, email, memberId, startDate, active);
+		super(id, carId, fName, lName, email, memberId, startDate);
 		this.parkingLotId = parkingLotId;
 		this.stdCheckOut = stdCheckOut;
 	}

@@ -4,6 +4,8 @@ package gui;
 import javax.swing.JButton;
 
 import DataObjects.Customer;
+import Messages.MessageGetParkingLotsID;
+import Messages.MessageGetParkingLotsIDReply;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -25,7 +27,9 @@ public class MemberRegistration extends AbstractGUIComponent {
 		JButton btnOpenStandardRegistration = new JButton("Open standard registration");
 		btnOpenStandardRegistration.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				navigator.goToSTDMemberRegisteration(cst);
+				client.send(new MessageGetParkingLotsID());
+				MessageGetParkingLotsIDReply gpir = (MessageGetParkingLotsIDReply)client.getMessage();
+				navigator.goToSTDMemberRegisteration(cst, gpir.getMp());
 
 			}
 		});

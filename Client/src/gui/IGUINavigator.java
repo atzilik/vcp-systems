@@ -14,15 +14,13 @@ public interface IGUINavigator {
 	public void goToWorkerMenu(Worker worker);
 	public void goToCancelReservation(Customer customer);
 	public void goToIssueComplaint(Customer customer);
-	public void goToReservation(Customer customer, Map<String,Integer> mp);
+	public void goToReservation(Customer customer, Map<String,Integer> mp,int type);
 	public void goToMemberRegister(Customer customer);
-	public void goToCheckIn(Customer customer);
-	public void goToCheckOut(Customer customer);
+	public void goToCheckIn(Customer customer, Map<String,Integer> mp);
+	public void goToCheckOut(Customer customer, Map<String,Integer> mp);
 	public void goToFullMemberRegisteration(Customer customer);
-	public void goToSTDMemberRegisteration(Customer customer);
-	public void goToGuiTestclass();
-	public void goToTestclass2();
-	public void goToTestclass3();
+	public void goToAddCarMenu(Customer customer, Map<String,Integer> mp, int type);
+	public void goToSTDMemberRegisteration(Customer customer, Map<String,Integer> mp);
 	public void goBack();
 
 }

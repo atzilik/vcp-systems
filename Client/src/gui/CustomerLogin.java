@@ -72,6 +72,7 @@ public class CustomerLogin extends AbstractGUIComponent {
 
 		Frame frame = new Frame();
 		frame.setContentPane(new CustomerLogin(frame));
+		frame.setTitle("Login");
 		frame.validate();
 
 	}

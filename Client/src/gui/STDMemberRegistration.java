@@ -2,74 +2,91 @@ package gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Random;
+import java.util.Set;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 
 import DataObjects.Customer;
+import Messages.MessageMemberRegister;
+import Messages.MessageMemberRegisterReply;
 
 public class STDMemberRegistration extends AbstractGUIComponent {
 	private JTextField textField_hour;
-	protected Customer cst;
-	private JTextField textField_carNum;
-	private JTextField textField_date;
-	public STDMemberRegistration(final IGUINavigator navigator, Customer cst) {
-
+	private Customer cst;
+	private Map<String,Integer> parkingLots;
+	private JComboBox comboBox;
+	public STDMemberRegistration(final IGUINavigator navigator, final Customer cst, Map<String,Integer> mp) {
+		this.cst = cst;
+		this.parkingLots = mp;
 		setLayout(null);
-
-		JLabel lblCid = new JLabel("Car number");
-		lblCid.setBounds(74, 59, 72, 14);
-		add(lblCid);
-
-		textField_carNum = new JTextField();
-		textField_carNum.setBounds(177, 56, 86, 20);
-		add(textField_carNum);
-		textField_carNum.setColumns(10);
-
-		JLabel lblStartDate = new JLabel("Start date");
-		lblStartDate.setBounds(72, 102, 95, 14);
-		add(lblStartDate);
-
-		textField_date = new JTextField();
-		textField_date.setBounds(177, 99, 86, 20);
-		add(textField_date);
-		textField_date.setColumns(10);
-
-
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				navigator.goBack();
+				navigator.goToMemberRegister(cst);
 			}
 		});
-		btnCancel.setBounds(231, 233, 86, 34);
+		btnCancel.setBounds(310, 233, 86, 34);
 		add(btnCancel);
 		
 		JButton btnCreate = new JButton("Submit");
 		btnCreate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String[] arr = new String[10];
+				arr[0] = Integer.toString(100000 + new Random().nextInt(900000));
+				arr[1] = cst.getCarId();
+				arr[2] = cst.getId();
+				arr[3] = cst.getfName();
+				arr[4] = cst.getlName();
+				arr[5] = cst.getEmail();
+				arr[6] = new java.sql.Date(new java.util.Date().getTime()).toString();
+				arr[7] = Integer.toString(parkingLots.get(comboBox.getSelectedItem()));
+				arr[8] = textField_hour.getText();
+				arr[9] = "2";
+				client.send(new MessageMemberRegister(arr,arr[9]));
+				MessageMemberRegisterReply fmrr = (MessageMemberRegisterReply)client.getMessage();
+				fmrr.doAction();
+				navigator.goBack();
 			}
 		});
-		btnCreate.setBounds(90, 233, 86, 34);
+		btnCreate.setBounds(56, 233, 86, 34);
 		add(btnCreate);
 		
 		JLabel lblEstimateChackOut = new JLabel("Estimate check out hour");
-		lblEstimateChackOut.setBounds(70, 139, 190, 20);
+		lblEstimateChackOut.setBounds(85, 49, 190, 20);
 		add(lblEstimateChackOut);
 
 		textField_hour = new JTextField();
-		textField_hour.setBounds(215, 139, 87, 20);
+		textField_hour.setBounds(230, 49, 87, 20);
 		add(textField_hour);
 		textField_hour.setColumns(10);
 
 		JLabel lblParkingLot = new JLabel("Parking lot");
-		lblParkingLot.setBounds(70, 172, 90, 20);
+		lblParkingLot.setBounds(85, 82, 90, 20);
 		add(lblParkingLot);
 
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(157, 170, 109, 26);
+		comboBox = new JComboBox();
+		comboBox.setBounds(172, 80, 109, 26);
+		Set keys = parkingLots.keySet();
+		for (Iterator i = keys.iterator(); i.hasNext();)
+		{
+			comboBox.addItem(i.next());
+		}
 		add(comboBox);
+		
+		JButton btnAddAnotherCar = new JButton("Add another car");
+		btnAddAnotherCar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				navigator.goToAddCarMenu(cst,parkingLots,2);
+			}
+		});
+		btnAddAnotherCar.setBounds(152, 233, 148, 34);
+		add(btnAddAnotherCar);
 		
 		
 	}

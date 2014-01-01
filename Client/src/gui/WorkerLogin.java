@@ -68,6 +68,7 @@ public class WorkerLogin extends AbstractGUIComponent {
 
 		Frame frame = new Frame();
 		frame.setContentPane(new WorkerLogin(frame));
+		frame.setTitle("Login");
 		frame.validate();
 	}
 }
