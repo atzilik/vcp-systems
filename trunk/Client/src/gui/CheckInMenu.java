@@ -8,23 +8,22 @@ import DataObjects.Customer;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+
+import javax.swing.JComboBox;
 
 public class CheckInMenu extends AbstractGUIComponent {
 	private Customer cst;
 	private JTextField textField_1;
-	public CheckInMenu(final IGUINavigator navigator, Customer cst) {
+	private Map<String,Integer> parkingLots;
+	public CheckInMenu(final IGUINavigator navigator, Customer cst, Map<String,Integer> mp) {
 		this.cst = cst;
+		this.parkingLots = mp;
 		setLayout(null);
-		JLabel lblCarid = new JLabel("Car number");
-		lblCarid.setBounds(61, 87, 86, 20);
-		add(lblCarid);
-		
-		textField_1 = new JTextField();
-		textField_1.setBounds(172, 84, 92, 26);
-		add(textField_1);
-		textField_1.setColumns(10);
-		
-		JButton btnSubmit = new JButton("Submit");
+	
+		JButton btnSubmit = new JButton("OK");
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -40,6 +39,19 @@ public class CheckInMenu extends AbstractGUIComponent {
 		});
 		btnCancel.setBounds(216, 165, 115, 29);
 		add(btnCancel);
+		
+		JLabel lblNewLabel = new JLabel("Check in with car " + cst.getCarId() + " ?");
+		lblNewLabel.setBounds(117, 95, 249, 29);
+		add(lblNewLabel);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(133, 53, 138, 20);
+		Set<String> keys = parkingLots.keySet();
+		for (Iterator<String> i = keys.iterator(); i.hasNext();)
+		{
+			comboBox.addItem(i.next());
+		}
+		add(comboBox);
 	}
 
 }

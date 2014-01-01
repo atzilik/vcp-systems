@@ -9,29 +9,26 @@ import DataObjects.Customer;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+
+import javax.swing.JComboBox;
 
 public class CheckOutMenu extends AbstractGUIComponent {
 	private Customer cst;
-	private JTextField textField_1;
-	public CheckOutMenu(final IGUINavigator navigator, Customer cst) {
-
+	private Map<String,Integer> parkingLots;
+	public CheckOutMenu(final IGUINavigator navigator, Customer cst, Map<String,Integer> mp) {
 		this.cst = cst;
+		this.parkingLots = mp;
 		setLayout(null);
-		JLabel lblCarid = new JLabel("Car nubmer");
-		lblCarid.setBounds(61, 87, 87, 20);
-		add(lblCarid);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(170, 84, 94, 26);
-		add(textField_1);
-		textField_1.setColumns(10);
-		
-		JButton btnSubmit = new JButton("Submit");
+		JButton btnSubmit = new JButton("OK");
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnSubmit.setBounds(61, 165, 115, 29);
+		btnSubmit.setBounds(51, 165, 115, 29);
 		add(btnSubmit);
 		
 		JButton btnCancel = new JButton("Cancel");
@@ -40,8 +37,21 @@ public class CheckOutMenu extends AbstractGUIComponent {
 				navigator.goBack();
 			}
 		});
-		btnCancel.setBounds(226, 165, 115, 29);
+		btnCancel.setBounds(216, 165, 115, 29);
 		add(btnCancel);
+		
+		JLabel lblNewLabel = new JLabel("Check in with car " + cst.getCarId() + " ?");
+		lblNewLabel.setBounds(117, 95, 249, 29);
+		add(lblNewLabel);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(133, 53, 138, 20);
+		Set<String> keys = parkingLots.keySet();
+		for (Iterator<String> i = keys.iterator(); i.hasNext();)
+		{
+			comboBox.addItem(i.next());
+		}
+		add(comboBox);
 	}
 
 }
