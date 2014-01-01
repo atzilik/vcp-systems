@@ -12,7 +12,7 @@ import DataObjects.Worker;
 
 public class WorkerMenu extends AbstractGUIComponent {
 	private Worker wkr;
-	public WorkerMenu(Worker wkr){
+	public WorkerMenu(final IGUINavigator navigator, Worker wkr){
 		super();
 		this.wkr=wkr;		
 		setSize(477, 320);

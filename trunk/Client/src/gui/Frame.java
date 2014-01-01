@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import DataObjects.Customer;
+import DataObjects.Worker;
 
 import client.Client;
 
@@ -26,7 +27,7 @@ public class Frame extends JFrame implements IGUINavigator {
 	private FullMemberRegistration fullMemberRegistration;
 	private InsertAlternativeParkingLot insertAlternativeParkinglot;
 	private KioskReservationMenu kioskReservationMenu;
-	private Login login;
+	private CustomerLogin login;
 	private MemberRegistration mainRegistrationMenu;
 	private RateRequests rateRequests;
 	private ReportDisabledParkingSpace reportDisabledParkingSpace;
@@ -38,8 +39,8 @@ public class Frame extends JFrame implements IGUINavigator {
 		
 	
 	public Frame(){
-		login = new Login(this);
-		setContentPane(login);	
+//		login = new Login(this);
+//		setContentPane(login);	
 		setSize(new Dimension(640, 480));
 		setResizable(false);
 		setVisible(true);		
@@ -170,13 +171,15 @@ public class Frame extends JFrame implements IGUINavigator {
 	}
 
 	@Override
-	public void goToCustomerCarMenu(String customerID, List<String> ls) {
+	public void goToWorkerMenu(Worker worker) {
 		// TODO Auto-generated method stub
 		lastScreen = (JPanel) getContentPane();
-		CustomerCarMenu ccm = new CustomerCarMenu(this, customerID, ls);
-		setContentPane(ccm);		
+		WorkerMenu wm = new WorkerMenu(this, worker);
+		setContentPane(wm);		
 		validate();
 	}
+
+
 	
 
 	
