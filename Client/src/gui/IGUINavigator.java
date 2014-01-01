@@ -10,6 +10,7 @@ import DataObjects.Worker;
 
 public interface IGUINavigator {
 	
+	public void goToCustomerLogin();
 	public void goToCustomerMenu(Customer customer);
 	public void goToWorkerMenu(Worker worker);
 	public void goToCancelReservation(Customer customer);

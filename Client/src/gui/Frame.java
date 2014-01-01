@@ -39,8 +39,6 @@ public class Frame extends JFrame implements IGUINavigator {
 		
 	
 	public Frame(){
-//		login = new Login(this);
-//		setContentPane(login);	
 		setSize(new Dimension(640, 480));
 		setResizable(false);
 		setVisible(true);		
@@ -171,6 +169,16 @@ public class Frame extends JFrame implements IGUINavigator {
 		AddCarMenu wm = new AddCarMenu(this, customer, mp, type);
 		setContentPane(wm);		
 		setTitle("Add Car");
+		validate();
+	}
+
+	@Override
+	public void goToCustomerLogin() {
+		// TODO Auto-generated method stub
+		lastScreen = (JPanel) getContentPane();
+		CustomerLogin wm = new CustomerLogin(this);
+		setContentPane(wm);		
+		setTitle("Login");
 		validate();
 	}
 

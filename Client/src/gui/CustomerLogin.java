@@ -1,21 +1,14 @@
 package gui;
 
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.JButton;
-
 import Messages.MessageCustomerLogin;
 import Messages.MessageCustomerLoginReply;
-import Messages.MessageWorkerLogin;
-import Messages.MessageWorkerLoginReply;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.io.IOException;
-import java.awt.BorderLayout;
-import javax.swing.BoxLayout;
-import java.awt.FlowLayout;
+import client.Client;
+
 
 public class CustomerLogin extends AbstractGUIComponent {
 	private JTextField Id;
@@ -69,9 +62,19 @@ public class CustomerLogin extends AbstractGUIComponent {
 	}
 
 	public static void main(String args[]) {
-
+		String host = null;
+		try
+		{
+			host = args[0];
+		}
+		catch(ArrayIndexOutOfBoundsException e)
+		{
+			host = "localhost";
+		}
 		Frame frame = new Frame();
-		frame.setContentPane(new CustomerLogin(frame));
+		CustomerLogin cl = new CustomerLogin(frame);
+		cl.ClientSingleton(host, Client.DEFAULT_PORT);
+		frame.setContentPane(cl);
 		frame.setTitle("Login");
 		frame.validate();
 
