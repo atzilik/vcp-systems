@@ -7,6 +7,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import client.Client;
+
 import Messages.MessageCustomerLogin;
 import Messages.MessageCustomerLoginReply;
 import Messages.MessageWorkerLogin;
@@ -65,9 +67,20 @@ public class WorkerLogin extends AbstractGUIComponent {
 	}
 	
 	public static void main(String args[]) {
-
+		String host = null;
+		try
+		{
+			host = args[0];
+		}
+		catch(ArrayIndexOutOfBoundsException e)
+		{
+			host = "localhost";
+		}
 		Frame frame = new Frame();
-		frame.setContentPane(new WorkerLogin(frame));
+		WorkerLogin wl = new WorkerLogin(frame);
+		wl.ClientSingleton(host, Client.DEFAULT_PORT);
+//		frame.setContentPane(new WorkerLogin(frame));
+		frame.setContentPane(wl);
 		frame.setTitle("Login");
 		frame.validate();
 	}

@@ -109,6 +109,15 @@ public class CustomerMenu extends AbstractGUIComponent {
 		lblNewLabel.setBounds(10, 11, 134, 14);
 		add(lblNewLabel);
 		
+		JButton btnNewButton = new JButton("Logout");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				navigator.goToCustomerLogin();
+			}
+		});
+		btnNewButton.setBounds(461, 339, 119, 45);
+		add(btnNewButton);
+		
 	}
 
 	public void reserve(int type){
