@@ -13,7 +13,7 @@ import DataObjects.Worker;
 import client.Client;
 
 public class Frame extends JFrame implements IGUINavigator {	
-	
+
 	private AddCarMenu addCarMenu;
 	private ChangeRateMenu changeRateMenu;
 	private CheckInMenu checkInMenu;
@@ -35,16 +35,16 @@ public class Frame extends JFrame implements IGUINavigator {
 	private ReserveParkingSpace reserveParkingSpace;
 	private STDMemberRegistration standardMemberRegistration;
 	private JPanel lastScreen;
-		
-	
+
+
 	public Frame(){
-//		login = new Login(this);
-//		setContentPane(login);	
+		//		login = new Login(this);
+		//		setContentPane(login);	
 		setSize(new Dimension(640, 480));
 		setResizable(false);
 		setVisible(true);		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
-		
+
 	}
 
 	@Override
@@ -59,12 +59,12 @@ public class Frame extends JFrame implements IGUINavigator {
 
 	@Override
 	public void goToTestclass2() {
-			lastScreen = (JPanel) getContentPane();
-			Testclass2 tc2 = new Testclass2(this);
-			setContentPane(tc2);		
-			validate();
+		lastScreen = (JPanel) getContentPane();
+		Testclass2 tc2 = new Testclass2(this);
+		setContentPane(tc2);		
+		validate();
 	}
-	
+
 	@Override
 	public void goToTestclass3() {
 		lastScreen = (JPanel) getContentPane();
@@ -72,7 +72,7 @@ public class Frame extends JFrame implements IGUINavigator {
 		setContentPane(tc3);		
 		validate();		
 	}
-	
+
 	@Override
 	public void goToGuiTestclass() {
 		lastScreen = (JPanel) getContentPane();
@@ -87,14 +87,14 @@ public class Frame extends JFrame implements IGUINavigator {
 		setContentPane(lastScreen);
 		lastScreen = temp;		
 	}
-	
-	
-	
+
+
+
 	public static void main(String args[]) {
-				
+
 		@SuppressWarnings("unused")
 		Frame mainFrame = new Frame();
-		
+
 	}
 
 	@Override
@@ -125,28 +125,28 @@ public class Frame extends JFrame implements IGUINavigator {
 	}
 
 	@Override
-	public void goToReservation(Customer customer, Map<String,Integer> mp) {
+	public void goToReservation(Customer customer, Map<String,Integer> mp, int type) {
 		// TODO Auto-generated method stub
 		lastScreen = (JPanel) getContentPane();
-		ReservationMenu rm = new ReservationMenu(this, customer, mp);
+		ReservationMenu rm = new ReservationMenu(this, customer, mp, type);
 		setContentPane(rm);		
 		validate();
 	}
 
 	@Override
-	public void goToCheckIn(Customer customer) {
+	public void goToCheckIn(Customer customer, Map<String,Integer> mp) {
 		// TODO Auto-generated method stub
 		lastScreen = (JPanel) getContentPane();
-		CheckInMenu cim = new CheckInMenu(this, customer);
+		CheckInMenu cim = new CheckInMenu(this, customer, mp);
 		setContentPane(cim);		
 		validate();
 	}
 
 	@Override
-	public void goToCheckOut(Customer customer) {
+	public void goToCheckOut(Customer customer, Map<String,Integer> mp) {
 		// TODO Auto-generated method stub
 		lastScreen = (JPanel) getContentPane();
-		CheckOutMenu com = new CheckOutMenu(this, customer);
+		CheckOutMenu com = new CheckOutMenu(this, customer, mp);
 		setContentPane(com);		
 		validate();
 	}
@@ -160,14 +160,15 @@ public class Frame extends JFrame implements IGUINavigator {
 		validate();
 	}
 
-	@Override
-	public void goToSTDMemberRegisteration(Customer customer) {
-		// TODO Auto-generated method stub
-		lastScreen = (JPanel) getContentPane();
-		STDMemberRegistration smr = new STDMemberRegistration(this, customer);
-		setContentPane(smr);		
-		validate();
-	}
+	 @Override
+     public void goToSTDMemberRegisteration(Customer customer, Map<String,Integer> mp) {
+             // TODO Auto-generated method stub
+             lastScreen = (JPanel) getContentPane();
+             STDMemberRegistration smr = new STDMemberRegistration(this, customer, mp);
+             setContentPane(smr);
+             setTitle("Standard Member Registration");
+             validate();
+     }
 
 	@Override
 	public void goToWorkerMenu(Worker worker) {
@@ -186,17 +187,17 @@ public class Frame extends JFrame implements IGUINavigator {
 	}
 	public void goToReportDisabledParkingSpace(){
 		// TODO Auto-generated method stub
-				lastScreen = (JPanel) getContentPane();
-				ReportDisabledParkingSpace rdps = new ReportDisabledParkingSpace(this);
-				setContentPane(rdps);
-				validate();
+		lastScreen = (JPanel) getContentPane();
+		ReportDisabledParkingSpace rdps = new ReportDisabledParkingSpace(this);
+		setContentPane(rdps);
+		validate();
 	}
 	public void goToReportDisabledFacility(){
 		// TODO Auto-generated method stub
-				lastScreen = (JPanel) getContentPane();
-				ReportDisabledFacility rdf = new ReportDisabledFacility(this);
-				setContentPane(rdf);
-				validate();
+		lastScreen = (JPanel) getContentPane();
+		ReportDisabledFacility rdf = new ReportDisabledFacility(this);
+		setContentPane(rdf);
+		validate();
 	}
 	public void goToInsertAlternativeParkingLot(){
 		// TODO Auto-generated method stub
@@ -207,10 +208,10 @@ public class Frame extends JFrame implements IGUINavigator {
 	}
 	public void goToComplaintMenu(){
 		// TODO Auto-generated method stub
-				lastScreen = (JPanel) getContentPane();
-				ComplaintMenu cm = new ComplaintMenu(this);
-				setContentPane(cm);
-				validate();
+		lastScreen = (JPanel) getContentPane();
+		ComplaintMenu cm = new ComplaintMenu(this);
+		setContentPane(cm);
+		validate();
 	}
 	public void goToChangeRatesReq(){
 		// TODO Auto-generated method stub
@@ -221,10 +222,30 @@ public class Frame extends JFrame implements IGUINavigator {
 	}
 	public void goToChangeRates(){
 		// TODO Auto-generated method stub
-				lastScreen = (JPanel) getContentPane();
-				RateRequests rr = new RateRequests(this);
-				setContentPane(rr);
-				validate();	
+		lastScreen = (JPanel) getContentPane();
+		RateRequests rr = new RateRequests(this);
+		setContentPane(rr);
+		validate();	
 	}
-	}
+	
+	@Override
+    public void goToAddCarMenu(Customer customer, Map<String,Integer> mp, int type) {
+            // TODO Auto-generated method stub
+            lastScreen = (JPanel) getContentPane();
+            AddCarMenu wm = new AddCarMenu(this, customer, mp, type);
+            setContentPane(wm);             
+            setTitle("Add Car");
+            validate();
+    }
+
+    @Override
+    public void goToCustomerLogin() {
+            // TODO Auto-generated method stub
+            lastScreen = (JPanel) getContentPane();
+            CustomerLogin wm = new CustomerLogin(this);
+            setContentPane(wm);             
+            setTitle("Login");
+            validate();
+    }
+}
 

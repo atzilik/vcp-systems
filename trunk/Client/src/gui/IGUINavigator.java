@@ -22,6 +22,16 @@ public interface IGUINavigator {
 	public void goToFullMemberRegisteration(Customer customer);
 	public void goToAddCarMenu(Customer customer, Map<String,Integer> mp, int type);
 	public void goToSTDMemberRegisteration(Customer customer, Map<String,Integer> mp);
+	public void goToReserveParkingSpace();
+	public void goToReportDisabledParkingSpace();
+	public void goToReportDisabledFacility();
+	public void goToInsertAlternativeParkingLot();
+	public void goToComplaintMenu();
+	public void goToChangeRatesReq();
+	public void goToChangeRates();
+	public void goToGuiTestclass();
+	public void goToTestclass2();
+	public void goToTestclass3();
 	public void goBack();
 
 }
