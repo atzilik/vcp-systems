@@ -175,7 +175,15 @@ public class Frame extends JFrame implements IGUINavigator {
 		// TODO Auto-generated method stub
 		lastScreen = (JPanel) getContentPane();
 		WorkerMenu wm = new WorkerMenu(this, worker);
-		setContentPane(wm);		
+		setContentPane(wm);	
+		setTitle("Worker Menu");
+		validate();
+	}
+	public void goToWorkerLogin(){
+		lastScreen = (JPanel) getContentPane();
+		WorkerLogin wl = new WorkerLogin(this);
+		setContentPane(wl);	
+		setTitle("Worker Login");
 		validate();
 	}
 	public void goToReserveParkingSpace(){
@@ -192,17 +200,10 @@ public class Frame extends JFrame implements IGUINavigator {
 		setContentPane(rdps);
 		validate();
 	}
-	public void goToReportDisabledFacility(){
+	public void goToInsertAlternativeParkingLot(Map<String,Integer> mp, Worker wkr){
 		// TODO Auto-generated method stub
 		lastScreen = (JPanel) getContentPane();
-		ReportDisabledFacility rdf = new ReportDisabledFacility(this);
-		setContentPane(rdf);
-		validate();
-	}
-	public void goToInsertAlternativeParkingLot(){
-		// TODO Auto-generated method stub
-		lastScreen = (JPanel) getContentPane();
-		InsertAlternativeParkingLot inpl = new InsertAlternativeParkingLot(this);
+		InsertAlternativeParkingLot inpl = new InsertAlternativeParkingLot(this,mp,wkr);
 		setContentPane(inpl);
 		validate();
 	}

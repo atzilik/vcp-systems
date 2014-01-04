@@ -10,24 +10,25 @@ import java.awt.event.ActionEvent;
 public class ComplaintMenu extends AbstractGUIComponent {
 	private JTextField textField;
 	private JTextField textField_1;
-	public ComplaintMenu() {
+	public ComplaintMenu(final IGUINavigator navigator) {
 		super();	
+		setLayout(null);
 		
 		JLabel lblAnswer = new JLabel("Answer:");
-		lblAnswer.setBounds(58, 40, 46, 14);
+		lblAnswer.setBounds(22, 9, 40, 14);
 		add(lblAnswer);
 		
 		textField = new JTextField();
-		textField.setBounds(114, 37, 120, 80);
+		textField.setBounds(67, 6, 86, 20);
 		add(textField);
 		textField.setColumns(10);
 		
 		JLabel lblCompenstation = new JLabel("Compenstation:");
-		lblCompenstation.setBounds(58, 141, 76, 14);
+		lblCompenstation.setBounds(158, 9, 76, 14);
 		add(lblCompenstation);
 		
 		textField_1 = new JTextField();
-		textField_1.setBounds(148, 138, 86, 20);
+		textField_1.setBounds(239, 6, 86, 20);
 		add(textField_1);
 		textField_1.setColumns(10);
 		
@@ -36,8 +37,16 @@ public class ComplaintMenu extends AbstractGUIComponent {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnCompenstate.setBounds(145, 217, 102, 23);
+		btnCompenstate.setBounds(330, 5, 97, 23);
 		add(btnCompenstate);
+		
+		JButton btnCancel = new JButton("Cancel");
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				navigator.goBack();
+			}
+		});
+		btnCancel.setBounds(173, 48, 89, 23);
+		add(btnCancel);
 	}
-
 }
