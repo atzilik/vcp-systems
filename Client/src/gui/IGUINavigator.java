@@ -11,6 +11,7 @@ import DataObjects.Worker;
 public interface IGUINavigator {
 	
 	public void goToCustomerLogin();
+	public void goToWorkerLogin();
 	public void goToCustomerMenu(Customer customer);
 	public void goToWorkerMenu(Worker worker);
 	public void goToCancelReservation(Customer customer);
@@ -24,8 +25,7 @@ public interface IGUINavigator {
 	public void goToSTDMemberRegisteration(Customer customer, Map<String,Integer> mp);
 	public void goToReserveParkingSpace();
 	public void goToReportDisabledParkingSpace();
-	public void goToReportDisabledFacility();
-	public void goToInsertAlternativeParkingLot();
+	public void goToInsertAlternativeParkingLot(Map<String,Integer> mp, Worker worker);
 	public void goToComplaintMenu();
 	public void goToChangeRatesReq();
 	public void goToChangeRates();

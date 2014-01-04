@@ -8,46 +8,37 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class ChangeRateMenu extends AbstractGUIComponent {
-	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
-	public ChangeRateMenu() {
+	public ChangeRateMenu(final IGUINavigator navigator) {
 		super();
+		setLayout(null);
 						
 		JLabel lblNewLabel = new JLabel("Occasional Parking Rate:");
-		lblNewLabel.setBounds(43, 41, 125, 14);
+		lblNewLabel.setBounds(29, 55, 119, 14);
 		add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Reserved Parking Rate:");
-		lblNewLabel_1.setBounds(43, 66, 125, 14);
+		lblNewLabel_1.setBounds(29, 89, 114, 14);
 		add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("Standard Membership Rate:");
-		lblNewLabel_2.setBounds(43, 95, 143, 14);
+		lblNewLabel_2.setBounds(29, 124, 134, 14);
 		add(lblNewLabel_2);
 		
-		JLabel lblOccasionalParkingRate = new JLabel("Occasional Parking Rate:");
-		lblOccasionalParkingRate.setBounds(43, 120, 143, 14);
-		add(lblOccasionalParkingRate);
-		
-		textField = new JTextField();
-		textField.setBounds(208, 38, 86, 20);
-		add(textField);
-		textField.setColumns(10);
-		
 		textField_1 = new JTextField();
-		textField_1.setBounds(208, 63, 86, 20);
+		textField_1.setBounds(176, 86, 86, 20);
 		add(textField_1);
 		textField_1.setColumns(10);
 		
 		textField_2 = new JTextField();
-		textField_2.setBounds(208, 92, 86, 20);
+		textField_2.setBounds(176, 52, 86, 20);
 		add(textField_2);
 		textField_2.setColumns(10);
 		
 		textField_3 = new JTextField();
-		textField_3.setBounds(208, 117, 86, 20);
+		textField_3.setBounds(176, 121, 86, 20);
 		add(textField_3);
 		textField_3.setColumns(10);
 		
@@ -56,8 +47,17 @@ public class ChangeRateMenu extends AbstractGUIComponent {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnSend.setBounds(142, 216, 89, 23);
+		btnSend.setBounds(191, 169, 57, 23);
 		add(btnSend);
+		
+		JButton btnCancel = new JButton("Cancel");
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				navigator.goBack();
+			}
+		});
+		btnCancel.setBounds(258, 169, 89, 23);
+		add(btnCancel);
 	}
 
 }
