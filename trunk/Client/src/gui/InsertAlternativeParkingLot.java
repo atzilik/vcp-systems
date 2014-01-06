@@ -7,6 +7,8 @@ import javax.swing.JButton;
 
 import DataObjects.Worker;
 import Messages.MessageAltParking;
+import Messages.MessageAltParkingReply;
+import Messages.MessageIssueComplaintReply;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -37,10 +39,13 @@ public class InsertAlternativeParkingLot extends AbstractGUIComponent {
 		JButton btnSubmit = new JButton("Submit");
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String arr[] = new String[2];
+				String arr[] = new String[3];
 				arr[0]=Integer.toString(worker.getParkingLotID());
 				arr[1]=Integer.toString(parkingLots.get(comboBoxParkLot.getSelectedItem()));
+				arr[2]=(String)comboBoxParkLot.getSelectedItem();
 				client.send(new MessageAltParking(arr));
+				MessageAltParkingReply mapr = (MessageAltParkingReply)client.getMessage();
+				mapr.doAction();
 			}
 		});
 		btnSubmit.setBounds(262, 5, 89, 23);

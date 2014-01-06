@@ -169,10 +169,10 @@ public class Frame extends JFrame implements IGUINavigator {
 		setContentPane(rlps);
 		validate();
 	}
-	public void goToReportDisabledParkingSpace(){
+	public void goToReportDisabledParkingSpace(Worker wkr){
 		// TODO Auto-generated method stub
 		lastScreen = (JPanel) getContentPane();
-		ReportDisabledParkingSpace rdps = new ReportDisabledParkingSpace(this);
+		ReportDisabledParkingSpace rdps = new ReportDisabledParkingSpace(this,wkr);
 		setContentPane(rdps);
 		validate();
 	}

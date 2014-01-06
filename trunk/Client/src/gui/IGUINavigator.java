@@ -25,7 +25,7 @@ public interface IGUINavigator {
 	public void goToAddCarMenu(Customer customer, Map<String,Integer> mp, int type);
 	public void goToSTDMemberRegisteration(Customer customer, Map<String,Integer> mp);
 	public void goToReserveParkingSpace();
-	public void goToReportDisabledParkingSpace();
+	public void goToReportDisabledParkingSpace(Worker worker);
 	public void goToInsertAlternativeParkingLot(Map<String,Integer> mp, Worker worker);
 	public void goToComplaintMenu();
 	public void goToChangeRatesReq();
