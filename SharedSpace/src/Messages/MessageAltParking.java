@@ -18,10 +18,11 @@ public class MessageAltParking extends Message {
 		// TODO Auto-generated method stub
 		con = this.sqlConnection.getConnection();
 		try {
-			PreparedStatement ps = con.prepareStatement("UPDATE parkinglots SET ParkingLotId=? WHERE ParkingLotId=?  ;");
+			PreparedStatement ps = con.prepareStatement("UPDATE parkinglots SET alternative=? WHERE parkingLotID=?;");
 			ps.setString(1, details[1]);
 			ps.setString(2, details[0]);
 			ps.executeUpdate();
+			return new MessageAltParkingReply(details[2]);
 		}catch (SQLException e) {e.printStackTrace();}
 		return null;
 	}
