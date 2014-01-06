@@ -3,6 +3,8 @@ package gui;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+
+import DataObjects.ParkingLot;
 import Messages.MessageCustomerLogin;
 import Messages.MessageCustomerLoginReply;
 import java.awt.event.ActionListener;
@@ -58,25 +60,16 @@ public class CustomerLogin extends AbstractGUIComponent {
 			}
 		});
 		add(btnClear);
+		
+		JButton btnCancel = new JButton("Cancel");
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				navigator.goToLoginMenu();
+			}
+		});
+		btnCancel.setBounds(181, 252, 95, 37);
+		add(btnCancel);
 
 	}
 
-	public static void main(String args[]) {
-		String host = null;
-		try
-		{
-			host = args[0];
-		}
-		catch(ArrayIndexOutOfBoundsException e)
-		{
-			host = "localhost";
-		}
-		Frame frame = new Frame();
-		CustomerLogin cl = new CustomerLogin(frame);
-		cl.ClientSingleton(host, Client.DEFAULT_PORT);
-		frame.setContentPane(cl);
-		frame.setTitle("Login");
-		frame.validate();
-
-	}
 }

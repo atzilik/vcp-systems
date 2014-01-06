@@ -26,7 +26,6 @@ public class Frame extends JFrame implements IGUINavigator {
 	private WorkerMenu workerMenu;
 	private FullMemberRegistration fullMemberRegistration;
 	private InsertAlternativeParkingLot insertAlternativeParkinglot;
-	private KioskReservationMenu kioskReservationMenu;
 	private CustomerLogin login;
 	private MemberRegistration mainRegistrationMenu;
 	private RateRequests rateRequests;
@@ -57,29 +56,6 @@ public class Frame extends JFrame implements IGUINavigator {
 	}
 
 
-	@Override
-	public void goToTestclass2() {
-		lastScreen = (JPanel) getContentPane();
-		Testclass2 tc2 = new Testclass2(this);
-		setContentPane(tc2);		
-		validate();
-	}
-
-	@Override
-	public void goToTestclass3() {
-		lastScreen = (JPanel) getContentPane();
-		Testclass3 tc3 = new Testclass3(this);
-		setContentPane(tc3);		
-		validate();		
-	}
-
-	@Override
-	public void goToGuiTestclass() {
-		lastScreen = (JPanel) getContentPane();
-		GuiTestClass guiTC = new GuiTestClass(this);
-		setContentPane(guiTC);		
-		validate();				
-	}
 
 	@Override
 	public void goBack() {
@@ -248,5 +224,15 @@ public class Frame extends JFrame implements IGUINavigator {
             setTitle("Login");
             validate();
     }
+
+	@Override
+	public void goToLoginMenu() {
+		// TODO Auto-generated method stub
+		lastScreen = (JPanel) getContentPane();
+        LoginMenu lm = new LoginMenu(this);
+        setContentPane(lm);             
+        setTitle("Login");
+        validate();
+	}
 }
 

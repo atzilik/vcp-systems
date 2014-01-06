@@ -28,17 +28,16 @@ public class MessageCancelReservation extends Message {
 
 			if (rs.isBeforeFirst() == false)
 			{
+				ps.close();
 				return new MessageCancelReservationReply(reservationNum, false);
 			}
 			else
 			{
 				rs.next();
-				PreparedStatement ps1 = con.prepareStatement("DELETE FROM reservations WHERE reservationId=?");
-				ps1.setString(1, rs.getString(1));
-				ps1.executeUpdate();
+				ps = con.prepareStatement("DELETE FROM reservations WHERE reservationId=?");
+				ps.setString(1, rs.getString(1));
+				ps.executeUpdate();
 				ps.close();
-				rs.close();
-				ps1.close();
 				return new MessageCancelReservationReply(reservationNum, true);
 			}
 		}catch (SQLException e) {e.printStackTrace();}

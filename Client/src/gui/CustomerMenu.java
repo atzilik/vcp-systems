@@ -25,6 +25,7 @@ public class CustomerMenu extends AbstractGUIComponent {
 		JLabel lblname = new JLabel(cst.getfName() + " " + cst.getlName());
 		lblname.setBounds(230, 35, 215, 14);
 		add(lblname);
+		
 		if (cst instanceof STDCustomer)
 		{
 			JButton btnCheckRes = new JButton("Cancel reservation");
@@ -62,6 +63,18 @@ public class CustomerMenu extends AbstractGUIComponent {
 			});
 			btnReserveNow.setBounds(399, 156, 119, 45);
 			add(btnReserveNow);
+		}
+		
+		if (cst instanceof STDMember)
+		{
+			JButton btnMemberRegister = new JButton("Full Member register");
+			btnMemberRegister.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					navigator.goToFullMemberRegisteration(cst);
+				}
+			});
+			btnMemberRegister.setBounds(50, 156, 155, 42);
+			add(btnMemberRegister);
 		}
 
 		JButton btnIssueComplaint = new JButton("Issue complaint");

@@ -12,6 +12,7 @@ public class MessageCustomerLogin extends Message {
 	private String id;
 	private String carNum;
 	private int type;
+	private PreparedStatement ps;
 	
 	public MessageCustomerLogin(String id, String carNum) {
 		this.id = id;
@@ -25,17 +26,32 @@ public class MessageCustomerLogin extends Message {
 			ResultSet rs = findCustomer();
 			switch (type)
 			{
-			case 0: return new MessageCustomerLoginReply();
-			case 1: return new MessageCustomerLoginReply(new STDCustomer(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5)));
-			case 2: return new MessageCustomerLoginReply(new STDMember(rs.getString(3), rs.getString(2), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(1), rs.getString(7), rs.getInt(8), rs.getString(9)));
-			case 3: return new MessageCustomerLoginReply(new FullMember(rs.getString(3), rs.getString(2), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(1), rs.getString(7)));
+			case 1: {
+				MessageCustomerLoginReply clr = new MessageCustomerLoginReply(new STDCustomer(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5)));
+				ps.close();
+				return clr;
+			}
+			case 2: {
+				MessageCustomerLoginReply clr = new MessageCustomerLoginReply(new STDMember(rs.getString(3), rs.getString(2), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(1), rs.getString(7), rs.getInt(8), rs.getString(9))); 
+				ps.close();
+				return clr;
+			}
+			case 3: {
+				MessageCustomerLoginReply clr = new MessageCustomerLoginReply(new FullMember(rs.getString(3), rs.getString(2), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(1), rs.getString(7)));
+				ps.close();
+				return clr;
+			}
+			default: {
+				ps.close();
+				return new MessageCustomerLoginReply();		
+			}
 			}
 		}catch (SQLException e) {e.printStackTrace();}
 		return null;
 	}
 	
 	public ResultSet findCustomer() throws SQLException{
-		PreparedStatement ps = con.prepareStatement("SELECT * FROM customers WHERE id=? and carID=?;");
+		ps = con.prepareStatement("SELECT * FROM customers WHERE id=? and carID=?;");
 		ps.setString(1, id);
 		ps.setString(2, carNum);
 		ResultSet rs = ps.executeQuery();
@@ -45,12 +61,11 @@ public class MessageCustomerLogin extends Message {
 			type = 1;
 			return rs;
 		}
-		
+		ps.close();
 		ps = con.prepareStatement("SELECT * FROM members WHERE memberID=? and carID=?;");
 		ps.setString(1, id);
 		ps.setString(2, carNum);
 		rs = ps.executeQuery();
-		
 		if (rs.next())
 		{
 			type = rs.getInt(10);

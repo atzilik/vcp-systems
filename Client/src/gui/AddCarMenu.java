@@ -5,8 +5,10 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 
 import DataObjects.Customer;
-import Messages.MessageMemberRegister;
-import Messages.MessageMemberRegisterReply;
+import DataObjects.STDCustomer;
+import DataObjects.STDMember;
+import Messages.*;
+
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -43,7 +45,21 @@ public class AddCarMenu extends AbstractGUIComponent{
 				{
 				case 2:{
 					String[] arr = new String[10];
-					arr[0] = Integer.toString(100000 + new Random().nextInt(900000));
+					if (cst instanceof STDCustomer)
+					{
+						if (((STDCustomer)cst).isRegisteredToMember())
+							arr[0] = ((STDCustomer)cst).getMemberID();
+						else
+						{
+							client.send(new MessageCheckMemberID());
+							MessageCheckMemberIDReply cmir = (MessageCheckMemberIDReply)client.getMessage();
+							arr[0] = cmir.getMemberID();
+							((STDCustomer) cst).setMemberID(arr[0]);
+							((STDCustomer) cst).setRegisteredToMember(true);
+						}
+					}
+					else
+						arr[0] = ((STDMember)cst).getMemberId();
 					arr[1] = textFieldCarNum.getText();
 					arr[2] = cst.getId();
 					arr[3] = cst.getfName();
@@ -58,7 +74,25 @@ public class AddCarMenu extends AbstractGUIComponent{
 				}
 				case 3:{
 					String[] arr = new String[8];
-					arr[0] = Integer.toString(100000 + new Random().nextInt(900000));
+					if (cst instanceof STDCustomer)
+					{
+						if (((STDCustomer)cst).isRegisteredToMember())
+							arr[0] = ((STDCustomer)cst).getMemberID();
+						else
+						{
+							client.send(new MessageCheckMemberID());
+							MessageCheckMemberIDReply cmir = (MessageCheckMemberIDReply)client.getMessage();
+							arr[0] = cmir.getMemberID();
+							((STDCustomer) cst).setMemberID(arr[0]);
+							((STDCustomer) cst).setRegisteredToMember(true);
+							client.send(new MessageMemberRegister(arr,arr[7]));
+							MessageMemberRegisterReply fmrr = (MessageMemberRegisterReply)client.getMessage();
+							fmrr.doAction();
+							navigator.goToMemberRegister(cst);
+						}
+					}
+					else
+						arr[0] = ((STDMember)cst).getMemberId();
 					arr[1] = textFieldCarNum.getText();
 					arr[2] = cst.getId();
 					arr[3] = cst.getfName();
@@ -66,13 +100,14 @@ public class AddCarMenu extends AbstractGUIComponent{
 					arr[5] = cst.getEmail();
 					arr[6] = new java.sql.Date(new java.util.Date().getTime()).toString();
 					arr[7] = "3";
-					client.send(new MessageMemberRegister(arr,arr[7]));
+					client.send(new MessageSTDToFullRegister(arr, "3"));
+					MessageSTDToFullRegisterReply stfrr= (MessageSTDToFullRegisterReply)client.getMessage();
+					stfrr.doAction();
+					navigator.goToFullMemberRegisteration(cst);
 					break;
 				}
 				}
-				MessageMemberRegisterReply fmrr = (MessageMemberRegisterReply)client.getMessage();
-				fmrr.doAction();
-				navigator.goToMemberRegister(cst);
+				
 			}
 		});
 		btnApplay.setBounds(90, 200, 86, 44);
