@@ -23,7 +23,6 @@ public class MessageGetParkingLotsID extends Message {
 			{
 				mp.put(rs.getString(2), rs.getInt(1));
 			}
-			rs.close();
 			ps.close();
 			return new MessageGetParkingLotsIDReply(mp);
 		}catch (SQLException e) {e.printStackTrace();}

@@ -22,7 +22,7 @@ public class MessageIssueComplaint extends Message {
 			ps.setString(3, details[2]);
 			ps.setString(4, details[3]);
 			ps.executeUpdate();
-
+			ps.close();
 			return new MessageIssueComplaintReply(details[0]);
 		}catch (SQLException e) {
 

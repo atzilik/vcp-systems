@@ -10,6 +10,7 @@ import DataObjects.Worker;
 
 public interface IGUINavigator {
 	
+	public void goToLoginMenu();
 	public void goToCustomerLogin();
 	public void goToWorkerLogin();
 	public void goToCustomerMenu(Customer customer);
@@ -29,9 +30,6 @@ public interface IGUINavigator {
 	public void goToComplaintMenu();
 	public void goToChangeRatesReq();
 	public void goToChangeRates();
-	public void goToGuiTestclass();
-	public void goToTestclass2();
-	public void goToTestclass3();
 	public void goBack();
 
 }

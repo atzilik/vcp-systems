@@ -34,7 +34,6 @@ public class MessageWorkerLogin extends Message {
 			if (user.isBeforeFirst() == false)
 				//user doesn't exist
 			{
-				user.close();
 				ps.close();
 				return new MessageWorkerLoginReply();
 			}
@@ -48,21 +47,26 @@ public class MessageWorkerLogin extends Message {
 				switch(wkr.getString(6))
 				{
 				case "1": {
-					return new MessageWorkerLoginReply(new CeoWorker(wkr.getString(1), wkr.getString(2), wkr.getString(3), wkr.getString(4), wkr.getInt(5))); 
+					MessageWorkerLoginReply wlr= new MessageWorkerLoginReply(new CeoWorker(wkr.getString(1), wkr.getString(2), wkr.getString(3), wkr.getString(4), wkr.getInt(5))); 
+					ps.close();
+					return wlr;
 				}
 				case "2": {
-					return new MessageWorkerLoginReply(new ParkingLotManager(wkr.getString(1), wkr.getString(2), wkr.getString(3), wkr.getString(4), wkr.getInt(5)));
+					MessageWorkerLoginReply wlr = new MessageWorkerLoginReply(new ParkingLotManager(wkr.getString(1), wkr.getString(2), wkr.getString(3), wkr.getString(4), wkr.getInt(5)));
+					ps.close();
+					return wlr; 
 				}
 				case "3": {
-					return new MessageWorkerLoginReply(new Worker(wkr.getString(1), wkr.getString(2), wkr.getString(3), wkr.getString(4), wkr.getInt(5)));
+					MessageWorkerLoginReply wlr = new MessageWorkerLoginReply(new Worker(wkr.getString(1), wkr.getString(2), wkr.getString(3), wkr.getString(4), wkr.getInt(5)));
+					ps.close();
+					return wlr;
 				}
 				case "4": {
-					return new MessageWorkerLoginReply(new CustomerService(wkr.getString(1), wkr.getString(2), wkr.getString(3), wkr.getString(4), wkr.getInt(5)));
+					MessageWorkerLoginReply wlr = new MessageWorkerLoginReply(new CustomerService(wkr.getString(1), wkr.getString(2), wkr.getString(3), wkr.getString(4), wkr.getInt(5)));
+					ps.close();
+					return wlr;
 				}
 				}
-//				user.close();
-//				wkr.close();
-//				ps.close();
 			}
 		} catch (SQLException e) {e.printStackTrace();}
 		return null;

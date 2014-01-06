@@ -6,8 +6,8 @@ import java.sql.SQLException;
 import java.util.Random;
 
 public class MessageMemberRegister extends Message {
-	private String[] details;
-	private String type;
+	protected String[] details;
+	protected String type;
 
 	public MessageMemberRegister(String[] details, String type){
 		this.details = details;
@@ -18,14 +18,24 @@ public class MessageMemberRegister extends Message {
 		// TODO Auto-generated method stub
 		con = this.sqlConnection.getConnection();
 		try{
+			//if car already registered is a member
 			PreparedStatement ps = con.prepareStatement("SELECT * FROM members WHERE carID=?;");
 			ps.setString(1, details[1]);
 			ResultSet rs = ps.executeQuery();
 
 			if (rs.isBeforeFirst())
-				//member already exist
+			{
+				ps.close();
 				return new MessageMemberRegisterReply();
+			}
 
+//			// if memberID already exist
+//			ps = con.prepareStatement("SELECT * FROM members WHERE memberID=?;");
+//			ps.setString(1, details[0]);
+//			rs = ps.executeQuery();
+//			
+//			if (rs.next())
+//				details[0] = rs.getString(1);
 			//			if (rs.next())
 			//				//existing inactive member
 			//			{
@@ -53,6 +63,7 @@ public class MessageMemberRegister extends Message {
 			case "3": ps = con.prepareStatement("INSERT INTO members (memberID,carID,id,fName,lName,email,startDate,type) VALUES(?,?,?,?,?,?,?,?);");
 			break;
 			}
+
 			
 			for (int i = 0 ; i < details.length; i++)
 			{
@@ -76,18 +87,13 @@ public class MessageMemberRegister extends Message {
 				ps.setString(1, details[2]);
 				ps.setString(2, details[1]);
 				ps.executeUpdate();
-
+				ps.close();
 			}
-
-			return new MessageMemberRegisterReply(details[0]);
+			ps.close();
+			return new MessageMemberRegisterReply(details[0],details[1]);
 
 		}catch (SQLException e) 
 		{
-			if (e.getMessage().contains("Duplicate entry"))
-			{
-				details[0] = Integer.toString(100000 + new Random().nextInt(900000));
-				new MessageMemberRegister(details,type).doAction();
-			}	
 		}
 		return null;
 	}

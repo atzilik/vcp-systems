@@ -9,6 +9,7 @@ import javax.swing.JTextField;
 
 import client.Client;
 
+import DataObjects.ParkingLot;
 import Messages.MessageCustomerLogin;
 import Messages.MessageCustomerLoginReply;
 import Messages.MessageWorkerLogin;
@@ -63,6 +64,15 @@ public class WorkerLogin extends AbstractGUIComponent {
 			}
 		});
 		add(btnClear);
+		
+		JButton btnCancel = new JButton("Cancel");
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				navigator.goToLoginMenu();
+			}
+		});
+		btnCancel.setBounds(177, 252, 95, 37);
+		add(btnCancel);
 
 	}
 	

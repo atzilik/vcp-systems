@@ -11,10 +11,13 @@ import javax.swing.JLabel;
 
 import DataObjects.CeoWorker;
 import DataObjects.CustomerService;
+import DataObjects.ParkingLot;
 import DataObjects.ParkingLotManager;
 import DataObjects.Worker;
 import Messages.MessageGetParkingLotsID;
 import Messages.MessageGetParkingLotsIDReply;
+import Messages.MessageSetupPL;
+import Messages.MessageSetupPLReply;
 
 
 public class WorkerMenu extends AbstractGUIComponent {
@@ -30,6 +33,10 @@ public class WorkerMenu extends AbstractGUIComponent {
 		this.wkr  = wkr;
 		this.navigator=navigator;
 		setSize(477, 320);
+		JLabel lblNewLabel = new JLabel("Hello" + " " +wkr.getfName() + " " + wkr.getlName());
+		lblNewLabel.setBounds(121, 11, 123, 14);
+		add(lblNewLabel);
+		
 		String wkrType = null;
 		
 		if (wkr instanceof ParkingLotManager)
@@ -52,9 +59,9 @@ public class WorkerMenu extends AbstractGUIComponent {
 			wkrType = "Worker";
 			openWorkerMenu();
 		}
-		JLabel lblNewLabel = new JLabel(wkrType);
-		lblNewLabel.setBounds(10, 11, 134, 14);
-		add(lblNewLabel);
+		JLabel lblNewLabel1 = new JLabel(wkrType);
+		lblNewLabel1.setBounds(10, 11, 134, 14);
+		add(lblNewLabel1);
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -63,6 +70,7 @@ public class WorkerMenu extends AbstractGUIComponent {
 		});
 		btnCancel.setBounds(173, 265, 89, 23);
 		add(btnCancel);
+		
 	}
 
 	
@@ -109,15 +117,17 @@ public class WorkerMenu extends AbstractGUIComponent {
 		btn_InsertAlternativeParkingLot.setBounds(261, 110, 138, 58);
 		add(btn_InsertAlternativeParkingLot);
 
+		
 		JButton btnSetupParkingLot = new JButton("<html>Setup<br />Parking Lot</html>");
+		btnSetupParkingLot.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				client.send(new MessageSetupPL(wkr.getParkingLotID()));
+				MessageSetupPLReply splr = (MessageSetupPLReply)client.getMessage();
+			}
+		});
 		btnSetupParkingLot.setVerticalAlignment(SwingConstants.TOP);
 		btnSetupParkingLot.setBounds(166, 179, 123, 61);
 		add(btnSetupParkingLot);
-
-		JLabel lblNewLabel = new JLabel("Hello" + " " +wkr.getfName() + " " + wkr.getlName());
-		lblNewLabel.setBounds(121, 11, 123, 14);
-		add(lblNewLabel);
-	
 	}
 	
 	public void openParkingLotManagerMenu(){
