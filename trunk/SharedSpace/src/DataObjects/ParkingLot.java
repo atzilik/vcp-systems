@@ -2,6 +2,8 @@ package DataObjects;
 
 import java.io.Serializable;
 
+
+
 public class ParkingLot implements Serializable{
 	
 	private int parkingLotID;
@@ -10,7 +12,6 @@ public class ParkingLot implements Serializable{
 	private boolean active;
 	private boolean full;
 	private ParkingLot alternativePL;
-	private int freepsace;
 	private Robot robot;
 	final public static int ROWS_SIZE = 3;
 	final public static int FLOORS_SIZE = 3;
@@ -32,8 +33,6 @@ public class ParkingLot implements Serializable{
 		this.active = active;
 		this.full = full;
 		this.alternativePL = alternativePL;
-		freepsace = FLOORS_SIZE * ROWS_SIZE * depthSize;
-//		robot = new Robot(parkingspace, depthSize);
 	}
 
 	public int getParkingLotID() {
@@ -83,16 +82,6 @@ public class ParkingLot implements Serializable{
 	public void setAlternativePL(ParkingLot alternativePL) {
 		this.alternativePL = alternativePL;
 	}
-
-	public int getFreepsace() {
-		return freepsace;
-	}
-
-	public void setFreepsace(int freepsace) {
-		this.freepsace = freepsace;
-	}
-
-
 
 	public int getDepthSize() {
 		return depthSize;

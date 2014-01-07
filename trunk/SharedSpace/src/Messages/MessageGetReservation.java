@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.sql.Time;
 import java.util.Calendar;
 import java.util.Map;
-
+import java.sql.Date;
 import DataObjects.DateConvert;
 import DataObjects.FullMember;
 import DataObjects.Reservation;
@@ -18,8 +18,8 @@ public class MessageGetReservation extends Message{
 	private String id;
 	Reservation res;
 	String pl;
-	java.util.Date todayDate = fixDate(new java.sql.Date(new java.util.Date().getTime())); 
-	java.sql.Time currTime = new java.sql.Time(new java.util.Date().getTime());
+	Date todayDate = new Date(new java.util.Date().getTime()); 
+	Time currTime = new Time(new java.util.Date().getTime());
 
 	public MessageGetReservation (String id, String carNum, String pl) {
 		this.carNum = carNum;
@@ -39,7 +39,7 @@ public class MessageGetReservation extends Message{
 				{
 					res = new Reservation(rs.getString(1),rs.getInt(2),rs.getString(3),
 							rs.getString(4),rs.getDate(5),rs.getTime(6),rs.getDate(7),rs.getTime(8));
-					if (pl.equals(res.getPl()) && DateConvert.equalsDateAndSql(todayDate, res.getEstCinDate()))
+					if (pl.equals(res.getPl()) && DateConvert.equalsDate(todayDate, res.getEstCinDate()))
 						// the chack in is in the same pl that reserved and the date of today is the same as the res
 
 						return new MessageGetReservationReply(res);
