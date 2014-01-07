@@ -11,18 +11,6 @@ import DataObjects.Customer;
 import Messages.MessageCancelReservation;
 import Messages.MessageCancelReservationReply;
 
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.BoxLayout;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-
 public class CancelReservation extends AbstractGUIComponent {
 	private Customer cst;
 	private JTextField textField_resNum;
