@@ -2,20 +2,22 @@ package DataObjects;
 
 import java.io.Serializable;
 import java.sql.Time;
-import java.sql.Date;
+import java.util.Calendar;
+import java.util.Date;
+
 
 public class Reservation implements Serializable{
 	protected String rid;
 	protected int carId;
 	protected String cid;
 	protected String pl;
-	protected Date estCinDate;
+	protected java.sql.Date estCinDate;
 	protected Time estCinHour;
-	protected Date estCoutDate;
+	protected java.sql.Date estCoutDate;
 	protected Time estCoutHour;
 
-	public Reservation (String rid, int carId, String cid, String pl, Date estCinDate, 
-			Time estCinHour, Date estCoutDate, Time estCoutHour) {
+	public Reservation (String rid, int carId, String cid, String pl, java.sql.Date estCinDate, 
+			Time estCinHour, java.sql.Date estCoutDate, Time estCoutHour) {
 		this.rid = rid;
 		this.carId = carId;
 		this.cid = cid;
@@ -39,16 +41,17 @@ public class Reservation implements Serializable{
 	public String getPl() {
 		return pl;
 	}
-	public Date getEstCinDate() {
+	public java.sql.Date getEstCinDate() {
 		return estCinDate;
 	}
 	public Time getEstCinHour() {
 		return estCinHour;
 	}
-	public Date getEstCoutDate() {
+	public java.sql.Date getEstCoutDate() {
 		return estCoutDate;
 	}
 	public Time getEstCoutHour() {
 		return estCoutHour;
 	}
+
 }

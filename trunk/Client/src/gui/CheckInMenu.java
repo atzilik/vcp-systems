@@ -63,7 +63,7 @@ public class CheckInMenu extends AbstractGUIComponent {
 							// TODO Auto-generated method stub
 							if (parkinglots[Integer.parseInt(ipr.getRes().getPl())].getRobot().isBusy() == false)
 							{
-								parkinglots[Integer.parseInt(ipr.getRes().getPl())].getRobot().parkCar(ipr.getRes().getCarId(), ipr.getRes().getEstCoutDate(),ipr.getRes().getEstCoutHour());
+//								parkinglots[Integer.parseInt(ipr.getRes().getPl())].getRobot().parkCar(ipr.getRes().getCarId(), ipr.getRes().getEstCoutDate(),ipr.getRes().getEstCoutHour());
 							}
 						}
 					}).start();
