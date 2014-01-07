@@ -11,7 +11,7 @@ public class ParkingLot implements Serializable{
 	private boolean full;
 	private ParkingLot alternativePL;
 	private int freepsace;
-	private	Robot robot;
+	private Robot robot;
 	final public static int ROWS_SIZE = 3;
 	final public static int FLOORS_SIZE = 3;
 	public int depthSize;
@@ -33,7 +33,7 @@ public class ParkingLot implements Serializable{
 		this.full = full;
 		this.alternativePL = alternativePL;
 		freepsace = FLOORS_SIZE * ROWS_SIZE * depthSize;
-		robot = new Robot();
+//		robot = new Robot(parkingspace, depthSize);
 	}
 
 	public int getParkingLotID() {
@@ -92,13 +92,7 @@ public class ParkingLot implements Serializable{
 		this.freepsace = freepsace;
 	}
 
-	public Robot getRobot() {
-		return robot;
-	}
 
-	public void setRobot(Robot robot) {
-		this.robot = robot;
-	}
 
 	public int getDepthSize() {
 		return depthSize;
@@ -107,7 +101,14 @@ public class ParkingLot implements Serializable{
 	public void setDepthSize(int depthSize) {
 		this.depthSize = depthSize;
 	}
-	
+
+	public Robot getRobot() {
+		return robot;
+	}
+
+	public void setRobot() {
+		this.robot = new Robot(parkingspace, depthSize);
+	}
 
 	
 	
