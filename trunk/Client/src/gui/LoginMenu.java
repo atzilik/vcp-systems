@@ -47,7 +47,8 @@ public class LoginMenu extends AbstractGUIComponent {
 		Frame frame = new Frame();
 		LoginMenu lm = new LoginMenu(frame);
 		lm.ClientSingleton(host, Client.DEFAULT_PORT);
-		client.send(new MessageMapParkingLot(AbstractGUIComponent.NUM_OF_PARKINGLOTS));
+		MessageMapParkingLot ma = new MessageMapParkingLot(AbstractGUIComponent.NUM_OF_PARKINGLOTS);
+		client.send(ma);
 		MessageMapParkingLotReply plr = (MessageMapParkingLotReply)client.getMessage();
 		lm.setParkingLots(plr.getParkinglot());
 		frame.setContentPane(lm);

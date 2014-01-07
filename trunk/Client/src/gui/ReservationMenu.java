@@ -79,6 +79,7 @@ public class ReservationMenu extends AbstractGUIComponent {
 					arr[6] = textField_estCotDate.getText();
 				}
 				arr[7] = textField_estCotHour.getText();
+						
 				client.send(new MessageInsertReservation(arr));
 				MessageInsertReservationReply irr = (MessageInsertReservationReply)client.getMessage();
 				irr.doAction();

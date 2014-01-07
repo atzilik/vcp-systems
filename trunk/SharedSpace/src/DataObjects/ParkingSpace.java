@@ -1,12 +1,16 @@
 package DataObjects;
 
 import java.io.Serializable;
+import java.sql.Date;
+import java.sql.Time;
 
 public class ParkingSpace implements Serializable{
 	private boolean disabled;
 	private boolean reserved;
 	private boolean occupied;
 	private String carNum;
+	private Date checkOutdate;
+	private Time checkOutTime;
 	
 	
 	public ParkingSpace() {
@@ -18,12 +22,14 @@ public class ParkingSpace implements Serializable{
 	}
 	
 	public ParkingSpace(boolean disabled, boolean reserved, boolean occupied,
-			String carNum) {
+			String carNum, Date checkOutdate, Time checkOutTime) {
 		super();
 		this.disabled = disabled;
 		this.reserved = reserved;
 		this.occupied = occupied;
 		this.carNum = carNum;
+		this.checkOutdate = checkOutdate;
+		this.checkOutTime = checkOutTime;
 	}
 
 
@@ -65,6 +71,28 @@ public class ParkingSpace implements Serializable{
 	public void setCarNum(String carNum) {
 		this.carNum = carNum;
 	}
+
+	public Date getCheckOutdate() {
+		return checkOutdate;
+	}
+
+	public void setCheckOutdate(Date checkOutdate) {
+		this.checkOutdate = checkOutdate;
+	}
 	
+	
+	public Time getCheckOutTime() {
+		return checkOutTime;
+	}
+
+	public void setCheckOutTime(Time checkOutTime) {
+		this.checkOutTime = checkOutTime;
+	}
+
+	public boolean isAvailable(){
+		if (isDisabled() == false && isReserved() == false && isOccupied() == false)
+			return true;
+		return false;
+	}
 	
 }

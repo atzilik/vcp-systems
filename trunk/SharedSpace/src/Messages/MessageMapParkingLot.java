@@ -39,16 +39,16 @@ public class MessageMapParkingLot extends Message {
 					//reserved parking space
 					if (rs.getInt(5) == 1)
 					{
-						pspace[rs.getInt(2)][rs.getInt(3)][rs.getInt(4)] = new ParkingSpace(false,true,false,null);
+						pspace[rs.getInt(2)][rs.getInt(3)][rs.getInt(4)] = new ParkingSpace(false,true,false,null, rs.getDate(8),rs.getTime(9));
 					}
 					//disabled parking space
 					else if(rs.getInt(6) == 1)
 					{
-						pspace[rs.getInt(2)][rs.getInt(3)][rs.getInt(4)] = new ParkingSpace(true,false,false,null);
+						pspace[rs.getInt(2)][rs.getInt(3)][rs.getInt(4)] = new ParkingSpace(true,false,false,null, rs.getDate(8),rs.getTime(9));
 					}
 					else
 					{
-						pspace[rs.getInt(2)][rs.getInt(3)][rs.getInt(4)] = new ParkingSpace(false,false,true,rs.getString(7));
+						pspace[rs.getInt(2)][rs.getInt(3)][rs.getInt(4)] = new ParkingSpace(false,false,true,rs.getString(7), rs.getDate(8),rs.getTime(9));
 					}
 					
 				}
@@ -67,10 +67,11 @@ public class MessageMapParkingLot extends Message {
 				}
 				ps.close();
 				parkinglots[i].setParkingspace(pspace);
+				parkinglots[i].setRobot();
 			}
 			return new MessageMapParkingLotReply(parkinglots);
 			
-		}catch (SQLException e) {};
+		}catch (SQLException e) {e.printStackTrace();}
 		// TODO Auto-generated method stub
 		return null;
 	}
