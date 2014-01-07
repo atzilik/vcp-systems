@@ -1,23 +1,27 @@
 package DataObjects;
 
 import java.util.Calendar;
+import java.sql.Date;
 
 public class DateConvert {
 
 
-	public static boolean equalsDateAndSql(java.util.Date date1, java.sql.Date date2){
+	public static boolean equalsDate(Date date1, Date date2){
+		java.util.Date newdate1 = fixDate(date1);
 		java.util.Date newdate2 = fixDate(date2);
-		return date1.equals(newdate2);
+		return newdate1.equals(newdate2);
 	}
 	
-	public static boolean afterDateAndSql(java.util.Date date1, java.sql.Date date2){
+	public static boolean afterDate(Date date1, Date date2){
+		java.util.Date newdate1 = fixDate(date1);
 		java.util.Date newdate2 = fixDate(date2);
-		return date1.after(newdate2);
+		return newdate1.after(newdate2);
 	}
 	
-	public static boolean beforeDateAndSql(java.util.Date date1, java.sql.Date date2){
+	public static boolean beforeDate(Date date1, Date date2){
+		java.util.Date newdate1 = fixDate(date1);
 		java.util.Date newdate2 = fixDate(date2);
-		return date1.before(newdate2);
+		return newdate1.before(newdate2);
 	}
 	/**
 	 * 0  - same time

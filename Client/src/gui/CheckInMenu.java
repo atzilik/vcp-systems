@@ -17,6 +17,7 @@ import Messages.MessageGetReservation;
 import Messages.MessageGetReservationReply;
 import Messages.MessageInsertPc;
 import Messages.MessageInsertPcReply;
+import Messages.MessageUpdatePLMap;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -31,49 +32,48 @@ public class CheckInMenu extends AbstractGUIComponent {
 	private JTextField textField_1;
 	private Map<String,Integer> parkingLots;
 	private JComboBox comboBox;
-	
+
 	public CheckInMenu(final IGUINavigator navigator, final Customer cst, Map<String,Integer> mp) {
 		this.cst = cst;
 		this.parkingLots = mp;
-		
+
 		setLayout(null);
-	
+
 		JButton btnSubmit = new JButton("OK");
 		btnSubmit.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			
-			String pl = Integer.toString(parkingLots.get(comboBox.getSelectedItem()));
+			public void actionPerformed(ActionEvent e) {
 
-			if (cst instanceof STDCustomer)
-			{
-				client.send(new MessageGetReservation(cst.getId(), cst.getCarId(),pl));
-				MessageGetReservationReply grr = (MessageGetReservationReply) client.getMessage();
-				grr.doAction();
-				if (grr.getReservation()!= null)  // there is a res
+				String pl = Integer.toString(parkingLots.get(comboBox.getSelectedItem()));
+
+				if (cst instanceof STDCustomer)
 				{
-					// compare time if before can't chack in
-					client.send(new MessageInsertPc(grr.getReservation()));
-					final MessageInsertPcReply  ipr = (MessageInsertPcReply) client.getMessage();
-					ipr.doAction();
-					navigator.goBack();
-					new Thread(new Runnable() {
-						
-						@Override
-						public void run() {
-							// TODO Auto-generated method stub
-							if (parkinglots[Integer.parseInt(ipr.getRes().getPl())].getRobot().isBusy() == false)
-							{
-//								parkinglots[Integer.parseInt(ipr.getRes().getPl())].getRobot().parkCar(ipr.getRes().getCarId(), ipr.getRes().getEstCoutDate(),ipr.getRes().getEstCoutHour());
+					client.send(new MessageGetReservation(cst.getId(), cst.getCarId(),pl));
+					MessageGetReservationReply grr = (MessageGetReservationReply) client.getMessage();
+					grr.doAction();
+					if (grr.getReservation()!= null)  // there is a res
+					{
+						// compare time if before can't chack in
+						client.send(new MessageInsertPc(grr.getReservation()));
+						final MessageInsertPcReply  ipr = (MessageInsertPcReply) client.getMessage();
+						ipr.doAction();
+						navigator.goBack();
+						new Thread(new Runnable() {
+
+							@Override
+							public void run() {
+								// TODO Auto-generated method stub
+								while (parkinglots[Integer.parseInt(ipr.getRes().getPl())].getRobot().isBusy());
+								parkinglots[Integer.parseInt(ipr.getRes().getPl())].getRobot().parkCar(ipr.getRes().getCarId(), ipr.getRes().getEstCoutDate(),ipr.getRes().getEstCoutHour());
+								client.send(new MessageUpdatePLMap(Integer.parseInt(ipr.getRes().getPl()),parkinglots[Integer.parseInt(ipr.getRes().getPl())].getParkingspace()));
 							}
-						}
-					}).start();
+						}).start();
+					}
 				}
 			}
-		}
 		});
 		btnSubmit.setBounds(51, 165, 115, 29);
 		add(btnSubmit);
-		
+
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -82,11 +82,11 @@ public class CheckInMenu extends AbstractGUIComponent {
 		});
 		btnCancel.setBounds(216, 165, 115, 29);
 		add(btnCancel);
-		
+
 		JLabel lblNewLabel = new JLabel("Check in with car " + cst.getCarId() + " ?");
 		lblNewLabel.setBounds(117, 95, 249, 29);
 		add(lblNewLabel);
-		
+
 		comboBox = new JComboBox();
 		comboBox.setBounds(133, 53, 138, 20);
 		Set<String> keys = parkingLots.keySet();

@@ -6,6 +6,7 @@ import java.sql.SQLException;
 
 import DataObjects.ParkingLot;
 
+
 public class MessageSetupPL extends Message {
 	private int parkingLotID;
 	

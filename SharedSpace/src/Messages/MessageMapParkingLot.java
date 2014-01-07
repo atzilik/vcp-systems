@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import DataObjects.ParkingLot;
+
 import DataObjects.ParkingSpace;
 
 public class MessageMapParkingLot extends Message {
@@ -37,18 +38,18 @@ public class MessageMapParkingLot extends Message {
 				while(rs.next())
 				{
 					//reserved parking space
-					if (rs.getInt(5) == 1)
+					if (rs.getBoolean(5))
 					{
-						pspace[rs.getInt(2)][rs.getInt(3)][rs.getInt(4)] = new ParkingSpace(false,true,false,null, rs.getDate(8),rs.getTime(9));
+						pspace[rs.getInt(2)][rs.getInt(3)][rs.getInt(4)] = new ParkingSpace(rs.getInt(2),rs.getInt(3),rs.getInt(4),false,true,false,0, rs.getDate(8),rs.getTime(9));
 					}
 					//disabled parking space
-					else if(rs.getInt(6) == 1)
+					else if(rs.getBoolean(6))
 					{
-						pspace[rs.getInt(2)][rs.getInt(3)][rs.getInt(4)] = new ParkingSpace(true,false,false,null, rs.getDate(8),rs.getTime(9));
+						pspace[rs.getInt(2)][rs.getInt(3)][rs.getInt(4)] = new ParkingSpace(rs.getInt(2),rs.getInt(3),rs.getInt(4),true,false,false,0, rs.getDate(8),rs.getTime(9));
 					}
 					else
 					{
-						pspace[rs.getInt(2)][rs.getInt(3)][rs.getInt(4)] = new ParkingSpace(false,false,true,rs.getString(7), rs.getDate(8),rs.getTime(9));
+						pspace[rs.getInt(2)][rs.getInt(3)][rs.getInt(4)] = new ParkingSpace(rs.getInt(2),rs.getInt(3),rs.getInt(4),false,false,true,rs.getInt(7), rs.getDate(8),rs.getTime(9));
 					}
 					
 				}
@@ -60,7 +61,7 @@ public class MessageMapParkingLot extends Message {
 						{
 							if (pspace[j][k][m] == null)
 							{
-								pspace[j][k][m] = new ParkingSpace();
+								pspace[j][k][m] = new ParkingSpace(j,k,m);
 							}
 						}
 					}
