@@ -59,6 +59,7 @@ public class DateConvert {
 	public static java.util.Date fixDate(java.sql.Date date){
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
+		cal.roll(Calendar.MONTH, true);
 		cal.set(Calendar.HOUR_OF_DAY, 0);
 		cal.set(Calendar.MINUTE, 0);
 		cal.set(Calendar.SECOND, 0);
@@ -80,4 +81,12 @@ public class DateConvert {
 	public static Time getCurrentSqlTime(){
 		return new Time(new java.util.Date().getTime());
 	}
+	
+	public static Date addDays(Date date, int amount){
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		cal.add(Calendar.DAY_OF_MONTH, amount);
+		return new Date(cal.getTimeInMillis());
+	}
+	
 }
