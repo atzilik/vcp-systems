@@ -15,7 +15,7 @@ import DataObjects.MessageToUser;
 import DataObjects.STDCustomer;
 import DataObjects.STDMember;
 import Messages.MessageGetMessage;
-import Messages.MessageGetMessageReplay;
+import Messages.MessageGetMessageReply;
 import Messages.MessageGetParkingLotsID;
 import Messages.MessageGetParkingLotsIDReply;
 public class CustomerMenu extends AbstractGUIComponent {
@@ -141,7 +141,7 @@ public class CustomerMenu extends AbstractGUIComponent {
 		
 		try { // check if user have message and print
 			client.sendToServer(new MessageGetMessage(cst.getId()));
-			MessageGetMessageReplay msgReplay = (MessageGetMessageReplay)client.getMessage();
+			MessageGetMessageReply msgReplay = (MessageGetMessageReply)client.getMessage();
 			
 			for(MessageToUser msg: msgReplay.getMsgArr())
 				JOptionPane.showMessageDialog(null, msg.getMsg());

@@ -41,10 +41,10 @@ public class MessageAprroveRateRequest extends Message {
 				ps.executeUpdate();
 			}
 
-			return new MessageAprroveRateRequestReplay(true);
+			return new MessageAprroveRateRequestReply(true);
 			
 		}catch (SQLException e) {
-			return new MessageAprroveRateRequestReplay(false);
+			return new MessageAprroveRateRequestReply(false);
 		}
 	}
 

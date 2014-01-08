@@ -2,11 +2,11 @@ package Messages;
 
 import javax.swing.JOptionPane;
 
-public class MessageAprroveRateRequestReplay extends Message {
+public class MessageAprroveRateRequestReply extends Message {
 	
 	private boolean done;
 	
-	public MessageAprroveRateRequestReplay(boolean b) {
+	public MessageAprroveRateRequestReply(boolean b) {
 		setDone(b);
 	}
 

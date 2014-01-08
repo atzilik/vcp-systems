@@ -32,7 +32,7 @@ public class MessageGetRateRequest extends Message {
 			while(rs.next())
 				rateArray.add(new RateRequest(rs.getInt(1), rs.getFloat(2), rs.getFloat(3), rs.getFloat(4), rs.getFloat(5), rs.getString(6))); 
 			
-			return new MessageGetRateRequestReplay(rateArray);
+			return new MessageGetRateRequestReply(rateArray);
 			
 		}catch (SQLException e) {
 			return null;

@@ -47,14 +47,14 @@ public class MessageRequestChangeParkingRate extends Message {
 			ps.executeUpdate();
 
 
-			return new MessageRequestChangeParkingRateReplay(true);
+			return new MessageRequestChangeParkingRateReply(true);
 			
 		}catch (SQLException e) {
 			if (e.getMessage().contains("Duplicate entry"))
 			{
 				JOptionPane.showMessageDialog(null, "Request already exists");
 			}	
-			return new MessageRequestChangeParkingRateReplay(false);
+			return new MessageRequestChangeParkingRateReply(false);
 		}
 	
 	}

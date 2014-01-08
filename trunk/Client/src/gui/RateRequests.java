@@ -7,9 +7,9 @@ import javax.swing.JTable;
 
 import DataObjects.*;
 import Messages.MessageAprroveRateRequest;
-import Messages.MessageAprroveRateRequestReplay;
+import Messages.MessageAprroveRateRequestReply;
 import Messages.MessageGetRateRequest;
-import Messages.MessageGetRateRequestReplay;
+import Messages.MessageGetRateRequestReply;
 import Messages.MessageWorkerLogin;
 import Messages.MessageWorkerLoginReply;
 
@@ -28,7 +28,7 @@ public class RateRequests extends AbstractGUIComponent {
 		wkr = worker;
 		MessageGetRateRequest try1 = new MessageGetRateRequest();
 		client.send(try1);
-		MessageGetRateRequestReplay replay = (MessageGetRateRequestReplay)client.getMessage();
+		MessageGetRateRequestReply replay = (MessageGetRateRequestReply)client.getMessage();
 		if (replay.getRateArray() != null) {
 			
 			PrintTable(navigator,replay.getRateArray());

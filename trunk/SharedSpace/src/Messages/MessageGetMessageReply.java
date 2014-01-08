@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import DataObjects.MessageToUser;
 import DataObjects.RateRequest;
 
-public class MessageGetMessageReplay extends Message {
+public class MessageGetMessageReply extends Message {
 
 	private ArrayList<MessageToUser> msgArr;
 	
-	public MessageGetMessageReplay(ArrayList<MessageToUser> msgArr) {
+	public MessageGetMessageReply(ArrayList<MessageToUser> msgArr) {
 		this.setMsgArr(msgArr);
 	}
 	public Message doAction() {
