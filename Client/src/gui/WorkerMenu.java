@@ -89,7 +89,7 @@ public class WorkerMenu extends AbstractGUIComponent {
 		btn_ReportDisabledParkingSpace.setVerticalAlignment(SwingConstants.TOP);
 		btn_ReportDisabledParkingSpace.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent arg0) {
-//			navigator.goToReportDisabledParkingSpace();
+		navigator.goToReportDisabledParkingSpace(wkr);
 		}
 	});
 		btn_ReportDisabledParkingSpace.setBounds(99, 110, 145, 58);

@@ -1,55 +1,103 @@
 package gui;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTable;
 
+import DataObjects.ParkingSpace;
 import DataObjects.Worker;
+import Messages.MessageReportDisabledPSpace;
+import Messages.MessageReportDisabledPSpaceReply;
+
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class ReportDisabledParkingSpace extends AbstractGUIComponent {
-	private JTextField textField;
-	private JTextField textField_1;
-	public ReportDisabledParkingSpace(final IGUINavigator navigator) {
+	private int i=0;
+	public ReportDisabledParkingSpace(final IGUINavigator navigator, final Worker worker) {
 		super();		
-	
-		JButton btnCreate = new JButton("Create");
-		btnCreate.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
+
 		setLayout(null);
-		btnCreate.setBounds(62, 5, 65, 23);
-		add(btnCreate);
-		
-		JLabel lblPlace = new JLabel("Place:");
-		lblPlace.setBounds(132, 9, 29, 14);
+
+		JLabel lblPlace = new JLabel("Floor Num:");
+		lblPlace.setBounds(87, 49, 88, 14);
 		add(lblPlace);
-		
-		textField = new JTextField();
-		textField.setBounds(166, 6, 86, 20);
-		add(textField);
-		textField.setColumns(10);
-		
-		JLabel lblReason = new JLabel("Reason:");
-		lblReason.setBounds(257, 9, 40, 14);
+
+		JLabel lblReason = new JLabel("Row Num:");
+		lblReason.setBounds(86, 85, 78, 14);
 		add(lblReason);
-		
-		textField_1 = new JTextField();
-		textField_1.setBounds(302, 6, 86, 20);
-		add(textField_1);
-		textField_1.setColumns(10);
-		
+
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				navigator.goBack();
 			}
 		});
-		btnCancel.setBounds(186, 63, 89, 23);
+		btnCancel.setBounds(279, 233, 89, 23);
 		add(btnCancel);
+
+		JLabel lblNewLabel = new JLabel("ParkingLot:" +worker.getParkingLotID());
+		lblNewLabel.setBounds(69, 11, 95, 14);
+		add(lblNewLabel);
+
+		final JComboBox comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"0", "1", "2"}));
+		comboBox.setSelectedIndex(0);
+		comboBox.setBounds(161, 46, 86, 20);
+		add(comboBox);
+
+		final JComboBox comboBox_1 = new JComboBox();
+		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"0", "1", "2"}));
+		comboBox_1.setSelectedIndex(0);
+		comboBox_1.setBounds(161, 82, 86, 20);
+		add(comboBox_1);
+
+		JLabel lblDepth = new JLabel("Depth:");
+		lblDepth.setBounds(86, 118, 65, 14);
+		add(lblDepth);
+
+		final JComboBox comboBox_2 = new JComboBox();
+		comboBox_2.setBounds(161, 113, 86, 20);
+		add(comboBox_2);
+		System.out.println(worker.getParkingLotID());
+		System.out.println(parkinglots[0].getDepthSize());
+		System.out.println(parkinglots[worker.getParkingLotID()].getDepthSize());
+		while (i<parkinglots[worker.getParkingLotID()].getDepthSize()){
+			comboBox_2.addItem(i);
+			i++;
+		}
+		JButton btnCreate = new JButton("Report as disabled");
+		btnCreate.setBounds(69, 183, 200, 73);
+		add(btnCreate);
+		btnCreate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String arr[] = new String[4];
+				arr[0]=Integer.toString(worker.getParkingLotID());
+				arr[1]=Integer.toString(comboBox.getSelectedIndex());
+				arr[2]=Integer.toString(comboBox_1.getSelectedIndex());
+				arr[3]=Integer.toString(comboBox_2.getSelectedIndex());
+
+		
+				
+				if (parkinglots[worker.getParkingLotID()].getParkingspace()[comboBox.getSelectedIndex()][comboBox_1.getSelectedIndex()][comboBox_2.getSelectedIndex()].isDisabled() || parkinglots[worker.getParkingLotID()].getParkingspace()[comboBox.getSelectedIndex()][comboBox_1.getSelectedIndex()][comboBox_2.getSelectedIndex()].isOccupied() || parkinglots[worker.getParkingLotID()].getParkingspace()[comboBox.getSelectedIndex()][comboBox_1.getSelectedIndex()][comboBox_2.getSelectedIndex()].isReserved()){
+					JOptionPane.showMessageDialog(null, "Unable to disable this parkingspace. This parking space may be reserved/occupied or already disabled ");
+				return;
+			}
+				else
+				{
+					parkinglots[worker.getParkingLotID()].getParkingspace()[0][0][0].setDisabled(true);
+				client.send(new MessageReportDisabledPSpace(arr));
+				MessageReportDisabledPSpaceReply mrdps = (MessageReportDisabledPSpaceReply)client.getMessage();
+				mrdps.doAction();
+				}
+				}
+			
+		});
+
 		
 	}
 }
