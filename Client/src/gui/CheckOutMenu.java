@@ -6,6 +6,9 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import DataObjects.Customer;
+import Messages.MessageCheckout;
+import Messages.MessageCheckoutReply;
+import Messages.MessageUpdatePLMap;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -18,7 +21,8 @@ import javax.swing.JComboBox;
 public class CheckOutMenu extends AbstractGUIComponent {
 	private Customer cst;
 	private Map<String,Integer> parkingLots;
-	public CheckOutMenu(final IGUINavigator navigator, Customer cst, Map<String,Integer> mp) {
+	JComboBox comboBox;
+	public CheckOutMenu(final IGUINavigator navigator, final Customer cst, Map<String,Integer> mp) {
 		this.cst = cst;
 		this.parkingLots = mp;
 		setLayout(null);
@@ -26,6 +30,24 @@ public class CheckOutMenu extends AbstractGUIComponent {
 		JButton btnSubmit = new JButton("OK");
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				client.send(new MessageCheckout(cst, parkingLots.get(comboBox.getSelectedItem())));
+				final MessageCheckoutReply cor = (MessageCheckoutReply)client.getMessage();
+				cor.doAction();
+				navigator.goBack();
+				if (cor.isEmpty() == false)
+				{
+					//call robot to unpark car
+					new Thread(new Runnable() {
+
+						@Override
+						public void run() {
+							// TODO Auto-generated method stub
+							while (parkinglots[cor.getParkingLotID()].getRobot().isBusy());
+							parkinglots[cor.getParkingLotID()].getRobot().unPark(Integer.parseInt(cor.getCustomer().getCarId()), cor.getFloor(), cor.getRow(), cor.getDepth());
+							client.send(new MessageUpdatePLMap(cor.getParkingLotID(),parkinglots[cor.getParkingLotID()].getParkingspace()));
+						}
+					}).start();
+				}
 			}
 		});
 		btnSubmit.setBounds(51, 165, 115, 29);
@@ -44,7 +66,7 @@ public class CheckOutMenu extends AbstractGUIComponent {
 		lblNewLabel.setBounds(117, 95, 249, 29);
 		add(lblNewLabel);
 		
-		JComboBox comboBox = new JComboBox();
+		comboBox = new JComboBox();
 		comboBox.setBounds(133, 53, 138, 20);
 		Set<String> keys = parkingLots.keySet();
 		for (Iterator<String> i = keys.iterator(); i.hasNext();)
