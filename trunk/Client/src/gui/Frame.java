@@ -170,11 +170,11 @@ public class Frame extends JFrame implements IGUINavigator {
 		validate();
 	}
 	public void goToReportDisabledParkingSpace(Worker wkr){
-		// TODO Auto-generated method stub
-		lastScreen = (JPanel) getContentPane();
-		ReportDisabledParkingSpace rdps = new ReportDisabledParkingSpace(this,wkr);
-		setContentPane(rdps);
-		validate();
+//		// TODO Auto-generated method stub
+//		lastScreen = (JPanel) getContentPane();
+//		ReportDisabledParkingSpace rdps = new ReportDisabledParkingSpace(this,wkr);
+//		setContentPane(rdps);
+//		validate();
 	}
 	public void goToInsertAlternativeParkingLot(Map<String,Integer> mp, Worker wkr){
 		// TODO Auto-generated method stub
@@ -231,6 +231,16 @@ public class Frame extends JFrame implements IGUINavigator {
 		lastScreen = (JPanel) getContentPane();
         LoginMenu lm = new LoginMenu(this);
         setContentPane(lm);             
+        setTitle("Login");
+        validate();
+	}
+
+	@Override
+	public void goToWorkerSetupMenu(int parkingLotID) {
+		// TODO Auto-generated method stub
+		lastScreen = (JPanel) getContentPane();
+        WorkerSetupMenu wsm = new WorkerSetupMenu(this, parkingLotID);
+        setContentPane(wsm);             
         setTitle("Login");
         validate();
 	}
