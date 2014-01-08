@@ -1,6 +1,6 @@
 package Messages;
 
-public class MessageSendMessageReplay extends Message {
+public class MessageSendMessageReply extends Message {
 	
 	
 	public Message doAction() {

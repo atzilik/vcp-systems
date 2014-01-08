@@ -2,10 +2,10 @@ package Messages;
 
 import javax.swing.JOptionPane;
 
-public class MessageRequestChangeParkingRateReplay extends Message {
+public class MessageRequestChangeParkingRateReply extends Message {
 
 	boolean isDone;
-	public MessageRequestChangeParkingRateReplay(boolean b) {
+	public MessageRequestChangeParkingRateReply(boolean b) {
 		isDone = b;// TODO Auto-generated constructor stub
 	}
 

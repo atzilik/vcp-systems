@@ -7,7 +7,7 @@ import javax.swing.JButton;
 
 import DataObjects.Worker;
 import Messages.MessageRequestChangeParkingRate;
-import Messages.MessageRequestChangeParkingRateReplay;
+import Messages.MessageRequestChangeParkingRateReply;
 import Messages.MessageWorkerLogin;
 import Messages.MessageWorkerLoginReply;
 
@@ -67,7 +67,7 @@ public class ChangeRateMenu extends AbstractGUIComponent {
 		btnSend.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				client.send(new MessageRequestChangeParkingRate(wrk.getParkingLotID(), Float.parseFloat(textField_1.getText()), Float.parseFloat(textField_2.getText()), Float.parseFloat(textField_3.getText()), Float.parseFloat(textField_4.getText()),wrk.getId()));
-				MessageRequestChangeParkingRateReplay wlr = (MessageRequestChangeParkingRateReplay)client.getMessage();
+				MessageRequestChangeParkingRateReply wlr = (MessageRequestChangeParkingRateReply)client.getMessage();
 				wlr.doAction();
 				navigator.goToWorkerMenu(wrk);
 			}

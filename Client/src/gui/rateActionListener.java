@@ -7,7 +7,7 @@ import DataObjects.MessageToUser;
 import DataObjects.RateRequest;
 import DataObjects.Worker;
 import Messages.MessageAprroveRateRequest;
-import Messages.MessageAprroveRateRequestReplay;
+import Messages.MessageAprroveRateRequestReply;
 import Messages.MessageSendMessage;
 
 public class rateActionListener extends AbstractGUIComponent implements ActionListener {
@@ -30,7 +30,7 @@ public class rateActionListener extends AbstractGUIComponent implements ActionLi
 		// TODO Auto-generated method stub
 		MessageAprroveRateRequest msg1 = new MessageAprroveRateRequest(req,isAprroved);
 		client.send(msg1);
-		MessageAprroveRateRequestReplay replay = (MessageAprroveRateRequestReplay)client.getMessage();
+		MessageAprroveRateRequestReply replay = (MessageAprroveRateRequestReply)client.getMessage();
 		replay.doAction();
 		if(isAprroved)
 		{

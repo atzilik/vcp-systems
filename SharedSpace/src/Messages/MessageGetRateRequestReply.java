@@ -5,12 +5,12 @@ import java.util.ArrayList;
 import DataObjects.RateRequest;
 import DataObjects.Worker;
 
-public class MessageGetRateRequestReplay extends Message  {
+public class MessageGetRateRequestReply extends Message  {
 
 	private ArrayList<RateRequest> rateArray = new ArrayList<>();
 	private Worker wkr;
 	
-	public MessageGetRateRequestReplay (ArrayList<RateRequest> rateArr) {
+	public MessageGetRateRequestReply (ArrayList<RateRequest> rateArr) {
 		setRateArray(rateArr);
 	}
 	@Override

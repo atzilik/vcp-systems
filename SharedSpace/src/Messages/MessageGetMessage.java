@@ -44,7 +44,7 @@ public class MessageGetMessage extends Message {
 				ps.executeUpdate();
 			}
 			
-			return new MessageGetMessageReplay(msgArray);
+			return new MessageGetMessageReply(msgArray);
 			
 		}catch (SQLException e) {
 			return null;
