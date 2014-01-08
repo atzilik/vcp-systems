@@ -26,7 +26,7 @@ public class MessageMapParkingLot extends Message {
 			for (int i = 0; i < size; i++)
 			{
 				rs.next();
-				parkinglots[i] = new ParkingLot(rs.getInt(1),rs.getString(2),rs.getBoolean(3),rs.getBoolean(4),(ParkingLot)rs.getObject(5),rs.getInt(6));
+				parkinglots[i] = new ParkingLot(rs.getInt(1),rs.getString(2),rs.getBoolean(3),rs.getBoolean(4),rs.getInt(5),rs.getInt(6));
 			}
 			ps.close();
 			for (int i = 0; i < size; i++)

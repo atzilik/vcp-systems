@@ -9,10 +9,18 @@ import DataObjects.ParkingLot;
 
 public class MessageSetupPL extends Message {
 	private int parkingLotID;
+	private int depthSize;
+	private boolean updateDepthSize;
 	
 	public MessageSetupPL(int parkingLotID){
 		this.parkingLotID = parkingLotID;
-		
+		updateDepthSize = false;
+	}
+	
+	public MessageSetupPL(int parkingLotID, int depthSize){
+		this.parkingLotID = parkingLotID;
+		this.depthSize = depthSize;
+		updateDepthSize = true;
 	}
 	@Override
 	public Message doAction() {
@@ -24,29 +32,39 @@ public class MessageSetupPL extends Message {
 			ResultSet rs = ps.executeQuery();
 			
 			rs.next();
-			String[] arr = new String[6];
-			for (int i = 0 ; i < arr.length ; i++)
-				arr[i] = rs.getString(i+1);
-			if (rs.getInt(3) == 0)
+			String[] plTable = new String[6];
+			for (int i = 0 ; i < plTable.length ; i++)
 			{
+				plTable[i] = rs.getString(i+1);
+			}
+			ps.close();
+			//check if its active already
+			if (plTable[2].equals("1"))
+			{
+				return new MessageSetupPLReply();
+			}
+				
+			if (updateDepthSize)
+			{
+				ps = con.prepareStatement("UPDATE parkinglots SET active=1,depthSize=? where parkingLotID=?;");
+				ps.setInt(1, depthSize);
+				ps.setInt(2, parkingLotID);
+				ps.executeUpdate();
 				ps.close();
+				return new MessageSetupPLReply(parkingLotID,depthSize);
+			}
+			else
+			{
 				ps = con.prepareStatement("UPDATE parkinglots SET active=1 where parkingLotID=?;");
 				ps.setInt(1, parkingLotID);
 				ps.executeUpdate();
 				ps.close();
+				return new MessageSetupPLReply(parkingLotID);
 			}
-//			int freespace = ParkingLot.FLOORS_SIZE * ParkingLot.ROWS_SIZE * rs.getInt(5);
-//			switch(parkingLotID){
-//			case 111: {
-//				TelAvivPL tlvPL = new TelAvivPL(parkingLotID, rs.getString(2), true, false, null, freespace,rs.getInt(5));
-//				MessageSetupPLReply splr = new MessageSetupPLReply(tlvPL);
-//			}
-//			}
-			
-			ps.close();
-//			return splr;
 		}catch (SQLException e) {};
 		return null;
 	}
+	
+	
 
 }

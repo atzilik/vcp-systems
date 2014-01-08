@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JLabel;
 
+
 import DataObjects.CeoWorker;
 import DataObjects.CustomerService;
 import DataObjects.ParkingLot;
@@ -16,8 +17,6 @@ import DataObjects.ParkingLotManager;
 import DataObjects.Worker;
 import Messages.MessageGetParkingLotsID;
 import Messages.MessageGetParkingLotsIDReply;
-import Messages.MessageSetupPL;
-import Messages.MessageSetupPLReply;
 
 
 public class WorkerMenu extends AbstractGUIComponent {
@@ -90,7 +89,7 @@ public class WorkerMenu extends AbstractGUIComponent {
 		btn_ReportDisabledParkingSpace.setVerticalAlignment(SwingConstants.TOP);
 		btn_ReportDisabledParkingSpace.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent arg0) {
-			navigator.goToReportDisabledParkingSpace(wkr);
+//			navigator.goToReportDisabledParkingSpace();
 		}
 	});
 		btn_ReportDisabledParkingSpace.setBounds(99, 110, 145, 58);
@@ -121,8 +120,7 @@ public class WorkerMenu extends AbstractGUIComponent {
 		JButton btnSetupParkingLot = new JButton("<html>Setup<br />Parking Lot</html>");
 		btnSetupParkingLot.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				client.send(new MessageSetupPL(wkr.getParkingLotID()));
-				MessageSetupPLReply splr = (MessageSetupPLReply)client.getMessage();
+				navigator.goToWorkerSetupMenu(wkr.getParkingLotID());
 			}
 		});
 		btnSetupParkingLot.setVerticalAlignment(SwingConstants.TOP);
