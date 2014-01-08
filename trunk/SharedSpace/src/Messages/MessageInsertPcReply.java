@@ -2,17 +2,26 @@ package Messages;
 
 import javax.swing.JOptionPane;
 
+import DataObjects.Customer;
 import DataObjects.Reservation;
+import DataObjects.STDMember;
 
 public class MessageInsertPcReply extends Message{
-	private Reservation res;
-	public MessageInsertPcReply(){
-		res = null;
-	}
+	private Reservation res = null;
+	Customer mem = null;
+	
+//	public MessageInsertPcReply(){
+//		res = null;
+//	}
 	
 	public MessageInsertPcReply(Reservation res){
 		this.res = res;
 	}
+	
+	public MessageInsertPcReply(Customer mem){
+		this.mem = mem;
+	}
+	
 	
 	
 	
@@ -22,7 +31,7 @@ public class MessageInsertPcReply extends Message{
 
 	@Override
 	public Message doAction() {
-		if (res == null)
+		if (res == null&&mem == null)
 		{
 			JOptionPane.showMessageDialog(null, "Error.", "Error", JOptionPane.ERROR_MESSAGE);
 		}
