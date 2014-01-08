@@ -170,11 +170,11 @@ public class Frame extends JFrame implements IGUINavigator {
 		validate();
 	}
 	public void goToReportDisabledParkingSpace(Worker wkr){
-//		// TODO Auto-generated method stub
-//		lastScreen = (JPanel) getContentPane();
-//		ReportDisabledParkingSpace rdps = new ReportDisabledParkingSpace(this,wkr);
-//		setContentPane(rdps);
-//		validate();
+		// TODO Auto-generated method stub
+		lastScreen = (JPanel) getContentPane();
+		ReportDisabledParkingSpace rdps = new ReportDisabledParkingSpace(this,wkr);
+		setContentPane(rdps);
+		validate();
 	}
 	public void goToInsertAlternativeParkingLot(Map<String,Integer> mp, Worker wkr){
 		// TODO Auto-generated method stub
