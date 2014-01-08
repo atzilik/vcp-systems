@@ -7,20 +7,20 @@ import java.sql.Time;
 
 public class Robot implements Serializable{
 	private ParkingSpace[][][] parkingSpace;
-	private int carNumber;
 	private boolean busy;
 	private int[] spaceLeft;
 	private int floorSize;
 	private int rowSize;
 	private int depthSize;
-	private int freepsace;
+	private int freespace;
+	private boolean parkingLotFull;
 	public Robot(ParkingSpace[][][] parkingSpace, int depthSize) {
 		this.parkingSpace = parkingSpace;
 		busy = false;
 		floorSize = ParkingLot.FLOORS_SIZE;
 		rowSize = ParkingLot.FLOORS_SIZE;
 		this.depthSize = depthSize;
-		freepsace = ParkingLot.FLOORS_SIZE * ParkingLot.ROWS_SIZE * depthSize;
+		freespace = ParkingLot.FLOORS_SIZE * ParkingLot.ROWS_SIZE * depthSize;
 		spaceLeft = new int[floorSize];
 		for (int i = 0; i < floorSize; i++)
 		{
@@ -32,28 +32,72 @@ public class Robot implements Serializable{
 					if (parkingSpace[i][j][k].isAvailable())
 						count++;
 					else
-						freepsace--;
+						freespace--;
 				}
 			}
 			spaceLeft[i] = count;
 		}
+		if (freespace == 0)
+			parkingLotFull = true;
+		else
+			parkingLotFull = false;
 	}
 	
 	
 	public void parkCar(int carNumber, Date checkOutdate, Time checkOutTime){
 		busy = true;
 		ParkingSpace ps = findParkingSpace(carNumber, checkOutdate, checkOutTime);
+		spaceLeft[ps.getFloor()]--;
+		freespace--;
+		System.out.println("Insert");
+		System.out.println("freespace = " + freespace);
+		System.out.println("spaceLeft[" + ps.getFloor() +"]= " + spaceLeft[ps.getFloor()]);
+		if (freespace == 0)
+		{
+			parkingLotFull = true;
+		}
 		ps.setOccupied(true);
 		busy = false;
 	}
 	
-	public void unPark(){
+	public void unPark(int carNumber, int floor, int row, int depth){
 		busy = true;
 		
-		
-		
-		
-		
+		parkingSpace[floor][row][depth].setOccupied(false);
+		parkingSpace[floor][row][depth].setCarNum(0);
+		parkingSpace[floor][row][depth].setCheckOutdate(null);
+		parkingSpace[floor][row][depth].setCheckOutTime(null);
+		for (int i = floor; i >= 0; i--)
+		{
+			for (int j = row; j >= 0; j--)
+			{
+				for (int k = depth - 1; k >= 0; k--)
+				{
+					if (parkingSpace[i][j][k].isOccupied())
+					{
+						int carNum = parkingSpace[i][j][k].getCarNum();
+						Date cotDate = parkingSpace[i][j][k].getCheckOutdate();
+						Time cotTime = parkingSpace[i][j][k].getCheckOutTime();
+						parkingSpace[i][j][k].setOccupied(false);
+						parkingSpace[i][j][k].setCarNum(0);
+						parkingSpace[i][j][k].setCheckOutdate(null);
+						parkingSpace[i][j][k].setCheckOutTime(null);
+						ParkingSpace ps = findParkingSpace(carNum, cotDate, cotTime);
+						ps.setOccupied(true);
+					}
+					else
+					{
+						freespace++;
+						spaceLeft[i]++;
+						System.out.println("Remove");
+						System.out.println("freespace = " + freespace);
+						System.out.println("spaceLeft[" + i +"]= " + spaceLeft[i]);
+						return;
+					}
+				}
+			}
+		}
+
 		busy = false;
 	}
 	
@@ -70,8 +114,6 @@ public class Robot implements Serializable{
 						if (parkingSpace[floorSize - index][i][j].isAvailable())
 						{
 							//insert to a new parking space
-							spaceLeft[floorSize - index]--;
-							freepsace--;
 							parkingSpace[floorSize - index][i][j].setCarNum(carNumber);
 							parkingSpace[floorSize - index][i][j].setCheckOutdate(checkOutdate);
 							parkingSpace[floorSize - index][i][j].setCheckOutTime(checkOutTime);

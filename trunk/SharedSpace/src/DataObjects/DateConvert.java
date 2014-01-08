@@ -2,6 +2,7 @@ package DataObjects;
 
 import java.util.Calendar;
 import java.sql.Date;
+import java.sql.Time;
 
 public class DateConvert {
 
@@ -70,5 +71,13 @@ public class DateConvert {
 		cal.setTime(time);
 		cal.set(Calendar.MILLISECOND, 0);
 		return new java.sql.Time(cal.getTime().getTime());
+	}
+	
+	public static Date getCurrentSqlDate(){
+		return new Date(new java.util.Date().getTime());
+	}
+	
+	public static Time getCurrentSqlTime(){
+		return new Time(new java.util.Date().getTime());
 	}
 }
