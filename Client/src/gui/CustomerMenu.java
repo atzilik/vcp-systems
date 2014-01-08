@@ -1,13 +1,21 @@
 package gui;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.swing.JLabel;
 import DataObjects.Customer;
 import DataObjects.FullMember;
+import DataObjects.MessageToUser;
 import DataObjects.STDCustomer;
 import DataObjects.STDMember;
+import Messages.MessageGetMessage;
+import Messages.MessageGetMessageReplay;
 import Messages.MessageGetParkingLotsID;
 import Messages.MessageGetParkingLotsIDReply;
 public class CustomerMenu extends AbstractGUIComponent {
@@ -131,6 +139,17 @@ public class CustomerMenu extends AbstractGUIComponent {
 		btnNewButton.setBounds(461, 339, 119, 45);
 		add(btnNewButton);
 		
+		try { // check if user have message and print
+			client.sendToServer(new MessageGetMessage(cst.getId()));
+			MessageGetMessageReplay msgReplay = (MessageGetMessageReplay)client.getMessage();
+			
+			for(MessageToUser msg: msgReplay.getMsgArr())
+				JOptionPane.showMessageDialog(null, msg.getMsg());
+			 
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void reserve(int type){

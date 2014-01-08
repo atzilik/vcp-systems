@@ -29,8 +29,8 @@ public interface IGUINavigator {
 	public void goToWorkerSetupMenu(int parkingLotID);
 	public void goToInsertAlternativeParkingLot(Map<String,Integer> mp, Worker worker);
 	public void goToComplaintMenu();
-	public void goToChangeRatesReq();
-	public void goToChangeRates();
+	public void goToChangeRatesReq(Worker wkr);
+	public void goToChangeRates(Worker wkr);
 	public void goBack();
 
 }

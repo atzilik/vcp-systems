@@ -22,7 +22,7 @@ public class SQLConnection
 	private static SQLConnection SQLConnIns;
 	
 	/** The password. */
-	private static  String password = "aeovwsz";
+	private static  String password = "Braude";
 	
 	/** The username. */
 	private static  String username = "root";

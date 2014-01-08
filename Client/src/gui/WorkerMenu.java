@@ -2,19 +2,25 @@ package gui;
 
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.JLabel;
 
 
 import DataObjects.CeoWorker;
 import DataObjects.CustomerService;
+import DataObjects.MessageToUser;
 import DataObjects.ParkingLot;
 import DataObjects.ParkingLotManager;
 import DataObjects.Worker;
+import Messages.MessageGetMessage;
+import Messages.MessageGetMessageReplay;
 import Messages.MessageGetParkingLotsID;
 import Messages.MessageGetParkingLotsIDReply;
 
@@ -69,6 +75,18 @@ public class WorkerMenu extends AbstractGUIComponent {
 		});
 		btnCancel.setBounds(173, 265, 89, 23);
 		add(btnCancel);
+		
+		try { // check if user have message and print
+			client.sendToServer(new MessageGetMessage(wkr.getId()));
+			MessageGetMessageReplay msgReplay = (MessageGetMessageReplay)client.getMessage();
+			
+			for(MessageToUser msg: msgReplay.getMsgArr())
+				JOptionPane.showMessageDialog(null, msg.getMsg());
+			 
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 
@@ -133,7 +151,7 @@ public class WorkerMenu extends AbstractGUIComponent {
 		JButton btnChangeRates = new JButton("<html>Open Change<br />Rates Menu</html> ");
 		btnChangeRates.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				navigator.goToChangeRates();
+				navigator.goToChangeRatesReq(wkr);
 			}
 		});
 		btnChangeRates.setBounds(38, 94, 106, 45);
@@ -203,7 +221,7 @@ public class WorkerMenu extends AbstractGUIComponent {
 		JButton btnchangeRatesrequests = new JButton("<html>Change Rates<br />requests</html>");
 		btnchangeRatesrequests.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				navigator.goToChangeRatesReq();
+				navigator.goToChangeRates(wkr);
 			}
 		});
 		btnchangeRatesrequests.setBounds(220, 11, 102, 49);
@@ -213,5 +231,7 @@ public class WorkerMenu extends AbstractGUIComponent {
 		JButton btnworkersdata = new JButton("<html>Workers<br />data</html>");
 		btnworkersdata.setBounds(205, 147, 102, 49);
 		add(btnworkersdata);
+		
+		
 	}
 }

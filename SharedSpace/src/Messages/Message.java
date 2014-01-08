@@ -11,6 +11,7 @@ public abstract class Message implements Serializable {
 	protected String MessageType;
 	protected Connection con;
 	protected static SQLConnection sqlConnection = SQLConnection.SQLConnectionSingleton();
+	protected static int MessageBetweenUsersNUM;
 	private boolean transactionSucceeded = false;
 
 	public String getMessageType() {
