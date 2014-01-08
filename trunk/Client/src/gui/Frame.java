@@ -190,17 +190,17 @@ public class Frame extends JFrame implements IGUINavigator {
 		setContentPane(cm);
 		validate();
 	}
-	public void goToChangeRatesReq(){
+	public void goToChangeRatesReq(Worker wkr){
 		// TODO Auto-generated method stub
 		lastScreen = (JPanel) getContentPane();
-		ChangeRateMenu crm = new ChangeRateMenu(this);
+		ChangeRateMenu crm = new ChangeRateMenu(this,wkr);
 		setContentPane(crm);
 		validate();	
 	}
-	public void goToChangeRates(){
+	public void goToChangeRates(Worker wkr){
 		// TODO Auto-generated method stub
 		lastScreen = (JPanel) getContentPane();
-		RateRequests rr = new RateRequests(this);
+		RateRequests rr = new RateRequests(this,wkr);
 		setContentPane(rr);
 		validate();	
 	}

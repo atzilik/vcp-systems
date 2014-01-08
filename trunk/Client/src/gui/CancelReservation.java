@@ -11,6 +11,7 @@ import DataObjects.Customer;
 import Messages.MessageCancelReservation;
 import Messages.MessageCancelReservationReply;
 
+
 public class CancelReservation extends AbstractGUIComponent {
 	private Customer cst;
 	private JTextField textField_resNum;

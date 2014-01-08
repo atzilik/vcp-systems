@@ -4,6 +4,13 @@ package gui;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+
+import DataObjects.Worker;
+import Messages.MessageRequestChangeParkingRate;
+import Messages.MessageRequestChangeParkingRateReplay;
+import Messages.MessageWorkerLogin;
+import Messages.MessageWorkerLoginReply;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -11,9 +18,14 @@ public class ChangeRateMenu extends AbstractGUIComponent {
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
-	public ChangeRateMenu(final IGUINavigator navigator) {
+	private JTextField textField_4;
+	Worker wrk;
+
+	public ChangeRateMenu(final IGUINavigator navigator, Worker worker) {
 		super();
 		setLayout(null);
+		
+		wrk = worker;
 						
 		JLabel lblNewLabel = new JLabel("Occasional Parking Rate:");
 		lblNewLabel.setBounds(29, 55, 119, 14);
@@ -26,6 +38,10 @@ public class ChangeRateMenu extends AbstractGUIComponent {
 		JLabel lblNewLabel_2 = new JLabel("Standard Membership Rate:");
 		lblNewLabel_2.setBounds(29, 124, 134, 14);
 		add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_3 = new JLabel("Full Membership Rate:");
+		lblNewLabel_3.setBounds(29, 160, 134, 14);
+		add(lblNewLabel_3);
 		
 		textField_1 = new JTextField();
 		textField_1.setBounds(176, 86, 86, 20);
@@ -42,12 +58,21 @@ public class ChangeRateMenu extends AbstractGUIComponent {
 		add(textField_3);
 		textField_3.setColumns(10);
 		
+		textField_4 = new JTextField();
+		textField_4.setBounds(176, 157, 86, 20);
+		add(textField_4);
+		textField_4.setColumns(10);
+		
 		JButton btnSend = new JButton("Send");
 		btnSend.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				client.send(new MessageRequestChangeParkingRate(wrk.getParkingLotID(), Float.parseFloat(textField_1.getText()), Float.parseFloat(textField_2.getText()), Float.parseFloat(textField_3.getText()), Float.parseFloat(textField_4.getText()),wrk.getId()));
+				MessageRequestChangeParkingRateReplay wlr = (MessageRequestChangeParkingRateReplay)client.getMessage();
+				wlr.doAction();
+				navigator.goToWorkerMenu(wrk);
 			}
 		});
-		btnSend.setBounds(191, 169, 57, 23);
+		btnSend.setBounds(191, 214, 57, 23);
 		add(btnSend);
 		
 		JButton btnCancel = new JButton("Cancel");
@@ -56,8 +81,9 @@ public class ChangeRateMenu extends AbstractGUIComponent {
 				navigator.goBack();
 			}
 		});
-		btnCancel.setBounds(258, 169, 89, 23);
+		btnCancel.setBounds(260, 214, 89, 23);
 		add(btnCancel);
-	}
+		
 
+	}
 }

@@ -9,9 +9,11 @@ import javax.swing.JTextField;
 
 import client.Client;
 
+import DataObjects.MessageToUser;
 import DataObjects.ParkingLot;
 import Messages.MessageCustomerLogin;
 import Messages.MessageCustomerLoginReply;
+import Messages.MessageGetMessage;
 import Messages.MessageWorkerLogin;
 import Messages.MessageWorkerLoginReply;
 
