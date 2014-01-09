@@ -43,7 +43,7 @@ public class Robot implements Serializable{
 			parkingLotFull = false;
 	}
 	
-	
+	//check reserv and car id
 	public void parkCar(int carNumber, Date checkOutdate, Time checkOutTime){
 		busy = true;
 		ParkingSpace ps = findParkingSpace(carNumber, checkOutdate, checkOutTime);
@@ -79,6 +79,7 @@ public class Robot implements Serializable{
 						Date cotDate = parkingSpace[i][j][k].getCheckOutdate();
 						Time cotTime = parkingSpace[i][j][k].getCheckOutTime();
 						parkingSpace[i][j][k].setOccupied(false);
+						parkingSpace[i][j][k].setReserved(false);
 						parkingSpace[i][j][k].setCarNum(0);
 						parkingSpace[i][j][k].setCheckOutdate(null);
 						parkingSpace[i][j][k].setCheckOutTime(null);
@@ -89,6 +90,8 @@ public class Robot implements Serializable{
 					{
 						freespace++;
 						spaceLeft[i]++;
+						if (parkingLotFull)
+							parkingLotFull = false;
 						System.out.println("Remove");
 						System.out.println("freespace = " + freespace);
 						System.out.println("spaceLeft[" + i +"]= " + spaceLeft[i]);
@@ -118,6 +121,19 @@ public class Robot implements Serializable{
 							parkingSpace[floorSize - index][i][j].setCheckOutdate(checkOutdate);
 							parkingSpace[floorSize - index][i][j].setCheckOutTime(checkOutTime);
 							return parkingSpace[floorSize - index][i][j];
+						}
+						else if (parkingSpace[floorSize - index][i][j].isReserved())
+						{
+							//check if this space reserved for the current car
+							if (carNumber == parkingSpace[floorSize - index][i][j].getCarNum())
+							{
+								//insert to a new parking space
+								parkingSpace[floorSize - index][i][j].setCarNum(carNumber);
+								parkingSpace[floorSize - index][i][j].setCheckOutdate(checkOutdate);
+								parkingSpace[floorSize - index][i][j].setCheckOutTime(checkOutTime);
+								parkingSpace[floorSize - index][i][j].setReserved(false);
+								return parkingSpace[floorSize - index][i][j];
+							}
 						}
 						else if (parkingSpace[floorSize - index][i][j].isOccupied())
 						{
@@ -157,6 +173,18 @@ public class Robot implements Serializable{
 		this.busy = busy;
 	}
 	
+	
+	
+	public boolean isParkingLotFull() {
+		return parkingLotFull;
+	}
+
+
+	public void setParkingLotFull(boolean parkingLotFull) {
+		this.parkingLotFull = parkingLotFull;
+	}
+
+
 	public ParkingSpace switchCars(int carNumber, Date checkOutdate, Time checkOutTime, ParkingSpace parkingSpace){
 		int carNum = parkingSpace.getCarNum();
 		Date date = parkingSpace.getCheckOutdate();
@@ -166,6 +194,15 @@ public class Robot implements Serializable{
 		parkingSpace.setCheckOutTime(checkOutTime);
 		return findParkingSpace(carNum, date, time);
 	}
+
+	public int getFreespace() {
+		return freespace;
+	}
+
+	public void setFreespace(int freespace) {
+		this.freespace = freespace;
+	}
+	
 	
 	
 }
