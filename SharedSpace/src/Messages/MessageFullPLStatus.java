@@ -25,7 +25,7 @@ public class MessageFullPLStatus extends Message {
 			ps.setInt(2, parkingLotID);
 			ps.executeUpdate();
 			ps.close();
-			return new MessageFullPLStatusReply(parkingLotID, full);
+			return new MessageEmptyReply();
 		}catch (SQLException e) {e.printStackTrace();}
 		return null;
 	}

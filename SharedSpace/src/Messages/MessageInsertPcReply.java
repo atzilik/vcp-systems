@@ -28,6 +28,10 @@ public class MessageInsertPcReply extends Message{
 	public Reservation getRes() {
 		return res;
 	}
+	
+	public Customer getCustomer() {
+		return mem;
+	}
 
 	@Override
 	public Message doAction() {

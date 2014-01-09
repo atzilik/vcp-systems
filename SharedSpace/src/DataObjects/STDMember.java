@@ -1,13 +1,16 @@
 package DataObjects;
 
+import java.sql.Date;
+import java.sql.Time;
+
 public class STDMember extends FullMember {
 	private int parkingLotId;
-	private String stdCheckOut;
+	private Time stdCheckOut;
 	
 	
 	public STDMember(String id, String carId, String fName, String lName,
-			String email, String memberId, String startDate,
-			int parkingLotId, String stdCheckOut) {
+			String email, String memberId, Date startDate,
+			int parkingLotId, Time stdCheckOut) {
 		super(id, carId, fName, lName, email, memberId, startDate);
 		this.parkingLotId = parkingLotId;
 		this.stdCheckOut = stdCheckOut;
@@ -24,12 +27,12 @@ public class STDMember extends FullMember {
 	}
 
 
-	public String getStdCheckOut() {
+	public Time getStdCheckOut() {
 		return stdCheckOut;
 	}
 
 
-	public void setStdCheckOut(String stdCheckOut) {
+	public void setStdCheckOut(Time stdCheckOut) {
 		this.stdCheckOut = stdCheckOut;
 	}
 	

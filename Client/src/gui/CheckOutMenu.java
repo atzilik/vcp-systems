@@ -8,6 +8,7 @@ import javax.swing.JTextField;
 import DataObjects.Customer;
 import Messages.MessageCheckout;
 import Messages.MessageCheckoutReply;
+import Messages.MessageEmptyReply;
 import Messages.MessageUpdatePLMap;
 
 import java.awt.event.ActionListener;
@@ -42,9 +43,17 @@ public class CheckOutMenu extends AbstractGUIComponent {
 						@Override
 						public void run() {
 							// TODO Auto-generated method stub
+							boolean needToUpdate = false;;
+							if (parkinglots[cor.getParkingLotID()].getRobot().isParkingLotFull())
+								needToUpdate = true;
 							while (parkinglots[cor.getParkingLotID()].getRobot().isBusy());
 							parkinglots[cor.getParkingLotID()].getRobot().unPark(Integer.parseInt(cor.getCustomer().getCarId()), cor.getFloor(), cor.getRow(), cor.getDepth());
 							client.send(new MessageUpdatePLMap(cor.getParkingLotID(),parkinglots[cor.getParkingLotID()].getParkingspace()));
+							MessageEmptyReply er = (MessageEmptyReply)client.getMessage();
+							if (needToUpdate)
+							{
+								//update parking lot not full
+							}
 						}
 					}).start();
 				}

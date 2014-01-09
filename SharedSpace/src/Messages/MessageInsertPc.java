@@ -49,13 +49,13 @@ public class MessageInsertPc extends Message{
 				if (mem instanceof STDMember)
 				{
 					PreparedStatement ps = con.prepareStatement("INSERT INTO parking_control (customerID,carNum,parkingLotID,cinDate,cinHour,cotDate,cotHour) VALUES(?,?,?,?,?,?,?);");
-					ps.setString(1,mem.getId());
+					ps.setString(1,((STDMember) mem).getMemberId());
 					ps.setString(2,mem.getCarId());
 					ps.setInt(3,((STDMember) mem).getParkingLotId());
 					ps.setDate(4,todayDate);
 					ps.setTime(5,currTime);
 					ps.setDate(6,todayDate);
-					ps.setString(7,((STDMember) mem).getStdCheckOut());
+					ps.setTime(7,((STDMember) mem).getStdCheckOut());
 	
 					ps.executeUpdate();
 					ps.close();
