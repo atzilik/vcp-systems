@@ -162,11 +162,11 @@ public class Frame extends JFrame implements IGUINavigator {
 		setTitle("Worker Login");
 		validate();
 	}
-	public void goToReserveParkingSpace(){
+	public void goToReserveParkingSpace(Map<String,Integer> mp, Worker wkr){
 		// TODO Auto-generated method stub
 		lastScreen = (JPanel) getContentPane();
-		ReserveParkingSpace rlps = new ReserveParkingSpace(this);
-		setContentPane(rlps);
+		ReserveParkingSpace rps = new ReserveParkingSpace(this,mp,wkr);
+		setContentPane(rps);
 		validate();
 	}
 	public void goToReportDisabledParkingSpace(Worker wkr){

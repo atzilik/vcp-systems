@@ -93,15 +93,15 @@ public class WorkerMenu extends AbstractGUIComponent {
 	
 	public void openWorkerMenu(){
 		
-	JButton btn_ReserverLocalParkingSpace = new JButton("<html>Reserve Local<br />Parking Space</html>");
-		btn_ReserverLocalParkingSpace.setVerticalAlignment(SwingConstants.TOP);
-		btn_ReserverLocalParkingSpace.addActionListener(new ActionListener() {
+	JButton btn_ReserveLocalParkingSpace = new JButton("<html>Reserve Local<br />Parking Space</html>");
+		btn_ReserveLocalParkingSpace.setVerticalAlignment(SwingConstants.TOP);
+		btn_ReserveLocalParkingSpace.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				navigator.goToReserveParkingSpace();
+				navigator.goToReserveParkingSpace(null,wkr);
 			}
 		});
-		btn_ReserverLocalParkingSpace.setBounds(99, 51, 145, 48);
-		add(btn_ReserverLocalParkingSpace);
+		btn_ReserveLocalParkingSpace.setBounds(99, 51, 145, 48);
+		add(btn_ReserveLocalParkingSpace);
 
 		JButton btn_ReportDisabledParkingSpace = new JButton("<html>Report Disabled<br />Parking Space</html>");
 		btn_ReportDisabledParkingSpace.setVerticalAlignment(SwingConstants.TOP);
@@ -174,7 +174,9 @@ public class WorkerMenu extends AbstractGUIComponent {
 		JButton btnReserveParkingSpace = new JButton("<html>Reserve<br />parking space</html>");
 		btnReserveParkingSpace.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				navigator.goToReserveParkingSpace();
+				client.send(new MessageGetParkingLotsID());
+				MessageGetParkingLotsIDReply gplir= (MessageGetParkingLotsIDReply)client.getMessage();
+				navigator.goToReserveParkingSpace(gplir.getMp(),wkr);
 			}
 		});
 		btnReserveParkingSpace.setBounds(46, 90, 117, 52);
@@ -188,14 +190,7 @@ public class WorkerMenu extends AbstractGUIComponent {
 		});
 		btncomplaintmenu.setBounds(112, 161, 117, 52);
 		add(btncomplaintmenu);
-		JButton btnreserveLocalparkingSpace = new JButton("<html>Reserve local<br />parking space</html>");
-		/*btnreserveLocalparkingSpace.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				openWindow("ReserveLocalparkingSpace");
-			}
-		});*/
-		btnreserveLocalparkingSpace.setBounds(173, 90, 117, 52);
-		add(btnreserveLocalparkingSpace);
+	
 	}
 	public void openCEOMenu(){
 		JButton btnNewButton = new JButton("<html>Activity<br />report</html>");
