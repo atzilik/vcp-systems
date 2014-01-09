@@ -1,11 +1,13 @@
 package DataObjects;
 
+import java.sql.Date;
+
 public class FullMember extends Customer {
 	protected String memberId;
-	protected String startDate;
+	protected Date startDate;
 	
 	public FullMember(String id, String carId, String fName, String lName,
-			String email, String memberId, String startDate) {
+			String email, String memberId, Date startDate) {
 		super(id, carId, fName, lName, email);
 		this.memberId = memberId;
 		this.startDate = startDate;
@@ -19,11 +21,11 @@ public class FullMember extends Customer {
 		this.memberId = memberId;
 	}
 
-	public String getStartDate() {
+	public Date getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(String startDate) {
+	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}	
 

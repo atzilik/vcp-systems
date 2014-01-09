@@ -89,7 +89,7 @@ public class ReportDisabledParkingSpace extends AbstractGUIComponent {
 			}
 				else
 				{
-					parkinglots[worker.getParkingLotID()].getParkingspace()[0][0][0].setDisabled(true);
+					parkinglots[worker.getParkingLotID()].getParkingspace()[comboBox.getSelectedIndex()][comboBox_1.getSelectedIndex()][comboBox_2.getSelectedIndex()].setDisabled(true);
 				client.send(new MessageReportDisabledPSpace(arr));
 				MessageReportDisabledPSpaceReply mrdps = (MessageReportDisabledPSpaceReply)client.getMessage();
 				mrdps.doAction();
