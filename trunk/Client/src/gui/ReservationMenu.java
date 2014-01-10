@@ -17,6 +17,8 @@ import javax.swing.JTextField;
 import DataObjects.Customer;
 import Messages.MessageInsertReservation;
 import Messages.MessageInsertReservationReply;
+import Messages.MessageGenerateValidID;
+import Messages.MessageGenerateValidIDReply;;
 
 public class ReservationMenu extends AbstractGUIComponent {
 	private Customer cst;
@@ -63,8 +65,10 @@ public class ReservationMenu extends AbstractGUIComponent {
 				//TODO check if parking lot is full and active before insert
 				if (parkinglots[parkingLots.get(comboBoxParkLot.getSelectedItem())].isActive() && parkinglots[parkingLots.get(comboBoxParkLot.getSelectedItem())].isFull() == false)
 				{
+					client.send(new MessageGenerateValidID(2));
+					MessageGenerateValidIDReply gvir = (MessageGenerateValidIDReply)client.getMessage();
 					String arr[] = new String[9];
-					arr[0] = Integer.toString(100000 + new Random().nextInt(900000));
+					arr[0] = gvir.getiD();
 					arr[1] = cst.getCarId();
 					arr[2] = cst.getId();
 					arr[3] = Integer.toString(parkingLots.get(comboBoxParkLot.getSelectedItem()));

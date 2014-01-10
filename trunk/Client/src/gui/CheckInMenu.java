@@ -60,7 +60,7 @@ public class CheckInMenu extends AbstractGUIComponent {
 					if (grr.getReservation()!= null)  // there is a res
 					{
 						// compare time if before can't chack in
-						client.send(new MessageInsertPc(grr.getReservation()));
+						client.send(new MessageInsertPc(grr.getReservation(),grr.isLate()));
 						final MessageInsertPcReply  ipr = (MessageInsertPcReply) client.getMessage();
 						ipr.doAction();
 						navigator.goBack();

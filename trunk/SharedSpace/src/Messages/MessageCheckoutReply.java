@@ -3,11 +3,13 @@ package Messages;
 import javax.swing.JOptionPane;
 
 import DataObjects.Customer;
+import DataObjects.STDCustomer;
 
 public class MessageCheckoutReply extends Message {
 	private Customer customer;
 	private int parkingLotID;
 	private boolean empty;
+	private double bill;
 	private int floor;
 	private int row;
 	private int depth;
@@ -17,9 +19,10 @@ public class MessageCheckoutReply extends Message {
 		empty = true;
 	}
 	
-	public MessageCheckoutReply(Customer customer, int parkingLotID, int floor, int row, int depth){
+	public MessageCheckoutReply(Customer customer, int parkingLotID, double bill, int floor, int row, int depth){
 		this.customer = customer;
 		this.parkingLotID = parkingLotID;
+		this.bill = bill;
 		this.floor = floor;
 		this.row = row;
 		this.depth = depth;
@@ -72,7 +75,14 @@ public class MessageCheckoutReply extends Message {
 		}
 		else
 		{
-			JOptionPane.showMessageDialog(null, "Check out successful.");
+			if (customer instanceof STDCustomer)
+			{
+				JOptionPane.showMessageDialog(null, "Check out successful. your bill is " + bill);
+			}
+			else
+			{
+				JOptionPane.showMessageDialog(null, "Check out successful.");
+			}
 		}
 		return null;
 	}

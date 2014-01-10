@@ -6,17 +6,19 @@ import java.sql.SQLException;
 import java.sql.Time;
 
 import DataObjects.Customer;
+import DataObjects.DateConvert;
 import DataObjects.Reservation;
 import DataObjects.STDMember;
 
 public class MessageInsertPc extends Message{
 	Reservation res = null;
 	Customer mem = null;
-	Date todayDate = new java.sql.Date(new java.util.Date().getTime()); 
-	Time currTime = new java.sql.Time(new java.util.Date().getTime());
-	
-	public MessageInsertPc(Reservation res){
+	Date todayDate = DateConvert.getCurrentSqlDate(); 
+	Time currTime = DateConvert.getCurrentSqlTime();
+	private boolean late;
+	public MessageInsertPc(Reservation res, boolean late){
 		this.res = res;	
+		this.late = late;
 	}
 	
 	public MessageInsertPc(Customer mem){
@@ -30,7 +32,7 @@ public class MessageInsertPc extends Message{
 		try {
 			if (res != null)
 			{
-				PreparedStatement ps = con.prepareStatement("INSERT INTO parking_control (customerID,carNum,parkingLotID,cinDate,cinHour,cotDate,cotHour) VALUES(?,?,?,?,?,?,?);");
+				PreparedStatement ps = con.prepareStatement("INSERT INTO parking_control (customerID,carNum,parkingLotID,cinDate,cinHour,cotDate,cotHour,late) VALUES(?,?,?,?,?,?,?,?);");
 				ps.setString(1,res.getCid());
 				ps.setInt(2,res.getCarId());
 				ps.setString(3,res.getPl());
@@ -38,7 +40,7 @@ public class MessageInsertPc extends Message{
 				ps.setTime(5,res.getEstCinHour());
 				ps.setDate(6,res.getEstCoutDate());
 				ps.setTime(7,res.getEstCoutHour());
-	
+				ps.setBoolean(8, late);
 				ps.executeUpdate();
 				ps.close();
 			

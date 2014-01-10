@@ -23,8 +23,9 @@ public class MessageInsertReservation extends Message {
 	public Message doAction() {
 
 		con = this.sqlConnection.getConnection();
-
+		
 		try {
+			//insert reservation to reservations table
 			PreparedStatement ps = con.prepareStatement("INSERT INTO reservations (reservationId,carId,customerId,parkingLotId,estCinDate,estCinHour,estCotDate,estCotHour,inAdvance) VALUES(?,?,?,?,?,?,?,?,?);");
 			for (int i = 0 ; i < details.length - 1; i++)
 			{
@@ -38,9 +39,10 @@ public class MessageInsertReservation extends Message {
 			{
 				ps.setBoolean(9, false);
 			}
-
 			ps.executeUpdate();
 			ps.close();
+			
+			//getting the parking lot rates in order to calculate estimated bill
 			ps = con.prepareStatement("SELECT * FROM parkinglots WHERE parkingLotID=?;");
 			ps.setString(1, details[3]);
 			ResultSet rs = ps.executeQuery();
@@ -50,6 +52,7 @@ public class MessageInsertReservation extends Message {
 				double resRate = rs.getDouble(8);
 				ps.close();
 				double bill;
+				//getting the dates in order to calculate bill
 				ps = con.prepareStatement("SELECT * FROM reservations WHERE reservationId=?;");
 				ps.setString(1, details[0]);
 				rs = ps.executeQuery();
@@ -63,7 +66,7 @@ public class MessageInsertReservation extends Message {
 				if (details[8].equals("1"))
 				{
 					//calculate bill
-					//get time difference in min and multiple by rate/60
+					//get time difference in minutes and multiple it by rate/60
 					bill = DateConvert.timeDifference(DateConvert.buildFullDate(cotDate,cotTime),DateConvert.buildFullDate(cinDate,cinTime)) * (resRate / 60);			
 				}
 				else
@@ -86,12 +89,7 @@ public class MessageInsertReservation extends Message {
 		} catch (SQLException e) {
 
 			e.printStackTrace();
-			this.setTransactionSucceeded(false);
-			if (e.getMessage().contains("Duplicate entry"))
-			{
-				details[0] = Integer.toString(100000 + new Random().nextInt(900000));
-				new MessageInsertReservation(details).doAction();
-			}		
+			this.setTransactionSucceeded(false);	
 		}
 		return null;
 	}

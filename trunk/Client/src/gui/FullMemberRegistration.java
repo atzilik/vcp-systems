@@ -9,8 +9,8 @@ import DataObjects.STDCustomer;
 import DataObjects.STDMember;
 import Messages.MessageMemberRegister;
 import Messages.MessageMemberRegisterReply;
-import Messages.MessageCheckMemberID;
-import Messages.MessageCheckMemberIDReply;
+import Messages.MessageGenerateValidID;
+import Messages.MessageGenerateValidIDReply;
 import Messages.MessageSTDToFullRegister;
 import Messages.MessageSTDToFullRegisterReply;
 
@@ -53,9 +53,9 @@ public class FullMemberRegistration extends AbstractGUIComponent {
 				arr[7] = "3";
 				if (cst instanceof STDCustomer)
 				{
-					client.send(new MessageCheckMemberID());
-					MessageCheckMemberIDReply cmir = (MessageCheckMemberIDReply)client.getMessage();
-					arr[0] = cmir.getMemberID();
+					client.send(new MessageGenerateValidID(1));
+					MessageGenerateValidIDReply cmir = (MessageGenerateValidIDReply)client.getMessage();
+					arr[0] = cmir.getiD();
 					((STDCustomer) cst).setMemberID(arr[0]);
 					((STDCustomer) cst).setRegisteredToMember(true);
 					

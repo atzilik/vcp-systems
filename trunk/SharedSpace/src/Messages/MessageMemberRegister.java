@@ -94,6 +94,7 @@ public class MessageMemberRegister extends Message {
 
 		}catch (SQLException e) 
 		{
+			e.printStackTrace();
 		}
 		return null;
 	}
