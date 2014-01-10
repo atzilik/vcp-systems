@@ -43,7 +43,7 @@ public class Robot implements Serializable{
 			parkingLotFull = false;
 	}
 	
-	//check reserv and car id
+	//check reserve and car id
 	public void parkCar(int carNumber, Date checkOutdate, Time checkOutTime){
 		busy = true;
 		ParkingSpace ps = findParkingSpace(carNumber, checkOutdate, checkOutTime);
@@ -104,7 +104,7 @@ public class Robot implements Serializable{
 		busy = false;
 	}
 	
-	public ParkingSpace findParkingSpace(int carNumber, Date checkOutdate, Time checkOutTime){
+	public ParkingSpace findParkingSpace(int carNumber, Date checkOutDate, Time checkOutTime){
 		int index = 1;
 		while (floorSize - index >= 0)
 		{
@@ -118,7 +118,7 @@ public class Robot implements Serializable{
 						{
 							//insert to a new parking space
 							parkingSpace[floorSize - index][i][j].setCarNum(carNumber);
-							parkingSpace[floorSize - index][i][j].setCheckOutdate(checkOutdate);
+							parkingSpace[floorSize - index][i][j].setCheckOutdate(checkOutDate);
 							parkingSpace[floorSize - index][i][j].setCheckOutTime(checkOutTime);
 							return parkingSpace[floorSize - index][i][j];
 						}
@@ -129,7 +129,7 @@ public class Robot implements Serializable{
 							{
 								//insert to a new parking space
 								parkingSpace[floorSize - index][i][j].setCarNum(carNumber);
-								parkingSpace[floorSize - index][i][j].setCheckOutdate(checkOutdate);
+								parkingSpace[floorSize - index][i][j].setCheckOutdate(checkOutDate);
 								parkingSpace[floorSize - index][i][j].setCheckOutTime(checkOutTime);
 								parkingSpace[floorSize - index][i][j].setReserved(false);
 								return parkingSpace[floorSize - index][i][j];
@@ -137,18 +137,11 @@ public class Robot implements Serializable{
 						}
 						else if (parkingSpace[floorSize - index][i][j].isOccupied())
 						{
-							if (DateConvert.afterDate(checkOutdate, parkingSpace[floorSize - index][i][j].getCheckOutdate()))
+							java.util.Date parkedCarCheckOutDate = DateConvert.buildFullDate(parkingSpace[floorSize - index][i][j].getCheckOutdate(), parkingSpace[floorSize - index][i][j].getCheckOutTime());
+							if (DateConvert.timeDifference(checkOutDate,parkedCarCheckOutDate) > 0)
 							{
 								//switch cars
-								return switchCars(carNumber, checkOutdate, checkOutTime, parkingSpace[floorSize - index][i][j]);
-							}
-							else if (DateConvert.equalsDate(checkOutdate, parkingSpace[floorSize - index][i][j].getCheckOutdate()))
-							{
-								if (DateConvert.compareTime(checkOutTime, parkingSpace[floorSize - index][i][j].getCheckOutTime()) == 1)
-								{
-									//switch cars
-									return switchCars(carNumber, checkOutdate, checkOutTime, parkingSpace[floorSize - index][i][j]);
-								}
+								return switchCars(carNumber, checkOutDate, checkOutTime, parkingSpace[floorSize - index][i][j]);
 							}
 						}
 					}

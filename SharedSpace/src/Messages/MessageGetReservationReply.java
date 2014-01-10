@@ -10,12 +10,14 @@ import DataObjects.Reservation;
 public class MessageGetReservationReply extends Message{
 	private Reservation res;
 	private int ans;
+	private boolean late;
 	
 //	public MessageGetReservationReply() {
 //		res = null;
 //	}
-	public MessageGetReservationReply(Reservation res) {
+	public MessageGetReservationReply(Reservation res, boolean late) {
 		this.res = res;
+		this.late = late;
 	}
 	
 	public MessageGetReservationReply(int ans) {
@@ -27,6 +29,11 @@ public class MessageGetReservationReply extends Message{
 		return res;
 	}
 	
+	
+	public boolean isLate() {
+		return late;
+	}
+
 	@Override
 	public Message doAction() {
 		

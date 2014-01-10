@@ -11,11 +11,13 @@ public class MessageCancelReservation extends Message {
 
 	private String reservationNum;
 	private String customerId;
+	private String carNumber;
 
-	public MessageCancelReservation(String reservationNum, String customerId) {
+	public MessageCancelReservation(String reservationNum, String customerId, String carNumber) {
 		super();
 		this.reservationNum = reservationNum;
 		this.customerId = customerId;
+		this.carNumber = carNumber;
 	}
 
 
@@ -32,7 +34,7 @@ public class MessageCancelReservation extends Message {
 			if (rs.isBeforeFirst() == false)
 			{
 				ps.close();
-				return new MessageCancelReservationReply(reservationNum, false);
+				return new MessageCancelReservationReply(reservationNum, false, 0);
 			}
 			else
 			{
@@ -40,7 +42,7 @@ public class MessageCancelReservation extends Message {
 				//check if reservation already used
 				if (rs.getBoolean(11))
 				{
-					return new MessageCancelReservationReply(reservationNum, false);
+					return new MessageCancelReservationReply(reservationNum, false, 0);
 				}
 				//if not then insert to cancel_reservation table and delete it from reservation table
 				double refund = 0;
@@ -58,9 +60,11 @@ public class MessageCancelReservation extends Message {
 				{
 					refund = 0;
 				}
-				PreparedStatement ps1 = con.prepareStatement("INSERT INTO cancel_reservation (reservationId,refund) VALUES (?,?);");
+				PreparedStatement ps1 = con.prepareStatement("INSERT INTO cancel_reservation (reservationId,customerID,carNumner,refund) VALUES (?,?,?,?);");
 				ps1.setString(1, rs.getString(1));
-				ps1.setDouble(2, refund);
+				ps.setString(2, customerId);
+				ps.setString(3, carNumber);
+				ps1.setDouble(4, refund);
 				ps1.executeUpdate();
 				ps1.close();
 				
@@ -68,7 +72,7 @@ public class MessageCancelReservation extends Message {
 				ps.setString(1, rs.getString(1));
 				ps.executeUpdate();
 				ps.close();
-				return new MessageCancelReservationReply(reservationNum, true);
+				return new MessageCancelReservationReply(reservationNum, true, refund);
 			}
 		}catch (SQLException e) {e.printStackTrace();}
 		return null;

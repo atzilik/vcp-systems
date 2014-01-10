@@ -51,9 +51,9 @@ public class AddCarMenu extends AbstractGUIComponent{
 							arr[0] = ((STDCustomer)cst).getMemberID();
 						else
 						{
-							client.send(new MessageCheckMemberID());
-							MessageCheckMemberIDReply cmir = (MessageCheckMemberIDReply)client.getMessage();
-							arr[0] = cmir.getMemberID();
+							client.send(new MessageGenerateValidID(1));
+							MessageGenerateValidIDReply cmir = (MessageGenerateValidIDReply)client.getMessage();
+							arr[0] = cmir.getiD();
 							((STDCustomer) cst).setMemberID(arr[0]);
 							((STDCustomer) cst).setRegisteredToMember(true);
 						}
@@ -80,9 +80,9 @@ public class AddCarMenu extends AbstractGUIComponent{
 							arr[0] = ((STDCustomer)cst).getMemberID();
 						else
 						{
-							client.send(new MessageCheckMemberID());
-							MessageCheckMemberIDReply cmir = (MessageCheckMemberIDReply)client.getMessage();
-							arr[0] = cmir.getMemberID();
+							client.send(new MessageGenerateValidID(1));
+							MessageGenerateValidIDReply cmir = (MessageGenerateValidIDReply)client.getMessage();
+							arr[0] = cmir.getiD();
 							((STDCustomer) cst).setMemberID(arr[0]);
 							((STDCustomer) cst).setRegisteredToMember(true);
 							client.send(new MessageMemberRegister(arr,arr[7]));

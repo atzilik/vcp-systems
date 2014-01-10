@@ -33,7 +33,7 @@ public class CancelReservation extends AbstractGUIComponent {
 		btnSubmit.setBounds(109, 182, 86, 37);
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				client.send(new MessageCancelReservation(textField_resNum.getText(), cst.getId()));
+				client.send(new MessageCancelReservation(textField_resNum.getText(), cst.getId(),cst.getCarId()));
 				MessageCancelReservationReply mcrr = (MessageCancelReservationReply)client.getMessage();
 				mcrr.doAction();
 				if (mcrr.isCompleted())
