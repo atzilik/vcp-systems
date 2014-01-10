@@ -26,11 +26,12 @@ public interface IGUINavigator {
 	public void goToSTDMemberRegisteration(Customer customer, Map<String,Integer> mp);
 	public void goToReserveParkingSpace(Map<String,Integer> mp, Worker worker);
 	public void goToReportDisabledParkingSpace(Worker worker);
-	public void goToWorkerSetupMenu(int parkingLotID);
+	public void goToWorkerSetupMenu(int parkingLotID, Worker worker);
 	public void goToInsertAlternativeParkingLot(Map<String,Integer> mp, Worker worker);
 	public void goToComplaintMenu();
 	public void goToChangeRatesReq(Worker wkr);
 	public void goToChangeRates(Worker wkr);
+	public void goToEnableDisableFacility(Worker wkr);
 	public void goBack();
 
 }
