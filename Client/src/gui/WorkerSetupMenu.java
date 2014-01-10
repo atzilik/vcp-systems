@@ -13,12 +13,13 @@ import java.awt.event.ActionEvent;
 public class WorkerSetupMenu extends AbstractGUIComponent {
 	private int depthSize;
 	private int parkingLotID;
+	private Worker worker;
 	private JTextField textFieldDepthSize;
 	
-	public WorkerSetupMenu(final IGUINavigator navigator, final int parkingLotID){
+	public WorkerSetupMenu(final IGUINavigator navigator, final int parkingLotID, final Worker worker){
 		setLayout(null);
 		this.parkingLotID = parkingLotID;
-		
+		this.worker=worker;
 		JLabel lblInsertNewDepth = new JLabel("(Optional) Insert new depth size:");
 		lblInsertNewDepth.setBounds(158, 99, 222, 14);
 		add(lblInsertNewDepth);
@@ -43,10 +44,20 @@ public class WorkerSetupMenu extends AbstractGUIComponent {
 				client.send(msp);
 				MessageSetupPLReply splr = (MessageSetupPLReply)client.getMessage();
 				splr.doAction();
-				navigator.goBack();
+				parkinglots[parkingLotID].setActive(true);
+				//navigator.goBack();
+				
 			}
 		});
-		btnSetup.setBounds(182, 211, 89, 23);
+		btnSetup.setBounds(137, 176, 89, 23);
 		add(btnSetup);
+		JButton btnCancel = new JButton("Cancel");
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				navigator.goToWorkerMenu(worker);
+			}
+		});
+		btnCancel.setBounds(233, 176, 89, 23);
+		add(btnCancel);
 	}
 }

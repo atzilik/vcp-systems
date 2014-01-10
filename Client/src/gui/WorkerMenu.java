@@ -33,7 +33,7 @@ public class WorkerMenu extends AbstractGUIComponent {
 	 * @param wkr
 	 */
 	public WorkerMenu(final IGUINavigator navigator, Worker wkr){
-		
+
 		setLayout(null);
 		this.wkr  = wkr;
 		this.navigator=navigator;
@@ -41,9 +41,9 @@ public class WorkerMenu extends AbstractGUIComponent {
 		JLabel lblNewLabel = new JLabel("Hello" + " " +wkr.getfName() + " " + wkr.getlName());
 		lblNewLabel.setBounds(121, 11, 123, 14);
 		add(lblNewLabel);
-		
+
 		String wkrType = null;
-		
+
 		if (wkr instanceof ParkingLotManager)
 		{
 			wkrType = "ParkingLot Manager";
@@ -75,25 +75,25 @@ public class WorkerMenu extends AbstractGUIComponent {
 		});
 		btnCancel.setBounds(173, 265, 89, 23);
 		add(btnCancel);
-		
+
 		try { // check if user have message and print
 			client.sendToServer(new MessageGetMessage(wkr.getId()));
 			MessageGetMessageReply msgReplay = (MessageGetMessageReply)client.getMessage();
-			
+
 			for(MessageToUser msg: msgReplay.getMsgArr())
 				JOptionPane.showMessageDialog(null, msg.getMsg());
-			 
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
 
-	
+
 	public void openWorkerMenu(){
-		
-	JButton btn_ReserveLocalParkingSpace = new JButton("<html>Reserve Local<br />Parking Space</html>");
+
+		JButton btn_ReserveLocalParkingSpace = new JButton("<html>Reserve Local<br />Parking Space</html>");
 		btn_ReserveLocalParkingSpace.setVerticalAlignment(SwingConstants.TOP);
 		btn_ReserveLocalParkingSpace.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -106,10 +106,10 @@ public class WorkerMenu extends AbstractGUIComponent {
 		JButton btn_ReportDisabledParkingSpace = new JButton("<html>Report Disabled<br />Parking Space</html>");
 		btn_ReportDisabledParkingSpace.setVerticalAlignment(SwingConstants.TOP);
 		btn_ReportDisabledParkingSpace.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent arg0) {
-		navigator.goToReportDisabledParkingSpace(wkr);
-		}
-	});
+			public void actionPerformed(ActionEvent arg0) {
+				navigator.goToReportDisabledParkingSpace(wkr);
+			}
+		});
 		btn_ReportDisabledParkingSpace.setBounds(99, 110, 145, 58);
 		add(btn_ReportDisabledParkingSpace);
 
@@ -117,7 +117,7 @@ public class WorkerMenu extends AbstractGUIComponent {
 		btn_ReportDisabledFacility.setVerticalAlignment(SwingConstants.TOP);
 		btn_ReportDisabledFacility.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-			}
+				navigator.goToEnableDisableFacility(wkr);		}
 		});
 		btn_ReportDisabledFacility.setBounds(261, 51, 138, 48);
 		add(btn_ReportDisabledFacility);
@@ -134,18 +134,18 @@ public class WorkerMenu extends AbstractGUIComponent {
 		btn_InsertAlternativeParkingLot.setBounds(261, 110, 138, 58);
 		add(btn_InsertAlternativeParkingLot);
 
-		
+
 		JButton btnSetupParkingLot = new JButton("<html>Setup<br />Parking Lot</html>");
 		btnSetupParkingLot.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				navigator.goToWorkerSetupMenu(wkr.getParkingLotID());
+				navigator.goToWorkerSetupMenu(wkr.getParkingLotID(),wkr);
 			}
 		});
 		btnSetupParkingLot.setVerticalAlignment(SwingConstants.TOP);
 		btnSetupParkingLot.setBounds(166, 179, 123, 61);
 		add(btnSetupParkingLot);
 	}
-	
+
 	public void openParkingLotManagerMenu(){
 
 		JButton btnChangeRates = new JButton("<html>Open Change<br />Rates Menu</html> ");
@@ -168,7 +168,7 @@ public class WorkerMenu extends AbstractGUIComponent {
 		JButton btndisabledreport = new JButton("<html>Disabled<br />report</html> ");
 		btndisabledreport.setBounds(157, 161, 106, 45);
 		add(btndisabledreport);
-		
+
 	}
 	public void openCSMenu(){
 		JButton btnReserveParkingSpace = new JButton("<html>Reserve<br />parking space</html>");
@@ -190,7 +190,7 @@ public class WorkerMenu extends AbstractGUIComponent {
 		});
 		btncomplaintmenu.setBounds(112, 161, 117, 52);
 		add(btncomplaintmenu);
-	
+
 	}
 	public void openCEOMenu(){
 		JButton btnNewButton = new JButton("<html>Activity<br />report</html>");
@@ -226,7 +226,7 @@ public class WorkerMenu extends AbstractGUIComponent {
 		JButton btnworkersdata = new JButton("<html>Workers<br />data</html>");
 		btnworkersdata.setBounds(205, 147, 102, 49);
 		add(btnworkersdata);
-		
-		
+
+
 	}
 }

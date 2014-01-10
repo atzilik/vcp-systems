@@ -34,6 +34,7 @@ public class Frame extends JFrame implements IGUINavigator {
 	private ReserveParkingSpace reserveParkingSpace;
 	private STDMemberRegistration standardMemberRegistration;
 	private JPanel lastScreen;
+	private EnableDisableFacility enableDisableFacility; 
 
 
 	public Frame(){
@@ -236,12 +237,21 @@ public class Frame extends JFrame implements IGUINavigator {
 	}
 
 	@Override
-	public void goToWorkerSetupMenu(int parkingLotID) {
+	public void goToWorkerSetupMenu(int parkingLotID, Worker worker) {
 		// TODO Auto-generated method stub
 		lastScreen = (JPanel) getContentPane();
-        WorkerSetupMenu wsm = new WorkerSetupMenu(this, parkingLotID);
+        WorkerSetupMenu wsm = new WorkerSetupMenu(this, parkingLotID, worker);
         setContentPane(wsm);             
         setTitle("Login");
+        validate();
+	}
+	@Override
+	public void goToEnableDisableFacility (Worker worker) {
+		// TODO Auto-generated method stub
+		lastScreen = (JPanel) getContentPane();
+        EnableDisableFacility edf = new  EnableDisableFacility(this, worker);
+        setContentPane(edf);             
+        setTitle("Enable/Disable Facility");
         validate();
 	}
 }
