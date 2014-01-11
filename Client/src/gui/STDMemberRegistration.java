@@ -13,6 +13,7 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 
 import DataObjects.Customer;
+import DataObjects.STDCustomer;
 import Messages.MessageGenerateValidID;
 import Messages.MessageGenerateValidIDReply;
 import Messages.MessageMemberRegister;
@@ -40,9 +41,18 @@ public class STDMemberRegistration extends AbstractGUIComponent {
 		btnCreate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String[] arr = new String[10];
-				client.send(new MessageGenerateValidID(1));
-				MessageGenerateValidIDReply cmir = (MessageGenerateValidIDReply)client.getMessage();
-				arr[0] = cmir.getiD();
+				if (((STDCustomer)cst).isRegisteredToMember())
+				{
+					arr[0] = ((STDCustomer) cst).getMemberID();
+				}
+				else
+				{
+					client.send(new MessageGenerateValidID(1));
+					MessageGenerateValidIDReply cmir = (MessageGenerateValidIDReply)client.getMessage();
+					arr[0] = cmir.getiD();
+					((STDCustomer) cst).setMemberID(arr[0]);
+					((STDCustomer) cst).setRegisteredToMember(true);
+				}
 				arr[1] = cst.getCarId();
 				arr[2] = cst.getId();
 				arr[3] = cst.getfName();

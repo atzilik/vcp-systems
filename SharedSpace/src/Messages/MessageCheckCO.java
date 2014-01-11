@@ -27,10 +27,7 @@ public class MessageCheckCO extends Message{
 			{
 				do
 				{
-					if(rs.getDate(8)==null&&rs.getTime(9)==null)
 						return new MessageCheckCOReply(1); //  no check out
-					else
-						return new MessageCheckCOReply(0);  // already done check out
 				}
 				while (rs.next());
 			}
@@ -40,7 +37,7 @@ public class MessageCheckCO extends Message{
 	} // doAction
 	
 	public ResultSet findPl() throws SQLException {
-		PreparedStatement ps = con.prepareStatement("SELECT * FROM parking_control where customerId=? and carNum=?;");
+		PreparedStatement ps = con.prepareStatement("SELECT * FROM parking_control where customerId=? and carNum=? and realCotDate is NULL and realCotHour is NULL;");
 		ps.setString(1, id);
 		ps.setString(2, carNum);
 		ResultSet rs = ps.executeQuery();

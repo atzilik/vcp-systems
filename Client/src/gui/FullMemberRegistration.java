@@ -5,6 +5,7 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 
 import DataObjects.Customer;
+import DataObjects.DateConvert;
 import DataObjects.STDCustomer;
 import DataObjects.STDMember;
 import Messages.MessageMemberRegister;
@@ -49,16 +50,22 @@ public class FullMemberRegistration extends AbstractGUIComponent {
 				arr[3] = cst.getfName();
 				arr[4] = cst.getlName();
 				arr[5] = cst.getEmail();
-				arr[6] = new java.sql.Date(new java.util.Date().getTime()).toString();
+				arr[6] = DateConvert.getCurrentSqlDate().toString();
 				arr[7] = "3";
 				if (cst instanceof STDCustomer)
 				{
-					client.send(new MessageGenerateValidID(1));
-					MessageGenerateValidIDReply cmir = (MessageGenerateValidIDReply)client.getMessage();
-					arr[0] = cmir.getiD();
-					((STDCustomer) cst).setMemberID(arr[0]);
-					((STDCustomer) cst).setRegisteredToMember(true);
-					
+					if (((STDCustomer) cst).isRegisteredToMember())
+					{
+						arr[0] = ((STDCustomer) cst).getMemberID();
+					}
+					else
+					{
+						client.send(new MessageGenerateValidID(1));
+						MessageGenerateValidIDReply cmir = (MessageGenerateValidIDReply)client.getMessage();
+						arr[0] = cmir.getiD();
+						((STDCustomer) cst).setMemberID(arr[0]);
+						((STDCustomer) cst).setRegisteredToMember(true);
+					}
 					client.send(new MessageMemberRegister(arr,arr[7]));
 					MessageMemberRegisterReply fmrr = (MessageMemberRegisterReply)client.getMessage();
 					fmrr.doAction();

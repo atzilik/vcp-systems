@@ -33,16 +33,18 @@ public class MessageGetReservationReply extends Message{
 	public boolean isLate() {
 		return late;
 	}
+	
+	
+
+	public int getAns() {
+		return ans;
+	}
 
 	@Override
 	public Message doAction() {
 		
-//		if (res == null)
-//		{
-//			JOptionPane.showMessageDialog(null, "NO reservation reccord.", "Error", JOptionPane.ERROR_MESSAGE);
-//		}
 		if (ans == 1)
-			JOptionPane.showMessageDialog(null, "your early.");
+			JOptionPane.showMessageDialog(null, "your early.", "Error", JOptionPane.ERROR_MESSAGE);
 		else if (ans == 2)
 			JOptionPane.showMessageDialog(null, "NO reservation reccord.", "Error", JOptionPane.ERROR_MESSAGE);
 		else

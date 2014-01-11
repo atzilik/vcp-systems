@@ -10,6 +10,7 @@ import Messages.MessageCheckout;
 import Messages.MessageCheckoutReply;
 import Messages.MessageEmptyReply;
 import Messages.MessageUpdatePLMap;
+import Messages.MessageFullPLStatus;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -52,7 +53,8 @@ public class CheckOutMenu extends AbstractGUIComponent {
 							MessageEmptyReply er = (MessageEmptyReply)client.getMessage();
 							if (needToUpdate)
 							{
-								//update parking lot not full
+								client.send(new MessageFullPLStatus(cor.getParkingLotID(), false));
+								MessageEmptyReply fps = (MessageEmptyReply)client.getMessage();
 							}
 						}
 					}).start();
