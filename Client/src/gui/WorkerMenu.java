@@ -189,20 +189,28 @@ public class WorkerMenu extends AbstractGUIComponent {
 
 	}
 	public void openCEOMenu(){
-		JButton btnNewButton = new JButton("<html>Activity<br />report</html>");
-		btnNewButton.setBounds(23, 71, 102, 49);
-		add(btnNewButton);
+		JButton btnActivityReport = new JButton("<html>Activity<br />report</html>");
+		btnActivityReport.setBounds(137, 186, 84, 52);
+		add(btnActivityReport);
 
-		JButton button = new JButton("<html>Snapshot<br />report</html>");
-		button.setBounds(23, 11, 102, 49);
-		add(button);
+		JButton btnSnapShot = new JButton("<html>Snapshot<br />report</html>");
+		btnSnapShot.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				client.send(new MessageGetParkingLotsID());
+				MessageGetParkingLotsIDReply gplir= (MessageGetParkingLotsIDReply)client.getMessage();
+				navigator.goToSnapShotReport(gplir.getMp());
+
+			}
+		});
+		btnSnapShot.setBounds(10, 102, 155, 52);
+		add(btnSnapShot);
 
 		JButton btnexceptionsreport = new JButton("<html>Exceptions<br />report</html>");
-		btnexceptionsreport.setBounds(23, 141, 102, 49);
+		btnexceptionsreport.setBounds(176, 97, 130, 62);
 		add(btnexceptionsreport);
 
 		JButton btnperformancereport = new JButton("<html>Performance<br />report</html>");
-		btnperformancereport.setBounds(23, 201, 102, 49);
+		btnperformancereport.setBounds(316, 107, 124, 52);
 		add(btnperformancereport);
 
 		JButton btnreservationdata = new JButton("<html>Reservation<br />data</html>");
@@ -211,7 +219,7 @@ public class WorkerMenu extends AbstractGUIComponent {
 				navigator.goToreservationsDataMenu(wkr);
 			}
 		});
-		btnreservationdata.setBounds(205, 201, 102, 49);
+		btnreservationdata.setBounds(349, 186, 91, 52);
 		add(btnreservationdata);
 
 		JButton btnchangeRatesrequests = new JButton("<html>Change Rates<br />requests</html>");
@@ -220,7 +228,7 @@ public class WorkerMenu extends AbstractGUIComponent {
 				navigator.goToChangeRates(wkr);
 			}
 		});
-		btnchangeRatesrequests.setBounds(220, 11, 102, 49);
+		btnchangeRatesrequests.setBounds(26, 186, 101, 52);
 		add(btnchangeRatesrequests);
 
 
@@ -231,9 +239,9 @@ public class WorkerMenu extends AbstractGUIComponent {
 				navigator.goToWorkerDataMenu(wkr);
 			}
 		});
-		btnworkersdata.setBounds(205, 147, 102, 49);
+		btnworkersdata.setBounds(231, 186, 108, 52);
 		add(btnworkersdata);
 
-
 	}
+
 }

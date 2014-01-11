@@ -42,7 +42,6 @@ public class ReserveParkingSpace extends AbstractGUIComponent {
 	public ReserveParkingSpace(final IGUINavigator navigator, Map<String,Integer> mp, final Worker worker) {
 		setLayout(null);
 		this.parkingLots=mp;
-		//final  comboBoxParkLot = null;
 		final JComboBox comboBoxParkLot = new JComboBox();
 		if (worker instanceof CustomerService)
 		{
@@ -53,7 +52,6 @@ public class ReserveParkingSpace extends AbstractGUIComponent {
 			}
 			comboBoxParkLot.setBounds(150, 6, 123, 20);
 			add(comboBoxParkLot);
-			//parkingLotIDcs=parkingLots.get(comboBoxParkLot.getSelectedItem());
 		}
 		if (!(worker instanceof CustomerService)){
 			JLabel lblParkingLot = new JLabel("Parking Lot:" +parkinglots[worker.getParkingLotID()].getName());
