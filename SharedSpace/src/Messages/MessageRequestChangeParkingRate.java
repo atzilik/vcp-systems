@@ -13,20 +13,16 @@ public class MessageRequestChangeParkingRate extends Message {
 	
 	private float occasional;
 	private float reserved;
-	private float standard;
-	private float full;
 	private int parkingLotId;
 	private String mngId;
 	
 	
 	//private MessageRequestChangeParkingRateReplay msgCPFreply = new MessageRequestChangeParkingRateReplay();
 
-	public MessageRequestChangeParkingRate(int pId, float occ, float res, float std, float full, String mngId) {
+	public MessageRequestChangeParkingRate(int pId, float occ, float res, String mngId) {
 		parkingLotId = pId;
 		occasional = occ;
 		reserved = res;
-		standard = std;
-		this.full = full;
 		this.mngId = mngId;
 		this.MessageType = "MessageRequestChangeParkingRate";
 	}
@@ -41,8 +37,8 @@ public class MessageRequestChangeParkingRate extends Message {
 			ps.setInt(1, parkingLotId);
 			ps.setFloat(2, occasional);
 			ps.setFloat(3, reserved);
-			ps.setFloat(4, standard);
-			ps.setFloat(5, full);
+			ps.setFloat(4, reserved*60);
+			ps.setFloat(5, reserved*72);
 			ps.setString(6, mngId);
 			ps.executeUpdate();
 

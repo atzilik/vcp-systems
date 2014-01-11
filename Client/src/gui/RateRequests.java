@@ -24,7 +24,7 @@ public class RateRequests extends AbstractGUIComponent {
 	
 	public RateRequests(final IGUINavigator navigator,  Worker worker) {
 		super();	
-		
+		setLayout(null);
 		wkr = worker;
 		MessageGetRateRequest try1 = new MessageGetRateRequest();
 		client.send(try1);
@@ -32,25 +32,7 @@ public class RateRequests extends AbstractGUIComponent {
 		if (replay.getRateArray() != null) {
 			
 			PrintTable(navigator,replay.getRateArray());
-			
-			JButton btnNewButton = new JButton("Accept Request");
-			btnNewButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-				}
-			});
-			setLayout(null);
-			btnNewButton.setBounds(114, 250, 109, 23);
-			add(btnNewButton);
-			
-			JButton btnNewButton_1 = new JButton("Reject Request");
-			btnNewButton_1.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-				}
-			});
-			setLayout(null);
-			btnNewButton_1.setBounds(228, 250, 107, 23);
-			add(btnNewButton_1);
-			
+					
 			JButton btnCancel = new JButton("Cancel");
 			btnCancel.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -91,17 +73,17 @@ public class RateRequests extends AbstractGUIComponent {
 			data[i][3] = req.getStandard();
 			data[i][4] = req.getFull();
 			
-			MessageToUser msg = new MessageToUser(wkr.getId(), req.getMangerId(), null);
+			DataObjectMessageToUser msg = new DataObjectMessageToUser(wkr.getId(), req.getMangerId(), null);
 
 			Buttons.add(i,new JButton("V"));
-			Buttons.get(i).addActionListener(new rateActionListener(navigator,wkr,req,true,msg));
+			Buttons.get(i).addActionListener(new RateActionListener(navigator,wkr,req,true,msg));
 			setLayout(null);
 			Buttons.get(i).setBounds(515, 100 + (i*23), 50, 23);
 			add(Buttons.get(i));
 			
 			
 			Buttons.add(i,new JButton("X"));
-			Buttons.get(i).addActionListener(new rateActionListener(navigator,wkr,req,false,msg));
+			Buttons.get(i).addActionListener(new RateActionListener(navigator,wkr,req,false,msg));
 			setLayout(null);
 			Buttons.get(i).setBounds(570, 100 + (i*23), 50, 23);
 			add(Buttons.get(i));

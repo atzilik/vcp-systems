@@ -6,13 +6,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import DataObjects.MessageToUser;
+import DataObjects.DataObjectMessageToUser;
 import DataObjects.RateRequest;
 
 public class MessageGetMessage extends Message {
 	
 	private String id;
-	private ArrayList<MessageToUser> msgArray = new ArrayList<>();
+	private ArrayList<DataObjectMessageToUser> msgArray = new ArrayList<>();
 	private ArrayList<Integer> msgToDelete = new ArrayList<>();
 	public MessageGetMessage(String id) {
 		this.id=id;
@@ -32,7 +32,7 @@ public class MessageGetMessage extends Message {
 			{
 				if(rs.getString(3).equals(id))
 				{
-					msgArray.add(new MessageToUser(rs.getString(2), rs.getString(3), rs.getString(4))); 
+					msgArray.add(new DataObjectMessageToUser(rs.getString(2), rs.getString(3), rs.getString(4))); 
 					msgToDelete.add(rs.getInt(1));
 				}
 			}

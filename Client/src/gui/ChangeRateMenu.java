@@ -17,8 +17,6 @@ import java.awt.event.ActionEvent;
 public class ChangeRateMenu extends AbstractGUIComponent {
 	private JTextField textField_1;
 	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
 	Worker wrk;
 
 	public ChangeRateMenu(final IGUINavigator navigator, Worker worker) {
@@ -35,14 +33,6 @@ public class ChangeRateMenu extends AbstractGUIComponent {
 		lblNewLabel_1.setBounds(29, 89, 114, 14);
 		add(lblNewLabel_1);
 		
-		JLabel lblNewLabel_2 = new JLabel("Standard Membership Rate:");
-		lblNewLabel_2.setBounds(29, 124, 134, 14);
-		add(lblNewLabel_2);
-		
-		JLabel lblNewLabel_3 = new JLabel("Full Membership Rate:");
-		lblNewLabel_3.setBounds(29, 160, 134, 14);
-		add(lblNewLabel_3);
-		
 		textField_1 = new JTextField();
 		textField_1.setBounds(176, 86, 86, 20);
 		add(textField_1);
@@ -53,20 +43,10 @@ public class ChangeRateMenu extends AbstractGUIComponent {
 		add(textField_2);
 		textField_2.setColumns(10);
 		
-		textField_3 = new JTextField();
-		textField_3.setBounds(176, 121, 86, 20);
-		add(textField_3);
-		textField_3.setColumns(10);
-		
-		textField_4 = new JTextField();
-		textField_4.setBounds(176, 157, 86, 20);
-		add(textField_4);
-		textField_4.setColumns(10);
-		
 		JButton btnSend = new JButton("Send");
 		btnSend.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				client.send(new MessageRequestChangeParkingRate(wrk.getParkingLotID(), Float.parseFloat(textField_1.getText()), Float.parseFloat(textField_2.getText()), Float.parseFloat(textField_3.getText()), Float.parseFloat(textField_4.getText()),wrk.getId()));
+				client.send(new MessageRequestChangeParkingRate(wrk.getParkingLotID(), Float.parseFloat(textField_1.getText()), Float.parseFloat(textField_2.getText()),wrk.getId()));
 				MessageRequestChangeParkingRateReply wlr = (MessageRequestChangeParkingRateReply)client.getMessage();
 				wlr.doAction();
 				navigator.goToWorkerMenu(wrk);
