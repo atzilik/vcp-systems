@@ -44,7 +44,7 @@ public class RateRequests extends AbstractGUIComponent {
 		}
 			
 		else
-			navigator.goToWorkerMenu(replay.getWkr());
+			navigator.goToWorkerMenu(wkr);
 	}
 	
 	private void PrintTable(final IGUINavigator navigator,ArrayList<RateRequest> requests) {

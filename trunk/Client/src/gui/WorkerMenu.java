@@ -206,6 +206,11 @@ public class WorkerMenu extends AbstractGUIComponent {
 		add(btnperformancereport);
 
 		JButton btnreservationdata = new JButton("<html>Reservation<br />data</html>");
+		btnreservationdata.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				navigator.goToreservationsDataMenu(wkr);
+			}
+		});
 		btnreservationdata.setBounds(205, 201, 102, 49);
 		add(btnreservationdata);
 
@@ -220,6 +225,12 @@ public class WorkerMenu extends AbstractGUIComponent {
 
 
 		JButton btnworkersdata = new JButton("<html>Workers<br />data</html>");
+		btnworkersdata.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				navigator.goToWorkerDataMenu(wkr);
+			}
+		});
 		btnworkersdata.setBounds(205, 147, 102, 49);
 		add(btnworkersdata);
 
