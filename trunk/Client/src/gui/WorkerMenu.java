@@ -15,7 +15,7 @@ import javax.swing.JLabel;
 
 import DataObjects.CeoWorker;
 import DataObjects.CustomerService;
-import DataObjects.MessageToUser;
+import DataObjects.DataObjectMessageToUser;
 import DataObjects.ParkingLot;
 import DataObjects.ParkingLotManager;
 import DataObjects.Worker;
@@ -76,17 +76,13 @@ public class WorkerMenu extends AbstractGUIComponent {
 		btnCancel.setBounds(173, 265, 89, 23);
 		add(btnCancel);
 
-		try { // check if user have message and print
-			client.sendToServer(new MessageGetMessage(wkr.getId()));
-			MessageGetMessageReply msgReplay = (MessageGetMessageReply)client.getMessage();
+		// check if user have message and print
+		client.send(new MessageGetMessage(wkr.getId()));
+		MessageGetMessageReply msgReplay = (MessageGetMessageReply)client.getMessage();
 
-			for(MessageToUser msg: msgReplay.getMsgArr())
-				JOptionPane.showMessageDialog(null, msg.getMsg());
+		for(DataObjectMessageToUser msg: msgReplay.getMsgArr())
+			JOptionPane.showMessageDialog(null, msg.getMsg());
 
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 
 	}
 
@@ -185,7 +181,7 @@ public class WorkerMenu extends AbstractGUIComponent {
 		JButton btncomplaintmenu = new JButton("<html>Complaint<br />menu</html>");
 		btncomplaintmenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				navigator.goToComplaintMenu();
+				navigator.goToComplaintMenu(wkr);
 			}
 		});
 		btncomplaintmenu.setBounds(112, 161, 117, 52);

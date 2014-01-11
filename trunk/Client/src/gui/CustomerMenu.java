@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import javax.swing.JLabel;
 import DataObjects.Customer;
 import DataObjects.FullMember;
-import DataObjects.MessageToUser;
+import DataObjects.DataObjectMessageToUser;
 import DataObjects.STDCustomer;
 import DataObjects.STDMember;
 import Messages.MessageGetMessage;
@@ -139,17 +139,13 @@ public class CustomerMenu extends AbstractGUIComponent {
 		btnNewButton.setBounds(461, 339, 119, 45);
 		add(btnNewButton);
 		
-		try { // check if user have message and print
-			client.sendToServer(new MessageGetMessage(cst.getId()));
-			MessageGetMessageReply msgReplay = (MessageGetMessageReply)client.getMessage();
-			
-			for(MessageToUser msg: msgReplay.getMsgArr())
-				JOptionPane.showMessageDialog(null, msg.getMsg());
+		// check if user have message and print
+		client.send(new MessageGetMessage(cst.getId()));
+		MessageGetMessageReply msgReplay = (MessageGetMessageReply)client.getMessage();
+		
+		for(DataObjectMessageToUser msg: msgReplay.getMsgArr())
+			JOptionPane.showMessageDialog(null, msg.getMsg());
 			 
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	public void reserve(int type){

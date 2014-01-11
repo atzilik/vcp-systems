@@ -2,13 +2,13 @@ package DataObjects;
 
 import java.io.Serializable;
 
-public class MessageToUser implements Serializable {
+public class DataObjectMessageToUser implements Serializable {
 	
 	private String from;
 	private String to;
 	private String Msg;
 	
-	public MessageToUser (String from, String to, String msg) {
+	public DataObjectMessageToUser (String from, String to, String msg) {
 		this.from = from;
 		this.to = to;
 		this.Msg = msg;

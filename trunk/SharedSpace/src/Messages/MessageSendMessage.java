@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Random;
 
-import DataObjects.MessageToUser;
+import DataObjects.DataObjectMessageToUser;
 
 public class MessageSendMessage extends Message {
 
@@ -15,7 +15,7 @@ public class MessageSendMessage extends Message {
 	private String to;
 	private String msg;
 	
-	public MessageSendMessage(MessageToUser msg) {
+	public MessageSendMessage(DataObjectMessageToUser msg) {
 		this.from = msg.getFrom();
 		this.to = msg.getTo();
 		this.msg = msg.getMsg();

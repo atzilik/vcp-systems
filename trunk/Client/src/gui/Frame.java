@@ -36,7 +36,6 @@ public class Frame extends JFrame implements IGUINavigator {
 	private JPanel lastScreen;
 	private EnableDisableFacility enableDisableFacility; 
 
-
 	public Frame(){
 		//		login = new Login(this);
 		//		setContentPane(login);	
@@ -184,10 +183,10 @@ public class Frame extends JFrame implements IGUINavigator {
 		setContentPane(inpl);
 		validate();
 	}
-	public void goToComplaintMenu(){
+	public void goToComplaintMenu(Worker wkr){
 		// TODO Auto-generated method stub
 		lastScreen = (JPanel) getContentPane();
-		ComplaintMenu cm = new ComplaintMenu(this);
+		ComplaintMenu cm = new ComplaintMenu(this, wkr);
 		setContentPane(cm);
 		validate();
 	}

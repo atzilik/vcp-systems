@@ -1,52 +1,141 @@
 package gui;
 
-
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
+import DataObjects.Complaint;
+import DataObjects.DataObjectMessageToUser;
+import DataObjects.Worker;
+import Messages.MessageGetComplaint;
+import Messages.MessageGetComplaintReply;
 
 public class ComplaintMenu extends AbstractGUIComponent {
-	private JTextField textField;
-	private JTextField textField_1;
-	public ComplaintMenu(final IGUINavigator navigator) {
+	
+	Worker wkr;
+	private ArrayList<Complaint> complaintsArray;
+	
+	public ComplaintMenu(final IGUINavigator navigator,  Worker worker) {
 		super();	
+		wkr = worker;
 		setLayout(null);
-		
-		JLabel lblAnswer = new JLabel("Answer:");
-		lblAnswer.setBounds(22, 9, 40, 14);
-		add(lblAnswer);
-		
-		textField = new JTextField();
-		textField.setBounds(67, 6, 86, 20);
-		add(textField);
-		textField.setColumns(10);
-		
-		JLabel lblCompenstation = new JLabel("Compenstation:");
-		lblCompenstation.setBounds(158, 9, 76, 14);
-		add(lblCompenstation);
-		
-		textField_1 = new JTextField();
-		textField_1.setBounds(239, 6, 86, 20);
-		add(textField_1);
-		textField_1.setColumns(10);
-		
-		JButton btnCompenstate = new JButton("Compenstate");
-		btnCompenstate.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnCompenstate.setBounds(330, 5, 97, 23);
-		add(btnCompenstate);
+		MessageGetComplaint try1 = new MessageGetComplaint();
+		client.send(try1);
 		
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				navigator.goBack();
+			public void actionPerformed(ActionEvent e) {
+				navigator.goToWorkerMenu(wkr);
 			}
 		});
-		btnCancel.setBounds(173, 48, 89, 23);
-		add(btnCancel);
+		btnCancel.setBounds(400, 400, 89, 23);
+		this.add(btnCancel);
+		
+		MessageGetComplaintReply reply = (MessageGetComplaintReply)client.getMessage();
+		complaintsArray = reply.getComplaintsArray();
+		if (complaintsArray != null) {
+			PrintTable(navigator,reply.getComplaintsArray());
+		}
+	
 	}
+	
+	private void PrintTable(final IGUINavigator navigator,ArrayList<Complaint> complaints) {
+			
+		int length = complaints.size();
+		Object[][] data = new Object[length+1][4];
+		int i=0;
+		
+		ArrayList<JLabel> refundLabels = new ArrayList<>();
+		refundLabels.add(0, new JLabel("empty"));
+		
+		ArrayList<JTextArea> refundTexts = new ArrayList<>();
+		refundTexts.add(0, new JTextArea());
+		
+		ArrayList<JLabel> answerLabels = new ArrayList<>();
+		answerLabels.add(0, new JLabel("empty"));
+		
+		ArrayList<JTextArea> answerTexts = new ArrayList<>();
+		answerTexts.add(0, new JTextArea());
+		
+		ArrayList<JButton> sendButtons = new ArrayList<>();
+		sendButtons.add(0, new JButton());
+		
+		data[i][0] = "ComplaintID";
+		data[i][1] = "CustomerID";
+		data[i][2] = "Details";
+		data[i][3] = "Date";
+	
+		
+		i++;
+		
+		for(Complaint complaint: complaints)
+		{
+			data[i][0] = complaint.getComplaintID();
+			data[i][1] = complaint.getCustomerID();
+			data[i][2] = complaint.getDetails();
+			data[i][3] = complaint.getDate();
+			
+			answerLabels.add(i,new JLabel("Answer:"));
+			answerLabels.get(i).setBounds(450, 25+(i-1)*100, 80, 14);
+			this.add(answerLabels.get(i));
+			
+			answerTexts.add(i,new JTextArea());
+			answerTexts.get(i).setBounds(450, 25+14+(i-1)*100, 80, 86);
+			answerTexts.get(i).setWrapStyleWord(true);
+			answerTexts.get(i).setLineWrap(true);
+			this.add(answerTexts.get(i));
+			
+			refundLabels.add(i,new JLabel("Refund:"));
+			refundLabels.get(i).setBounds(540, 25+(i-1)*100, 80, 14);
+			this.add(refundLabels.get(i));
+			
+			refundTexts.add(i,new JTextArea());
+			refundTexts.get(i).setBounds(540, 25+14+(i-1)*100, 80, 15);
+			refundTexts.get(i).setWrapStyleWord(true);
+			refundTexts.get(i).setLineWrap(true);
+			this.add(refundTexts.get(i));
+			
+			sendButtons.add(i,new JButton("Send"));
+			sendButtons.get(i).addActionListener(new ComplaintActionListener(navigator, wkr, complaint, refundTexts.get(i), answerTexts.get(i)));
+			sendButtons.get(i).setBounds(540, 25+14+15 + (i-1)*100, 80, 71);
+			this.add(sendButtons.get(i));
+			
+			i++;
+		}
+		
+		String[] columnNames = {"ComplaintID",
+                "CustomerID",
+                "Details",
+                "Date"};
+		
+		JTable complaintsTable = new JTable(data , columnNames);
+		complaintsTable.setBounds(new Rectangle(0, 0, 440, i*100));
+		complaintsTable.setRowHeight(100);
+		complaintsTable.getColumnModel().getColumn(2).setPreferredWidth(250);
+		complaintsTable.getColumnModel().getColumn(3).setPreferredWidth(60);
+		complaintsTable.setRowHeight(0, 25);
+		
+
+		complaintsTable.setVisible(true);
+	
+		
+		this.add(complaintsTable,null);
+		
+	}
+
+	public ArrayList<Complaint> getComplaintsArray() {
+		return complaintsArray;
+	}
+
+	public void setComplaintsArray(ArrayList<Complaint> complaintsArray) {
+		this.complaintsArray = complaintsArray;
+	}	
+
 }
