@@ -35,6 +35,7 @@ public class Frame extends JFrame implements IGUINavigator {
 	private STDMemberRegistration standardMemberRegistration;
 	private JPanel lastScreen;
 	private EnableDisableFacility enableDisableFacility; 
+	private SnapShotReport snapShotReport;
 
 	public Frame(){
 		//		login = new Login(this);
@@ -253,7 +254,6 @@ public class Frame extends JFrame implements IGUINavigator {
         setTitle("Enable/Disable Facility");
         validate();
 	}
-
 	@Override
 	public void goToWorkerDataMenu(Worker wkr) {
 		// TODO Auto-generated method stub
@@ -272,6 +272,15 @@ public class Frame extends JFrame implements IGUINavigator {
 		setContentPane(rdm);
 		setTitle("Reservations Data");
 		validate();
+	}
+	@Override
+	public void goToSnapShotReport(Map<String,Integer> mp){
+		// TODO Auto-generated method stub
+		lastScreen = (JPanel) getContentPane();
+        SnapShotReport ssr = new SnapShotReport(this,mp);
+        setContentPane(ssr);             
+        setTitle("SnapShot Report");
+        validate();	
 	}
 }
 
