@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Calendar;
 
 import DataObjects.DateConvert;
 import DataObjects.Reservation;
@@ -14,12 +15,16 @@ public class MessageCheckPl extends Message{
 	private String id;
 	private int pl;
 	private int mpl;
-	Date todayDate = new java.sql.Date(new java.util.Date().getTime()); 
+	Date todayDate = new java.sql.Date(new java.util.Date().getTime());
+	int day;
+	
 	public MessageCheckPl(String id, String carNum, int pl,int mpl) {
 		this.carNum = carNum;
 		this.id = id;
 		this.pl = pl;
 		this.mpl = mpl;
+		Calendar cal = Calendar.getInstance();
+		day = cal.get(Calendar.DAY_OF_WEEK);
 	}
 	
 
@@ -27,6 +32,8 @@ public class MessageCheckPl extends Message{
 	public Message doAction() {
 		con = this.sqlConnection.getConnection();			
 		try{
+			if (day == 6||day == 7)
+				return new MessageCheckPlReply(3);  // weekend
 			ResultSet rs = findCheckIn(); // chack id carNum and date of today 
 			if (rs == null)   // member not already park 
 			{

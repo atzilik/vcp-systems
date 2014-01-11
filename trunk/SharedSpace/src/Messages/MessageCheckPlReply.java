@@ -23,9 +23,11 @@ public class MessageCheckPlReply extends Message {
 		{
 			case 0: {JOptionPane.showMessageDialog(null, "welcom."); // good
 			break;}		
-			case 1: {JOptionPane.showMessageDialog(null, "Wrong ParkinkLot.", "Error", JOptionPane.ERROR_MESSAGE);
+			case 1: {JOptionPane.showMessageDialog(null, "Wrong ParkingLot.", "Error", JOptionPane.ERROR_MESSAGE);
 			break;}
-			case 2: {JOptionPane.showMessageDialog(null, "Parkink already used.", "Error", JOptionPane.ERROR_MESSAGE);
+			case 2: {JOptionPane.showMessageDialog(null, "Parking already used.", "Error", JOptionPane.ERROR_MESSAGE);
+			break;}
+			case 3: {JOptionPane.showMessageDialog(null, "you can't park on a weekend.");
 			break;}
 		}
 
