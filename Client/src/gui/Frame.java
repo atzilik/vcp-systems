@@ -253,5 +253,25 @@ public class Frame extends JFrame implements IGUINavigator {
         setTitle("Enable/Disable Facility");
         validate();
 	}
+
+	@Override
+	public void goToWorkerDataMenu(Worker wkr) {
+		// TODO Auto-generated method stub
+		lastScreen = (JPanel) getContentPane();
+		WorkersDataMenu wdm = new WorkersDataMenu(this, wkr);
+		setContentPane(wdm);
+		setTitle("Wrokers Data");
+		validate();
+	}
+
+	@Override
+	public void goToreservationsDataMenu(Worker wkr) { 
+		// TODO Auto-generated method stub
+		lastScreen = (JPanel) getContentPane();
+		ReservationDataMenu rdm = new ReservationDataMenu(this, wkr);
+		setContentPane(rdm);
+		setTitle("Reservations Data");
+		validate();
+	}
 }
 

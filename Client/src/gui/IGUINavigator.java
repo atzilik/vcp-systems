@@ -32,6 +32,8 @@ public interface IGUINavigator {
 	public void goToChangeRatesReq(Worker wkr);
 	public void goToChangeRates(Worker wkr);
 	public void goToEnableDisableFacility(Worker wkr);
+	public void goToWorkerDataMenu(Worker wkr);
+	public void goToreservationsDataMenu(Worker wkr);
 	public void goBack();
 
 }
