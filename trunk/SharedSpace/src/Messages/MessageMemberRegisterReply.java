@@ -5,14 +5,16 @@ import javax.swing.JOptionPane;
 public class MessageMemberRegisterReply extends Message {
 	protected String memberID;
 	protected String carNum;
+	protected double bill;
 
 	public MessageMemberRegisterReply(){
 		memberID = null;
 	}
 
-	public MessageMemberRegisterReply(String memberID, String carNum){
+	public MessageMemberRegisterReply(String memberID, String carNum, double bill){
 		this.memberID = memberID;
 		this.carNum = carNum;
+		this.bill = bill;
 	}
 
 	@Override
@@ -24,7 +26,7 @@ public class MessageMemberRegisterReply extends Message {
 		}
 		else
 		{
-			JOptionPane.showMessageDialog(null, "Registration complete. Your memberID: " + memberID + " Car number: " + carNum);
+			JOptionPane.showMessageDialog(null, "Registration complete. Your memberID: " + memberID + " Car number: " + carNum + " bill: " + bill);
 		}
 		return null;
 	}

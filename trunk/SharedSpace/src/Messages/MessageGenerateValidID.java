@@ -39,7 +39,7 @@ public class MessageGenerateValidID extends Message {
 			PreparedStatement ps = con.prepareStatement("SELECT * FROM members WHERE memberID=?;");
 			ps.setString(1, memberID);
 			ResultSet rs = ps.executeQuery();
-			if (rs.isBeforeFirst())
+			if (rs.isBeforeFirst() == false)
 			{
 				ps.close();
 				return new MessageGenerateValidIDReply(memberID);
@@ -58,7 +58,7 @@ public class MessageGenerateValidID extends Message {
 			ps1.setString(1, reservationID);
 			ResultSet rs = ps.executeQuery();
 			ResultSet rs1 = ps1.executeQuery();
-			if (rs.isBeforeFirst() && rs.isBeforeFirst())
+			if (rs.isBeforeFirst() == false && rs.isBeforeFirst() == false)
 			{
 				ps.close();
 				return new MessageGenerateValidIDReply(reservationID);

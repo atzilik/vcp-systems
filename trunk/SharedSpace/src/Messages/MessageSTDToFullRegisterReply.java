@@ -8,8 +8,8 @@ public class MessageSTDToFullRegisterReply extends MessageMemberRegisterReply {
 		super();
 	}
 	
-	public MessageSTDToFullRegisterReply(String memberID, String carNum){
-		super(memberID, carNum);
+	public MessageSTDToFullRegisterReply(String memberID, String carNum, double bill){
+		super(memberID, carNum, bill);
 	}
 	public Message doAction() {
 		if (memberID == null)
@@ -18,7 +18,7 @@ public class MessageSTDToFullRegisterReply extends MessageMemberRegisterReply {
 		}
 		else
 		{
-			JOptionPane.showMessageDialog(null, "full member Registration complete. Your memberID: " + memberID + " Car number: " + carNum);
+			JOptionPane.showMessageDialog(null, "full member Registration complete. Your memberID: " + memberID + " Car number: " + carNum + " bill is " + bill);
 		}
 		return null;
 	}

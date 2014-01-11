@@ -43,6 +43,7 @@ public class AddCarMenu extends AbstractGUIComponent{
 			public void actionPerformed(ActionEvent e) {
 				switch(type)
 				{
+				//adding car as STDMember
 				case 2:{
 					String[] arr = new String[10];
 					if (cst instanceof STDCustomer)
@@ -59,7 +60,9 @@ public class AddCarMenu extends AbstractGUIComponent{
 						}
 					}
 					else
+					{
 						arr[0] = ((STDMember)cst).getMemberId();
+					}
 					arr[1] = textFieldCarNum.getText();
 					arr[2] = cst.getId();
 					arr[3] = cst.getfName();
@@ -70,10 +73,21 @@ public class AddCarMenu extends AbstractGUIComponent{
 					arr[8] = textField.getText();
 					arr[9] = "2";
 					client.send(new MessageMemberRegister(arr,arr[9]));
+					MessageMemberRegisterReply mrr = (MessageMemberRegisterReply)client.getMessage();
+					mrr.doAction();
+					navigator.goToMemberRegister(cst);
 					break;
 				}
+				//adding car as FullMember
 				case 3:{
 					String[] arr = new String[8];
+					arr[1] = textFieldCarNum.getText();
+					arr[2] = cst.getId();
+					arr[3] = cst.getfName();
+					arr[4] = cst.getlName();
+					arr[5] = cst.getEmail();
+					arr[6] = new java.sql.Date(new java.util.Date().getTime()).toString();
+					arr[7] = "3";
 					if (cst instanceof STDCustomer)
 					{
 						if (((STDCustomer)cst).isRegisteredToMember())
@@ -85,22 +99,17 @@ public class AddCarMenu extends AbstractGUIComponent{
 							arr[0] = cmir.getiD();
 							((STDCustomer) cst).setMemberID(arr[0]);
 							((STDCustomer) cst).setRegisteredToMember(true);
-							client.send(new MessageMemberRegister(arr,arr[7]));
+							client.send(new MessageMemberRegister(arr, arr[7]));
 							MessageMemberRegisterReply fmrr = (MessageMemberRegisterReply)client.getMessage();
 							fmrr.doAction();
 							navigator.goToMemberRegister(cst);
 						}
 					}
 					else
+					{
 						arr[0] = ((STDMember)cst).getMemberId();
-					arr[1] = textFieldCarNum.getText();
-					arr[2] = cst.getId();
-					arr[3] = cst.getfName();
-					arr[4] = cst.getlName();
-					arr[5] = cst.getEmail();
-					arr[6] = new java.sql.Date(new java.util.Date().getTime()).toString();
-					arr[7] = "3";
-					client.send(new MessageSTDToFullRegister(arr, "3"));
+					}
+					client.send(new MessageSTDToFullRegister(arr, arr[7]));
 					MessageSTDToFullRegisterReply stfrr= (MessageSTDToFullRegisterReply)client.getMessage();
 					stfrr.doAction();
 					navigator.goToFullMemberRegisteration(cst);

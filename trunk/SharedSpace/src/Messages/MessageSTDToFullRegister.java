@@ -4,6 +4,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import DataObjects.DateConvert;
+
 public class MessageSTDToFullRegister extends MessageMemberRegister {
 
 	public MessageSTDToFullRegister(String[] details, String type) {
@@ -63,7 +65,9 @@ public class MessageSTDToFullRegister extends MessageMemberRegister {
 				}
 				ps.executeUpdate();
 				ps.close();
-				return new MessageSTDToFullRegisterReply(details[0], details[1]);
+				
+				
+				return new MessageSTDToFullRegisterReply(details[0], details[1], updateCustomerBill());
 			}
 			//customer is stdmember, upgrade to full
 			else
@@ -76,12 +80,32 @@ public class MessageSTDToFullRegister extends MessageMemberRegister {
 				ps.executeUpdate();
 				
 				ps.close();
-				return new MessageSTDToFullRegisterReply(details[0], details[1]);
+				return new MessageSTDToFullRegisterReply(details[0], details[1], updateCustomerBill());
 			}
 			
 			
 		}catch (SQLException e) {e.printStackTrace();}
 		return null;
+	}
+	
+	public double updateCustomerBill() throws SQLException{
+		//update customer bill
+		PreparedStatement ps = con.prepareStatement("INSERT INTO customer_bill (customerID,carID,date,time,sum) VALUES (?,?,?,?,?);");
+		ps.setString(1, details[2]);
+		ps.setString(2, details[1]);
+		ps.setDate(3, DateConvert.getCurrentSqlDate());
+		ps.setTime(4, DateConvert.getCurrentSqlTime());
+		//get the rate
+		PreparedStatement ps1 = con.prepareStatement("SELECT StandardRate,FullRate FROM parkinglots WHERE parkingLotID=?;");
+		ps1.setString(1, details[0]);
+		ResultSet rs = ps1.executeQuery();
+		rs.next();
+		double rate = rs.getDouble(10);;
+		ps1.close();
+		ps.setDouble(5, rate);
+		ps.executeUpdate();
+		ps.close();
+		return rate;
 	}
 
 }

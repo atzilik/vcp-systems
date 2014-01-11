@@ -8,6 +8,7 @@ import java.sql.Time;
 
 import DataObjects.Customer;
 import DataObjects.DateConvert;
+import DataObjects.FullMember;
 import DataObjects.STDCustomer;
 import DataObjects.STDMember;
 
@@ -30,9 +31,13 @@ public class MessageCheckout extends Message {
 			{
 				ps.setString(1, customer.getId());
 			}
-			else
+			else if (customer instanceof STDMember)
 			{
 				ps.setString(1, ((STDMember)customer).getMemberId());
+			}
+			else
+			{
+				ps.setString(1, ((FullMember)customer).getMemberId());
 			}
 			ps.setString(2, customer.getCarId());
 			ps.setInt(3, parkingLotID);
@@ -53,11 +58,25 @@ public class MessageCheckout extends Message {
 			Time realCotTime = DateConvert.getCurrentSqlTime();
 			ps.setDate(1, realCotDate);
 			ps.setTime(2, realCotTime);
-			ps.setString(3, customer.getId());
-			ps.setString(4, customer.getCarId());
+			if (customer instanceof STDCustomer)
+			{
+				ps.setString(3, customer.getId());
+				ps.setString(4, customer.getCarId());
+			}
+			else if (customer instanceof STDMember)
+			{
+				ps.setString(3, ((STDMember) customer).getMemberId());
+				ps.setString(4, customer.getCarId());
+			}
+			else
+			{
+				ps.setString(3, ((FullMember) customer).getMemberId());
+				ps.setString(4, customer.getCarId());
+			}
 			ps.setInt(5, parkingLotID);
 			ps.executeUpdate();
 			ps.close();
+			
 			
 			//update customer bill
 			double bill = 0;

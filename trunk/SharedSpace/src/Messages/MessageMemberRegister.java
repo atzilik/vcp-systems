@@ -5,6 +5,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Random;
 
+import DataObjects.DateConvert;
+
 public class MessageMemberRegister extends Message {
 	protected String[] details;
 	protected String type;
@@ -72,7 +74,38 @@ public class MessageMemberRegister extends Message {
 			ps.executeUpdate();
 			ps.close();
 
-
+			//update customer bill
+			ps = con.prepareStatement("INSERT INTO customer_bill (customerID,carID,date,time,sum) VALUES (?,?,?,?,?);");
+			ps.setString(1, details[2]);
+			ps.setString(2, details[1]);
+			ps.setDate(3, DateConvert.getCurrentSqlDate());
+			ps.setTime(4, DateConvert.getCurrentSqlTime());
+			//get the rate
+			PreparedStatement ps1 = con.prepareStatement("SELECT StandardRate,FullRate FROM parkinglots WHERE parkingLotID=?;");
+			if (type.equals("2"))
+			{
+				ps1.setString(1, details[7]);
+			}
+			else
+			{
+				ps1.setInt(1, 0);
+			}
+			rs = ps1.executeQuery();
+			rs.next();
+			double rate;
+			if (type.equals("2"))
+			{
+				rate = rs.getDouble(1);
+			}
+			else
+			{
+				rate = rs.getDouble(2);
+			}
+			ps1.close();
+			ps.setDouble(5, rate);
+			ps.executeUpdate();
+			ps.close();
+			
 			//check if its an existing customer
 			ps = con.prepareStatement("SELECT * FROM customers WHERE id=? and carID=?;");
 			ps.setString(1, details[2]);
@@ -90,7 +123,7 @@ public class MessageMemberRegister extends Message {
 				ps.close();
 			}
 			ps.close();
-			return new MessageMemberRegisterReply(details[0],details[1]);
+			return new MessageMemberRegisterReply(details[0],details[1], rate);
 
 		}catch (SQLException e) 
 		{
