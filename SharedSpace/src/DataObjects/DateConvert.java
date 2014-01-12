@@ -1,5 +1,7 @@
 package DataObjects;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 import java.sql.Date;
@@ -231,6 +233,30 @@ public class DateConvert {
 		cal.set(Calendar.SECOND, 0);
 		cal.set(Calendar.MILLISECOND, 0);
 		return cal.getTime();
+	}
+	
+	/**
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public static Date stringToSQLDate(String date)
+	{
+		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date newDate = null;
+		try {
+			newDate = sdf1.parse(date);
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		return new Date(newDate.getTime());  
+
+	}
+	
+	public static Time stringToSQLTime(String time)
+	{
+		return java.sql.Time.valueOf(time);
 	}
 	
 }
