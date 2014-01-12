@@ -158,6 +158,15 @@ public class WorkerMenu extends AbstractGUIComponent {
 		add(btnreservationreport);
 
 		JButton btncomplaintsreport = new JButton("<html>Complaints<br />report</html> ");
+		btncomplaintsreport.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				navigator.goToComplaintReportMenu(wkr);
+				
+			}
+		});
 		btncomplaintsreport.setBounds(38, 161, 106, 45);
 		add(btncomplaintsreport);
 

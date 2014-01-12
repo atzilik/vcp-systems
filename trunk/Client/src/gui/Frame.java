@@ -282,5 +282,15 @@ public class Frame extends JFrame implements IGUINavigator {
         setTitle("SnapShot Report");
         validate();	
 	}
+
+	@Override
+	public void goToComplaintReportMenu(Worker wkr) {
+		// TODO Auto-generated method stub
+		lastScreen = (JPanel) getContentPane();
+		ComplaintReportMenu crm = new ComplaintReportMenu(this, wkr);
+		setContentPane(crm);
+		setTitle("Complaint Report Menu");
+		validate();
+	}
 }
 
