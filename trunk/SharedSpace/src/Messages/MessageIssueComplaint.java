@@ -16,11 +16,12 @@ public class MessageIssueComplaint extends Message {
 		// TODO Auto-generated method stub
 		con = this.sqlConnection.getConnection();
 		try{
-			PreparedStatement ps = con.prepareStatement("INSERT INTO complaints (complaintID,customerID,details,dateRecv) VALUES(?,?,?,?);");
+			PreparedStatement ps = con.prepareStatement("INSERT INTO complaints (complaintID,customerID,details,dateRecv,parkingLotID) VALUES(?,?,?,?,?);");
 			ps.setString(1, details[0]);
 			ps.setString(2, details[1]);
 			ps.setString(3, details[2]);
 			ps.setString(4, details[3]);
+			ps.setString(5, details[4]);
 			ps.executeUpdate();
 			ps.close();
 			return new MessageIssueComplaintReply(details[0]);

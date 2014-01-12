@@ -1,6 +1,7 @@
 package gui;
 
 
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
@@ -11,13 +12,19 @@ import Messages.MessageIssueComplaintReply;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 
 public class CustomerComplaintMenu extends AbstractGUIComponent {
 	private Customer cst;
 	private JTextArea textArea;
-	public CustomerComplaintMenu(final IGUINavigator navigator, final Customer cst){
+	private JComboBox comboBoxParkLot;
+	private Map<String,Integer> parkingLots;
+	public CustomerComplaintMenu(final IGUINavigator navigator, final Customer cst, Map<String,Integer> mp){
 		this.cst = cst;
+		this.parkingLots = mp; 
 		setLayout(null);
 		textArea = new JTextArea();
 		textArea.setBounds(128, 51, 196, 101);
@@ -29,7 +36,7 @@ public class CustomerComplaintMenu extends AbstractGUIComponent {
 				navigator.goBack();
 			}
 		});
-		btnCancel.setBounds(219, 179, 115, 29);
+		btnCancel.setBounds(212, 237, 115, 29);
 		add(btnCancel);
 
 		JLabel lblReason = new JLabel("Reason");
@@ -39,11 +46,12 @@ public class CustomerComplaintMenu extends AbstractGUIComponent {
 		JButton btnSubmit = new JButton("Submit");
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String[] arr = new String[4];
+				String[] arr = new String[5];
 				arr[0] =  Integer.toString(100000 + new Random().nextInt(900000));
 				arr[1] = cst.getId();
 				arr[2] = textArea.getText();
 				arr[3] = new java.sql.Date(new java.util.Date().getTime()).toString();
+				arr[4] = Integer.toString(parkingLots.get(comboBoxParkLot.getSelectedItem()));
 				client.send(new MessageIssueComplaint(arr));
 				MessageIssueComplaintReply icr = (MessageIssueComplaintReply)client.getMessage();
 				icr.doAction();
@@ -51,8 +59,16 @@ public class CustomerComplaintMenu extends AbstractGUIComponent {
 				
 			}
 		});
-		btnSubmit.setBounds(54, 179, 115, 29);
+		btnSubmit.setBounds(47, 237, 115, 29);
 		add(btnSubmit);
+		
+		comboBoxParkLot = new JComboBox();
+		comboBoxParkLot.setBounds(128, 175, 146, 26);
+		Set<String> keys = parkingLots.keySet();
+		for (Iterator<String> i = keys.iterator(); i.hasNext();)
+		{
+			comboBoxParkLot.addItem(i.next());
+		}
+		add(comboBoxParkLot);
 	}
-
 }
