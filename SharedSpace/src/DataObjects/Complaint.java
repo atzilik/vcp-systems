@@ -8,12 +8,14 @@ public class Complaint implements Serializable {
 	private String customerID;
 	private String details;
 	private String date;
+	private String parkingLotID;
 	
-	public Complaint(String comID, String custID, String det, String dat) {
-		complaintID = comID;
-		customerID = custID;
-		details = det;
-		date = dat;
+	public Complaint(String comID, String custID, String det, String dat, String parkingLotID) {
+		this.complaintID = comID;
+		this.customerID = custID;
+		this.details = det;
+		this.date = dat;
+		this.parkingLotID = parkingLotID;
 	}
 	
 	
@@ -40,6 +42,16 @@ public class Complaint implements Serializable {
 	}
 	public void setDate(String date) {
 		this.date = date;
+	}
+
+
+	public String getParkingLotID() {
+		return parkingLotID;
+	}
+
+
+	public void setParkingLotID(String parkingLotID) {
+		this.parkingLotID = parkingLotID;
 	}
 	
 	

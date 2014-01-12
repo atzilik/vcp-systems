@@ -25,7 +25,7 @@ public class MessageGetComplaint extends Message {
 			
 			while(rs.next())
 				if(rs.getString(6)==null)
-					ComplaintsArray.add(new Complaint(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4))); 
+					ComplaintsArray.add(new Complaint(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(9))); 
 			
 			return new MessageGetComplaintReply(ComplaintsArray);
 			

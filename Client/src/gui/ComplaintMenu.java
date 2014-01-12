@@ -49,7 +49,7 @@ public class ComplaintMenu extends AbstractGUIComponent {
 	private void PrintTable(final IGUINavigator navigator,ArrayList<Complaint> complaints) {
 			
 		int length = complaints.size();
-		Object[][] data = new Object[length+1][4];
+		Object[][] data = new Object[length+1][5];
 		int i=0;
 		
 		ArrayList<JLabel> refundLabels = new ArrayList<>();
@@ -71,6 +71,7 @@ public class ComplaintMenu extends AbstractGUIComponent {
 		data[i][1] = "CustomerID";
 		data[i][2] = "Details";
 		data[i][3] = "Date";
+		data[i][4] = "ParkingLotID";
 	
 		
 		i++;
@@ -81,6 +82,7 @@ public class ComplaintMenu extends AbstractGUIComponent {
 			data[i][1] = complaint.getCustomerID();
 			data[i][2] = complaint.getDetails();
 			data[i][3] = complaint.getDate();
+			data[i][4] = complaint.getParkingLotID();
 			
 			answerLabels.add(i,new JLabel("Answer:"));
 			answerLabels.get(i).setBounds(450, 25+(i-1)*100, 80, 14);
@@ -113,7 +115,8 @@ public class ComplaintMenu extends AbstractGUIComponent {
 		String[] columnNames = {"ComplaintID",
                 "CustomerID",
                 "Details",
-                "Date"};
+                "Date",
+                "ParkingLotID"};
 		
 		JTable complaintsTable = new JTable(data , columnNames);
 		complaintsTable.setBounds(new Rectangle(0, 0, 440, i*100));

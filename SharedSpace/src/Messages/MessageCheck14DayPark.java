@@ -11,7 +11,7 @@ import DataObjects.DateConvert;
 public class MessageCheck14DayPark extends Message {
 
 	@Override
-	public Message doAction() {
+	public Message doAction() {/*
 		// TODO Auto-generated method stub
 		con = sqlConnection.getConnection();
 		try{
@@ -63,7 +63,7 @@ public class MessageCheck14DayPark extends Message {
 				
 			}
 		}catch (SQLException e) {e.printStackTrace();}
-		return null;
+		*/return null;
 	}
 
 }
