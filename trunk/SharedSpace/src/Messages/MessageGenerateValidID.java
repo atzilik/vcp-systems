@@ -28,7 +28,7 @@ public class MessageGenerateValidID extends Message {
 			}
 			
 
-		}catch (SQLException e) {};
+		}catch (SQLException e) {e.printStackTrace();};
 		return null;
 	}
 
@@ -52,13 +52,13 @@ public class MessageGenerateValidID extends Message {
 		while(true)
 		{
 			String reservationID = Integer.toString(100000 + new Random().nextInt(900000));
-			PreparedStatement ps = con.prepareStatement("SELECT * FROM reservations WHERE reservationsId=?;");
+			PreparedStatement ps = con.prepareStatement("SELECT * FROM reservations WHERE reservationId=?;");
 			ps.setString(1, reservationID);
-			PreparedStatement ps1 = con.prepareStatement("SELECT * FROM cancel_reservation WHERE reservationsId=?;");
+			PreparedStatement ps1 = con.prepareStatement("SELECT * FROM cancel_reservation WHERE reservationId=?;");
 			ps1.setString(1, reservationID);
 			ResultSet rs = ps.executeQuery();
 			ResultSet rs1 = ps1.executeQuery();
-			if (rs.isBeforeFirst() == false && rs.isBeforeFirst() == false)
+			if (rs.isBeforeFirst() == false && rs1.isBeforeFirst() == false)
 			{
 				ps.close();
 				return new MessageGenerateValidIDReply(reservationID);

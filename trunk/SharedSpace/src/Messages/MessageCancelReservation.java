@@ -60,11 +60,12 @@ public class MessageCancelReservation extends Message {
 				{
 					refund = 0;
 				}
-				PreparedStatement ps1 = con.prepareStatement("INSERT INTO cancel_reservation (reservationId,customerID,carNumner,refund) VALUES (?,?,?,?);");
+				PreparedStatement ps1 = con.prepareStatement("INSERT INTO cancel_reservation (reservationId,date,customerID,carNumner,refund) VALUES (?,?,?,?,?);");
 				ps1.setString(1, rs.getString(1));
-				ps.setString(2, customerId);
-				ps.setString(3, carNumber);
-				ps1.setDouble(4, refund);
+				ps.setDate(2, DateConvert.getCurrentSqlDate());
+				ps.setString(3, customerId);
+				ps.setString(4, carNumber);
+				ps1.setDouble(5, refund);
 				ps1.executeUpdate();
 				ps1.close();
 				

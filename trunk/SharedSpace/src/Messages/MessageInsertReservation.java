@@ -42,6 +42,7 @@ public class MessageInsertReservation extends Message {
 			ps.executeUpdate();
 			ps.close();
 			
+			double bill;
 			//getting the parking lot rates in order to calculate estimated bill
 			ps = con.prepareStatement("SELECT * FROM parkinglots WHERE parkingLotID=?;");
 			ps.setString(1, details[3]);
@@ -51,7 +52,6 @@ public class MessageInsertReservation extends Message {
 				double occRate = rs.getDouble(7);
 				double resRate = rs.getDouble(8);
 				ps.close();
-				double bill;
 				//getting the dates in order to calculate bill
 				ps = con.prepareStatement("SELECT * FROM reservations WHERE reservationId=?;");
 				ps.setString(1, details[0]);
@@ -84,7 +84,7 @@ public class MessageInsertReservation extends Message {
 				return new MessageInsertReservationReply();
 			}
 			this.setTransactionSucceeded(true);	
-			return new MessageInsertReservationReply(details[0]);
+			return new MessageInsertReservationReply(details[0], bill);
 
 		} catch (SQLException e) {
 
