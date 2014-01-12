@@ -36,7 +36,8 @@ public class Frame extends JFrame implements IGUINavigator {
 	private JPanel lastScreen;
 	private EnableDisableFacility enableDisableFacility; 
 	private SnapShotReport snapShotReport;
-
+	private CheckReservation checkReservation;
+	
 	public Frame(){
 		//		login = new Login(this);
 		//		setContentPane(login);	
@@ -56,7 +57,14 @@ public class Frame extends JFrame implements IGUINavigator {
 		validate();
 	}
 
-
+	@Override
+	public void goToCheckReservation(String id) {
+		// TODO Auto-generated method stub
+		lastScreen = (JPanel) getContentPane();
+		CheckReservation cr = new CheckReservation(this, id);
+		setContentPane(cr);		
+		validate();
+	}
 
 	@Override
 	public void goBack() {
