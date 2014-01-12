@@ -37,7 +37,7 @@ public class ReportDisabledParkingSpace extends AbstractGUIComponent {
 				navigator.goBack();
 			}
 		});
-		btnCancel.setBounds(279, 233, 89, 23);
+		btnCancel.setBounds(298, 240, 89, 23);
 		add(btnCancel);
 
 		JLabel lblNewLabel = new JLabel("ParkingLot:" +worker.getParkingLotID());
@@ -70,34 +70,60 @@ public class ReportDisabledParkingSpace extends AbstractGUIComponent {
 			comboBox_2.addItem(i);
 			i++;
 		}
-		JButton btnCreate = new JButton("Report as disabled");
-		btnCreate.setBounds(69, 183, 200, 73);
-		add(btnCreate);
-		btnCreate.addActionListener(new ActionListener() {
+
+
+		JButton btnEnablePs = new JButton("Enable parking space");
+		btnEnablePs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String arr[] = new String[4];
 				arr[0]=Integer.toString(worker.getParkingLotID());
 				arr[1]=Integer.toString(comboBox.getSelectedIndex());
 				arr[2]=Integer.toString(comboBox_1.getSelectedIndex());
 				arr[3]=Integer.toString(comboBox_2.getSelectedIndex());
+				// if user wants to enable parking space which is not disabled
+				if (parkinglots[worker.getParkingLotID()].getParkingspace()[comboBox.getSelectedIndex()][comboBox_1.getSelectedIndex()][comboBox_2.getSelectedIndex()].isDisabled()==false){
+					JOptionPane.showMessageDialog(null, "Unable to enable this parkingspace. This parking space is not disabled! ");
+					return;
+				}
+				//if user wants to enable parking space which is disabled
+				else if (parkinglots[worker.getParkingLotID()].getParkingspace()[comboBox.getSelectedIndex()][comboBox_1.getSelectedIndex()][comboBox_2.getSelectedIndex()].isDisabled()){
+					parkinglots[worker.getParkingLotID()].getParkingspace()[comboBox.getSelectedIndex()][comboBox_1.getSelectedIndex()][comboBox_2.getSelectedIndex()].setDisabled(false);
+					client.send(new MessageReportDisabledPSpace(arr,false));
+					MessageReportDisabledPSpaceReply mrdps = (MessageReportDisabledPSpaceReply)client.getMessage();
+					mrdps.doAction();
+				}
+				return;	
+			}
+		});
 
-		
-				
+		btnEnablePs.setBounds(257, 140, 168, 66);
+		add(btnEnablePs);
+		JButton btnReportAsDisabled = new JButton("Report as disabled");
+		btnReportAsDisabled.setBounds(257, 56, 168, 73);
+		add(btnReportAsDisabled);
+		btnReportAsDisabled.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String arr[] = new String[4];
+				arr[0]=Integer.toString(worker.getParkingLotID());
+				arr[1]=Integer.toString(comboBox.getSelectedIndex());
+				arr[2]=Integer.toString(comboBox_1.getSelectedIndex());
+				arr[3]=Integer.toString(comboBox_2.getSelectedIndex());
+				//check if user can disable the parking space
 				if (parkinglots[worker.getParkingLotID()].getParkingspace()[comboBox.getSelectedIndex()][comboBox_1.getSelectedIndex()][comboBox_2.getSelectedIndex()].isDisabled() || parkinglots[worker.getParkingLotID()].getParkingspace()[comboBox.getSelectedIndex()][comboBox_1.getSelectedIndex()][comboBox_2.getSelectedIndex()].isOccupied() || parkinglots[worker.getParkingLotID()].getParkingspace()[comboBox.getSelectedIndex()][comboBox_1.getSelectedIndex()][comboBox_2.getSelectedIndex()].isReserved()){
 					JOptionPane.showMessageDialog(null, "Unable to disable this parkingspace. This parking space may be reserved/occupied or already disabled ");
-				return;
-			}
+					return;
+				}
 				else
 				{
 					parkinglots[worker.getParkingLotID()].getParkingspace()[comboBox.getSelectedIndex()][comboBox_1.getSelectedIndex()][comboBox_2.getSelectedIndex()].setDisabled(true);
-				client.send(new MessageReportDisabledPSpace(arr));
-				MessageReportDisabledPSpaceReply mrdps = (MessageReportDisabledPSpaceReply)client.getMessage();
-				mrdps.doAction();
+					client.send(new MessageReportDisabledPSpace(arr,true));
+					MessageReportDisabledPSpaceReply mrdps = (MessageReportDisabledPSpaceReply)client.getMessage();
+					mrdps.doAction();
 				}
-				}
-			
+			}
+
 		});
 
-		
+
 	}
 }
