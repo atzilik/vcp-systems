@@ -2,7 +2,9 @@ package gui;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 
+import java.awt.Rectangle;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
@@ -10,10 +12,16 @@ import java.util.ArrayList;
 
 import javax.swing.JLabel;
 import DataObjects.Customer;
+import DataObjects.FullComplaint;
 import DataObjects.FullMember;
 import DataObjects.DataObjectMessageToUser;
+import DataObjects.Reservation;
 import DataObjects.STDCustomer;
 import DataObjects.STDMember;
+import Messages.MessageCheckCO;
+import Messages.MessageCheckCOReply;
+import Messages.MessageCheckReservation;
+import Messages.MessageCheckReservationReply;
 import Messages.MessageGetMessage;
 import Messages.MessageGetMessageReply;
 import Messages.MessageGetParkingLotsID;
@@ -72,6 +80,14 @@ public class CustomerMenu extends AbstractGUIComponent {
 			btnReserveNow.setBounds(399, 156, 119, 45);
 			add(btnReserveNow);
 		}
+		JButton btnCheckReservation = new JButton("Check Reservation");
+		btnCheckReservation.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				navigator.goToCheckReservation(cst.getId());	
+			}
+		});
+		btnCheckReservation.setBounds(230, 268, 144, 32);
+		add(btnCheckReservation);
 		
 		if (cst instanceof STDMember)
 		{
@@ -156,4 +172,6 @@ public class CustomerMenu extends AbstractGUIComponent {
 		navigator.goToReservation(cst, gpir.getMp(),type);
 
 	}
+	
+
 }
