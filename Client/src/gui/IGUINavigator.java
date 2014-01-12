@@ -16,7 +16,7 @@ public interface IGUINavigator {
 	public void goToCustomerMenu(Customer customer);
 	public void goToWorkerMenu(Worker worker);
 	public void goToCancelReservation(Customer customer);
-	public void goToIssueComplaint(Customer customer);
+	public void goToIssueComplaint(Customer customer, Map<String,Integer> mp);
 	public void goToReservation(Customer customer, Map<String,Integer> mp,int type);
 	public void goToMemberRegister(Customer customer);
 	public void goToCheckIn(Customer customer, Map<String,Integer> mp);

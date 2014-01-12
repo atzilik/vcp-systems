@@ -88,7 +88,9 @@ public class CustomerMenu extends AbstractGUIComponent {
 		JButton btnIssueComplaint = new JButton("Issue complaint");
 		btnIssueComplaint.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				navigator.goToIssueComplaint(cst);
+				client.send(new MessageGetParkingLotsID());
+				MessageGetParkingLotsIDReply gpir = (MessageGetParkingLotsIDReply)client.getMessage();
+				navigator.goToIssueComplaint(cst, gpir.getMp());
 			}
 		});
 		btnIssueComplaint.setBounds(227, 156, 147, 45);

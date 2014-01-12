@@ -84,10 +84,10 @@ public class Frame extends JFrame implements IGUINavigator {
 	}
 
 	@Override
-	public void goToIssueComplaint(Customer customer) {
+	public void goToIssueComplaint(Customer customer, Map<String,Integer> mp) {
 		// TODO Auto-generated method stub
 		lastScreen = (JPanel) getContentPane();
-		CustomerComplaintMenu ccm = new CustomerComplaintMenu(this, customer);
+		CustomerComplaintMenu ccm = new CustomerComplaintMenu(this, customer, mp);
 		setContentPane(ccm);		
 		validate();
 	}
