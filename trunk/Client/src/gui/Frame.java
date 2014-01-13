@@ -38,6 +38,7 @@ public class Frame extends JFrame implements IGUINavigator {
 	private SnapShotReport snapShotReport;
 	private CEOChoosePLReport CEOChoosePLReport;
 	private CheckReservation checkReservation;
+	
 	public Frame(){
 		//		login = new Login(this);
 		//		setContentPane(login);	
@@ -316,6 +317,27 @@ public class Frame extends JFrame implements IGUINavigator {
 		setContentPane(rdplm);
 		setTitle("Reservation Data");
 		validate();
+	}
+
+	@Override
+	public void goToDisabledReport(Worker wkr) {
+		// TODO Auto-generated method stub
+		lastScreen = (JPanel) getContentPane();
+		DisabledParkingSpaceReport dpsr = new DisabledParkingSpaceReport(this, wkr);
+		setContentPane(dpsr);
+		setTitle("Disable Parking Space Report");
+		validate();
+	}
+
+	@Override
+	public void goToPerformenceReportMenu(Worker wkr) {
+		// TODO Auto-generated method stub
+		lastScreen = (JPanel) getContentPane();
+		PerformenceReportMenu prm = new PerformenceReportMenu(this, wkr);
+		setContentPane(prm);
+		setTitle("Performence Report");
+		validate();
+		
 	}
 }
 

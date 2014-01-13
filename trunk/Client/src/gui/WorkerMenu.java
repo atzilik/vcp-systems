@@ -155,7 +155,7 @@ public class WorkerMenu extends AbstractGUIComponent {
 
 		JButton btnreservationreport = new JButton("<html>Reservation<br />report</html> ");
 		btnreservationreport.addActionListener(new ActionListener() {
-
+			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				navigator.goToReservationDataMenuParkingLot(wkr);
@@ -166,18 +166,26 @@ public class WorkerMenu extends AbstractGUIComponent {
 
 		JButton btncomplaintsreport = new JButton("<html>Complaints<br />report</html> ");
 		btncomplaintsreport.addActionListener(new ActionListener() {
-
+			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				navigator.goToComplaintReportMenu(wkr);
-
+				
 			}
 		});
 		btncomplaintsreport.setBounds(38, 161, 106, 45);
 		add(btncomplaintsreport);
 
 		JButton btndisabledreport = new JButton("<html>Disabled<br />report</html> ");
+		btndisabledreport.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				navigator.goToDisabledReport(wkr);
+			}
+		});
 		btndisabledreport.setBounds(157, 161, 106, 45);
 		add(btndisabledreport);
 
@@ -226,6 +234,14 @@ public class WorkerMenu extends AbstractGUIComponent {
 		add(btnexceptionsreport);
 
 		JButton btnperformancereport = new JButton("<html>Performance<br />report</html>");
+		btnperformancereport.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				navigator.goToPerformenceReportMenu(wkr);
+				
+			}
+		});
 		btnperformancereport.setBounds(316, 107, 124, 52);
 		add(btnperformancereport);
 
