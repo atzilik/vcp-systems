@@ -30,7 +30,8 @@ public class MessageCheckReservation extends Message{
 			{
 				do
 				{
-					reservationArray.add(new Reservation(rs.getString(1),rs.getInt(2), rs.getString(3), rs.getString(4), rs.getDate(5), rs.getTime(6), rs.getDate(7), rs.getTime(8))); 
+					reservationArray.add(new Reservation(rs.getString(1),rs.getInt(2),rs.getString(3),
+							rs.getString(4),rs.getDate(5),rs.getTime(6),rs.getDate(7),rs.getTime(8),rs.getBoolean(9),rs.getDouble(10),rs.getBoolean(11),rs.getDate(12)));
 				}while(rs.next());
 				return new MessageCheckReservationReply(reservationArray);
 			}

@@ -41,7 +41,7 @@ public class Frame extends JFrame implements IGUINavigator {
 	public Frame(){
 		//		login = new Login(this);
 		//		setContentPane(login);	
-		setSize(new Dimension(640, 480));
+		setSize(new Dimension(1366, 768));
 		setResizable(false);
 		setVisible(true);		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
@@ -298,6 +298,15 @@ public class Frame extends JFrame implements IGUINavigator {
 		ComplaintReportMenu crm = new ComplaintReportMenu(this, wkr);
 		setContentPane(crm);
 		setTitle("Complaint Report Menu");
+		validate();
+	}
+
+	public void goToReservationDataMenuParkingLot(Worker wkr) {
+		// TODO Auto-generated method stub
+		lastScreen = (JPanel) getContentPane();
+		ReservationDataParkingLotManager rdplm = new ReservationDataParkingLotManager(this, wkr);
+		setContentPane(rdplm);
+		setTitle("Reservation Data");
 		validate();
 	}
 }

@@ -39,7 +39,7 @@ public class MessageGetReservation extends Message{
 				do
 				{
 					res = new Reservation(rs.getString(1),rs.getInt(2),rs.getString(3),
-							rs.getString(4),rs.getDate(5),rs.getTime(6),rs.getDate(7),rs.getTime(8));
+							rs.getString(4),rs.getDate(5),rs.getTime(6),rs.getDate(7),rs.getTime(8),rs.getBoolean(9),rs.getDouble(10),rs.getBoolean(11),rs.getDate(12));
 					java.util.Date resCheckInDate = DateConvert.buildFullDate(res.getEstCinDate(), res.getEstCinHour());
 					//checking if parking lot matching and customer didn't arrive early
 					if (DateConvert.timeDifference(todayDate,resCheckInDate) >= 0)

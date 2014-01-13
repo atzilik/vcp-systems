@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import DataObjects.DateConvert;
 import DataObjects.Reservation;
 import DataObjects.Worker;
 
@@ -29,7 +30,10 @@ public class MessageGetReservationData extends Message {
 			ResultSet rs = ps.executeQuery();
 			
 			while(rs.next())
-				reservationsArray.add(new Reservation(rs.getString(1), rs.getInt(2), rs.getString(3), rs.getString(4), java.sql.Date.valueOf(rs.getString(5)),Time.valueOf(rs.getString(6)),java.sql.Date.valueOf(rs.getString(7)),Time.valueOf(rs.getString(8)))); 
+			{
+			//	System.out.println(rs.getDate(5) + "" + rs.getTime(6) + "" + rs.getDate(7) + "" + rs.getTime(8));
+				reservationsArray.add(new Reservation(rs.getString(1), rs.getInt(2), rs.getString(3), rs.getString(4), java.sql.Date.valueOf(rs.getString(5)),rs.getTime(6),java.sql.Date.valueOf(rs.getString(7)),rs.getTime(8), rs.getBoolean(9), rs.getDouble(10), rs.getBoolean(11), java.sql.Date.valueOf(rs.getString(12))));
+			}
 			
 			return new MessageGetReservationDataReply(reservationsArray);
 			
