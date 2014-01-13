@@ -3,7 +3,7 @@ package DataObjects;
 import java.io.Serializable;
 import java.sql.Time;
 import java.util.Calendar;
-import java.util.Date;
+import java.sql.Date;
 
 
 public class Reservation implements Serializable{
@@ -15,9 +15,14 @@ public class Reservation implements Serializable{
 	protected Time estCinHour;
 	protected java.sql.Date estCoutDate;
 	protected Time estCoutHour;
+	protected boolean inAdvance;
+	protected double estBill;
+	protected boolean used;
+	protected java.sql.Date reservationDate;
 
+	
 	public Reservation (String rid, int carId, String cid, String pl, java.sql.Date estCinDate, 
-			Time estCinHour, java.sql.Date estCoutDate, Time estCoutHour) {
+			Time estCinHour, java.sql.Date estCoutDate, Time estCoutHour, boolean inAdvance, double estBill, boolean used,java.sql.Date reservationDate ) {
 		this.rid = rid;
 		this.carId = carId;
 		this.cid = cid;
@@ -26,9 +31,14 @@ public class Reservation implements Serializable{
 		this.estCinHour = estCinHour;
 		this.estCoutDate = estCoutDate;
 		this.estCoutHour = estCoutHour;
-		
+		this.inAdvance = inAdvance;
+		this.estBill = estBill;
+		this.used = used;
+		this.reservationDate = reservationDate;
 	}
 	
+
+
 	public String getRid() {
 		return rid;
 	}
@@ -52,6 +62,30 @@ public class Reservation implements Serializable{
 	}
 	public Time getEstCoutHour() {
 		return estCoutHour;
+	}
+	public boolean isInAdvance() {
+		return inAdvance;
+	}
+	public void setInAdvance(boolean inAdvance) {
+		this.inAdvance = inAdvance;
+	}
+	public double getEstBill() {
+		return estBill;
+	}
+	public void setEstBill(double estBill) {
+		this.estBill = estBill;
+	}
+	public boolean isUsed() {
+		return used;
+	}
+	public void setUsed(boolean used) {
+		this.used = used;
+	}
+	public java.sql.Date getReservationDate() {
+		return reservationDate;
+	}
+	public void setReservationDate(java.sql.Date reservationDate) {
+		this.reservationDate = reservationDate;
 	}
 
 }

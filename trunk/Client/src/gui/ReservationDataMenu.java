@@ -49,7 +49,7 @@ public class ReservationDataMenu extends AbstractGUIComponent {
 		
 		
 		int length = reservations.size();
-		Object[][] data = new Object[length+1][8];
+		Object[][] data = new Object[length+1][12];
 		int i=0;
 		
 		data[i][0] = "ReservationID";
@@ -60,6 +60,10 @@ public class ReservationDataMenu extends AbstractGUIComponent {
 		data[i][5] = "est Cin Hour";
 		data[i][6] = "est Cot Date";
 		data[i][7] = "est Cot Hour";
+		data[i][8] = "inAdvance";
+		data[i][9] = "estBill";
+		data[i][10] = "used";	
+		data[i][11] = "ResDate";
 		
 		i++;
 		
@@ -73,6 +77,10 @@ public class ReservationDataMenu extends AbstractGUIComponent {
 			data[i][5] = res.getEstCinHour();
 			data[i][6] = res.getEstCoutDate();
 			data[i][7] = res.getEstCoutHour();
+			data[i][8] = res.isInAdvance();
+			data[i][9] = res.getEstBill();
+			data[i][10] = res.isUsed();
+			data[i][11] = res.getReservationDate();
 			
 			i++;
 		}
@@ -84,10 +92,15 @@ public class ReservationDataMenu extends AbstractGUIComponent {
                 "est Cin Date",
                 "est Cin Hour",
                 "est Cot Date",
-                "est Cot Hour"};
+                "est Cot Hour",
+                "inAdvance",
+                "estBill",
+                "used",
+                "ResDate"
+                };
 		
 		JTable reservationsTable = new JTable(data , columnNames);
-		reservationsTable.setBounds(new Rectangle(10, 10, 620, i*23));
+		reservationsTable.setBounds(new Rectangle(10, 10, 1300, i*23));
 		reservationsTable.getColumnModel().getColumn(1).setPreferredWidth(35);
 		reservationsTable.setRowHeight(23);
 		

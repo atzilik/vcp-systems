@@ -154,6 +154,13 @@ public class WorkerMenu extends AbstractGUIComponent {
 		add(btnChangeRates);
 
 		JButton btnreservationreport = new JButton("<html>Reservation<br />report</html> ");
+		btnreservationreport.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				navigator.goToReservationDataMenuParkingLot(wkr);
+			}
+		});
 		btnreservationreport.setBounds(157, 94, 106, 45);
 		add(btnreservationreport);
 
