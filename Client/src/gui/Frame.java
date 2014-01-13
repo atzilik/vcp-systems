@@ -36,12 +36,12 @@ public class Frame extends JFrame implements IGUINavigator {
 	private JPanel lastScreen;
 	private EnableDisableFacility enableDisableFacility; 
 	private SnapShotReport snapShotReport;
+	private CEOChoosePLReport CEOChoosePLReport;
 	private CheckReservation checkReservation;
-	
 	public Frame(){
 		//		login = new Login(this);
 		//		setContentPane(login);	
-		setSize(new Dimension(1366, 768));
+		setSize(new Dimension(1366,768));
 		setResizable(false);
 		setVisible(true);		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
@@ -298,6 +298,14 @@ public class Frame extends JFrame implements IGUINavigator {
 		ComplaintReportMenu crm = new ComplaintReportMenu(this, wkr);
 		setContentPane(crm);
 		setTitle("Complaint Report Menu");
+		validate();
+	}
+	@Override
+	public void goToCEOChoosePLReport(Map<String,Integer> mp, Worker worker){
+		lastScreen = (JPanel) getContentPane();
+		CEOChoosePLReport plr = new CEOChoosePLReport(this, mp, worker);
+		setContentPane(plr);
+		setTitle("ParkingLots Reports");
 		validate();
 	}
 
