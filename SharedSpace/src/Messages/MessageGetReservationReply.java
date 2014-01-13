@@ -15,6 +15,12 @@ public class MessageGetReservationReply extends Message{
 //	public MessageGetReservationReply() {
 //		res = null;
 //	}
+	
+	/**
+	 * 
+	 * @param res reservation of the customers
+	 * @param late customer late or not
+	 */
 	public MessageGetReservationReply(Reservation res, boolean late) {
 		this.res = res;
 		this.late = late;

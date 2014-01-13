@@ -2,6 +2,11 @@ package Messages;
 
 import javax.swing.JOptionPane;
 
+/**
+ * 
+ * @author Gal
+ *This class is responsible for register a customer to member.
+ */
 public class MessageMemberRegisterReply extends Message {
 	protected String memberID;
 	protected String carNum;
@@ -10,7 +15,12 @@ public class MessageMemberRegisterReply extends Message {
 	public MessageMemberRegisterReply(){
 		memberID = null;
 	}
-
+/**
+ * 
+ * @param memberID of the member
+ * @param carNum of the member
+ * @param bill rate price of the member
+ */
 	public MessageMemberRegisterReply(String memberID, String carNum, double bill){
 		this.memberID = memberID;
 		this.carNum = carNum;

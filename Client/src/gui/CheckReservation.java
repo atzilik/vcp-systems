@@ -14,9 +14,20 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+/**
+ * 
+ * @author Boaz
+ *This class is responsible of showing all of the reservation of the customer.
+ */
 public class CheckReservation extends AbstractGUIComponent{
 	private String id;	
 	private IGUINavigator navigator;
+	
+	/**
+	 * 
+	 * @param navigator nevigate between panels
+	 * @param id get the id of the customer that we want to show his reservation 
+	 */
 	
 	public CheckReservation(final IGUINavigator navigator, final String id){
 		this.id = id;	
@@ -52,6 +63,12 @@ public class CheckReservation extends AbstractGUIComponent{
 		
 
 	}
+	
+	/**
+	 * this method shows the report of the customer reservation
+	 * 
+	 * @param res list of all of the customer reservation
+	 */
 private void PrintTable(ArrayList<Reservation> res) {
 		
 		

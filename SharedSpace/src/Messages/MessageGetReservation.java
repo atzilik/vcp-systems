@@ -13,6 +13,11 @@ import DataObjects.Reservation;
 import DataObjects.STDCustomer;
 import DataObjects.STDMember;
 
+/**
+ * 
+ * @author Boaz
+ *This class is responsible for getting the reservation.
+ */
 public class MessageGetReservation extends Message{
 	private String carNum;
 	private String id;
@@ -21,7 +26,12 @@ public class MessageGetReservation extends Message{
 	java.util.Date todayDate = DateConvert.buildFullDate(DateConvert.getCurrentSqlDate(), DateConvert.getCurrentSqlTime());
 
 
-
+/**
+ * 
+ * @param id id of the customer
+ * @param carNum car number of the customer
+ * @param pl string of the parkinglot number
+ */
 	public MessageGetReservation (String id, String carNum, String pl) {
 		this.carNum = carNum;
 		this.id = id;
@@ -32,8 +42,8 @@ public class MessageGetReservation extends Message{
 		con = this.sqlConnection.getConnection();			
 		try{
 			ResultSet rs = findReservation();
-			if (rs == null)
-				return new MessageGetReservationReply(2);
+			if (rs == null)  // no reservation record
+				return new MessageGetReservationReply(2);  // customer arrived early
 			else
 			{
 				do
@@ -48,28 +58,33 @@ public class MessageGetReservation extends Message{
 						if (DateConvert.timeDifference(todayDate,DateConvert.buildFullDate(res.getEstCinDate(), res.getEstCinHour())) == 0 || DateConvert.timeDifference(todayDate,DateConvert.buildFullDate(res.getEstCinDate(), res.getEstCinHour())) <= 2)
 						{
 							updateReservationUsed();
-							return new MessageGetReservationReply(res, false);
+							return new MessageGetReservationReply(res, false);  // late or not
 						}
 						else
 						{
 							updateReservationUsed();
-							return new MessageGetReservationReply(res, true);
+							return new MessageGetReservationReply(res, true);  // late or not
 						}
 					}
 					//customer arrive too early
 					else if(DateConvert.timeDifference(todayDate,DateConvert.buildFullDate(res.getEstCinDate(), res.getEstCinHour())) < 0)
 					{
-						return new MessageGetReservationReply(1);
+						return new MessageGetReservationReply(1);  // early
 					}
 				}
 				while (rs.next());
-				return new MessageGetReservationReply(2);
+				return new MessageGetReservationReply(2);  // no reservation
 			}
 
 		}catch (SQLException e) {e.printStackTrace();}
 		return null;
 	} // doAction
 
+	/**
+	 * 
+	 * @return the result reservation of the customer that didn't already parked
+	 * @throws SQLException
+	 */
 	public ResultSet findReservation() throws SQLException {
 		PreparedStatement ps = con.prepareStatement("SELECT * FROM reservations where customerId=? and carId=? and parkingLotId=? and used=0;");
 		ps.setString(1, id);
@@ -84,6 +99,10 @@ public class MessageGetReservation extends Message{
 		return null;
 	}
 	
+	/**
+	 * this method is updating the reservation table if customer did check in
+	 * @throws SQLException
+	 */
 	public void updateReservationUsed() throws SQLException{
 		PreparedStatement ps = con.prepareStatement("UPDATE reservations SET used=? WHERE reservationId=?;");
 		ps.setBoolean(1, true);

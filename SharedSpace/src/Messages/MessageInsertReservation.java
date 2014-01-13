@@ -10,10 +10,18 @@ import java.util.Random;
 
 import DataObjects.DateConvert;
 
+/**
+ * 
+ * @author Gal
+ *This class is responsible for insert the customer to reservation.
+ */
 public class MessageInsertReservation extends Message {
 	private String[] details;
 
-
+/**
+ * 
+ * @param det of the reservation
+ */
 	public MessageInsertReservation(String[] det) {
 		//		this.MessageType = "MessageInsertReservation";
 		details = det;

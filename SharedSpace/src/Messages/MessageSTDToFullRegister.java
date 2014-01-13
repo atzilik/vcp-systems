@@ -6,8 +6,18 @@ import java.sql.SQLException;
 
 import DataObjects.DateConvert;
 
+/**
+ * 
+ * @author Gal
+ *This class is responsible for upgrading std member to full member.
+ */
 public class MessageSTDToFullRegister extends MessageMemberRegister {
 
+	/**
+	 * 
+	 * @param details of the customer
+	 * @param type of the customer
+	 */
 	public MessageSTDToFullRegister(String[] details, String type) {
 		super(details, type);
 		// TODO Auto-generated constructor stub
@@ -88,6 +98,11 @@ public class MessageSTDToFullRegister extends MessageMemberRegister {
 		return null;
 	}
 	
+	/**
+	 * update the bill of the customer
+	 * @return the rate of price of the the customer
+	 * @throws SQLException
+	 */
 	public double updateCustomerBill() throws SQLException{
 		//update customer bill
 		PreparedStatement ps = con.prepareStatement("INSERT INTO customer_bill (customerID,carID,date,time,sum) VALUES (?,?,?,?,?);");

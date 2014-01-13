@@ -4,9 +4,18 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Random;
 
+/**
+ * 
+ * @author Gal
+ *This class is responsible for issue a customer complaint.
+ */
 public class MessageIssueComplaint extends Message {
 	private String[] details;
 
+	/**
+	 * 
+	 * @param details of the complaint
+	 */
 	public MessageIssueComplaint(String[] details){
 		this.details = details;
 	}
@@ -24,12 +33,12 @@ public class MessageIssueComplaint extends Message {
 			ps.setString(5, details[4]);
 			ps.executeUpdate();
 			ps.close();
-			return new MessageIssueComplaintReply(details[0]);
+			return new MessageIssueComplaintReply(details[0]);  // with all of the complaint details
 		}catch (SQLException e) {
 
 			if (e.getMessage().contains("Duplicate entry"))
 			{
-				details[0] = Integer.toString(100000 + new Random().nextInt(900000));
+				details[0] = Integer.toString(100000 + new Random().nextInt(900000)); // genarte complaint number
 				new MessageIssueComplaint(details).doAction();
 			}		
 		}
