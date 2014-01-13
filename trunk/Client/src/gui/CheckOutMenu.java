@@ -47,7 +47,6 @@ public class CheckOutMenu extends AbstractGUIComponent {
 							boolean needToUpdate = false;;
 							if (parkinglots[cor.getParkingLotID()].getRobot().isParkingLotFull())
 								needToUpdate = true;
-							while (parkinglots[cor.getParkingLotID()].getRobot().isBusy());
 							parkinglots[cor.getParkingLotID()].getRobot().unPark(Integer.parseInt(cor.getCustomer().getCarId()), cor.getFloor(), cor.getRow(), cor.getDepth());
 							client.send(new MessageUpdatePLMap(cor.getParkingLotID(),parkinglots[cor.getParkingLotID()].getParkingspace()));
 							MessageEmptyReply er = (MessageEmptyReply)client.getMessage();

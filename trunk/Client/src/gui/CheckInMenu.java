@@ -87,7 +87,6 @@ public class CheckInMenu extends AbstractGUIComponent {
 										@Override
 										public void run() {
 											// TODO Auto-generated method stub
-											while (parkinglots[Integer.parseInt(ipr.getRes().getPl())].getRobot().isBusy());
 											parkinglots[Integer.parseInt(ipr.getRes().getPl())].getRobot().parkCar(ipr.getRes().getCarId(), ipr.getRes().getEstCoutDate(),ipr.getRes().getEstCoutHour());
 											client.send(new MessageUpdatePLMap(Integer.parseInt(ipr.getRes().getPl()),parkinglots[Integer.parseInt(ipr.getRes().getPl())].getParkingspace()));
 											MessageEmptyReply er = (MessageEmptyReply)client.getMessage();
@@ -121,7 +120,6 @@ public class CheckInMenu extends AbstractGUIComponent {
 								@Override
 								public void run() {
 									// TODO Auto-generated method stub
-									while (parkinglots[((STDMember)ipr.getCustomer()).getParkingLotId()].getRobot().isBusy());
 									parkinglots[((STDMember)ipr.getCustomer()).getParkingLotId()].getRobot().parkCar(Integer.parseInt(((STDMember)ipr.getCustomer()).getCarId()), DateConvert.getCurrentSqlDate(),((STDMember)ipr.getCustomer()).getStdCheckOut());
 									client.send(new MessageUpdatePLMap(((STDMember)ipr.getCustomer()).getParkingLotId(),parkinglots[((STDMember)ipr.getCustomer()).getParkingLotId()].getParkingspace()));
 									MessageEmptyReply er = (MessageEmptyReply)client.getMessage();
@@ -155,7 +153,6 @@ public class CheckInMenu extends AbstractGUIComponent {
 								@Override
 								public void run() {
 									// TODO Auto-generated method stub
-									while (parkinglots[ipl].getRobot().isBusy());
 									parkinglots[ipl].getRobot().parkCar(Integer.parseInt(((FullMember)ipr.getCustomer()).getCarId()), DateConvert.getCurrentSqlDate(),DateConvert.getCurrentSqlTime());
 									client.send(new MessageUpdatePLMap(ipl, parkinglots[ipl].getParkingspace()));
 									MessageEmptyReply er = (MessageEmptyReply)client.getMessage();
