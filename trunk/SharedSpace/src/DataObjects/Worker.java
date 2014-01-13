@@ -1,16 +1,42 @@
 package DataObjects;
 
 import java.io.Serializable;
-
+/**
+ * This Class represents a worker.. all the workers in the systems have the same details 
+ * @author Alon
+ *
+ */
 public class Worker implements Serializable {
+	/**
+	 * worker ID
+	 */
 	protected String id;
+	/**
+	 * first name
+	 */
 	protected String fName;
+	/**
+	 * last name
+	 */
 	protected String lName;
+	/**
+	 * email
+	 */
 	protected String email;
+	/**
+	 * parkingLotID
+	 */
 	protected int parkingLotID;
-	
+	/**
+	 * loads a worker with pesonal details
+	 * @param id 
+	 * @param fName first name
+	 * @param lName last name
+	 * @param email email
+	 * @param parkingLotID 
+	 */
 	public Worker(String id, String fName, String lName, String email,
-			int parkingLotID) {
+		int parkingLotID) {
 		super();
 		this.id = id;
 		this.fName = fName;

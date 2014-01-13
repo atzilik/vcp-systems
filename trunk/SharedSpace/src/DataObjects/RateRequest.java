@@ -1,16 +1,45 @@
 package DataObjects;
 
 import java.io.Serializable;
-
+/**
+ * loads all the needed details for a rate request
+ * @author Alon
+ *
+ */
 public class RateRequest implements Serializable {
-	
+	/**
+	 * parking lot ID
+	 */
 	private int ParkingLotId;
+	/**
+	 * occasional fee
+	 */
 	private float occasional;
+	/**
+	 * reserved fee
+	 */
 	private float reserved;
+	/**
+	 * standard membership fee
+	 */
 	private float standard;
+	/**
+	 * full membership fee
+	 */
 	private float full;
+	/**
+	 * The requesting manager ID
+	 */
 	private String MangerId;
-	
+	/**
+	 * loads the details of the requested fee changes
+	 * @param pId parking lot ID
+	 * @param occ occasional fee
+	 * @param res reserved fee
+	 * @param std standard membership fee
+	 * @param full full membership fee
+	 * @param mngId The requesting manager ID
+	 */
 	public RateRequest(int pId, float occ, float res, float std, float full,String mngId) {
 		ParkingLotId = pId;
 		occasional = occ;

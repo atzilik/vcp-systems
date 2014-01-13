@@ -2,7 +2,11 @@ package Messages;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-
+/**
+ * This message is responsible of disabling the facility
+ * @author Alon
+ *
+ */
 public class MessageDisableFacility extends Message {
 	private int parkingLotID;
 
@@ -11,6 +15,9 @@ public class MessageDisableFacility extends Message {
 	}
 
 	@Override
+	/**
+	 * updates the parkinglots fields table in db  
+	 */
 	public Message doAction() {
 		// TODO Auto-generated method stub
 		con = sqlConnection.getConnection();

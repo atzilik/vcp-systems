@@ -1,5 +1,7 @@
 package Messages;
-
+/**
+ * This message prepares the rates request data for showing them to the CEO
+ */
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,8 +13,13 @@ import javax.swing.JOptionPane;
 import DataObjects.RateRequest;
 
 public class MessageGetRateRequest extends Message {
-	
+	/**
+	 * sql connection
+	 */
 	private Connection sqlConn;
+	/**
+	 * rates requests
+	 */
 	private ArrayList<RateRequest> rateArray = new ArrayList<>();
 	
 	public MessageGetRateRequest() {
@@ -20,6 +27,9 @@ public class MessageGetRateRequest extends Message {
 	}
 
 	@Override
+	/**
+	 * gets the rates data for showing them to the CEO
+	 */
 	public Message doAction() {
 		// TODO Auto-generated method stub
 		

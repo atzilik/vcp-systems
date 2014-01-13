@@ -1,5 +1,9 @@
 package DataObjects;
-
+/**
+ * this class represents a customer service worker
+ * @author Alon
+ *
+ */
 public class CustomerService extends Worker {
 
 	public CustomerService(String id, String fName, String lName, String email,

@@ -9,12 +9,21 @@ import java.util.ArrayList;
 import DataObjects.RateRequest;
 import DataObjects.Reservation;
 import DataObjects.Worker;
-
+/**
+ * This reply message is responsible of sending the data back to the gui
+ * @author Alon
+ *
+ */
 public class MessageGetReservationDataReply extends Message {
-	
+	/**
+	 * array list which holds the current reservaion data
+	 */
 	private ArrayList<Reservation> reservationsArray;
 	private Worker wkr;
-	
+	/**
+	 * loads the reservation data to the reservationsArray 
+	 * @param reservationsArray
+	 */
 	public MessageGetReservationDataReply(ArrayList<Reservation> reservationsArray) {
 		
 		this.setReservationsArray(reservationsArray);

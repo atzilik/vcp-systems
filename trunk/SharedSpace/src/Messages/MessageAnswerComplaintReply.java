@@ -1,7 +1,13 @@
 package Messages;
-
+/**
+ * This is a reply message which will indicate the answered was delivered
+ * @author Alon
+ *
+ */
 public class MessageAnswerComplaintReply extends Message {
-
+	/**
+	 * message was delivered successfully
+	 */
 	private boolean isDone;
 	public MessageAnswerComplaintReply(boolean b){
 		setDone(b);

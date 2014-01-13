@@ -37,7 +37,15 @@ public class SnapShotReport extends AbstractGUIComponent {
 	 */
 	private static Map<String,Integer> parkingLots;
 	private static JComboBox comboBoxParkLot;
+	/**
+	 * File will save the location of the pdf report
+	 */
 	File reportFile = new File("C:/VCP/ReportTest.pdf");
+	/**
+	 * 
+	 * @param navigator to navigate between panels
+	 * @param mp for the map as described above
+	 */
 	public SnapShotReport(final IGUINavigator navigator, Map<String,Integer> mp) {
 		setLayout(null);
 		this.parkingLots=mp;
@@ -54,7 +62,13 @@ public class SnapShotReport extends AbstractGUIComponent {
 		JButton btnGenerateSnapshotReport = new JButton("<html>Generate SnapShot Report<br />(PDF)</html>");
 		btnGenerateSnapshotReport.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				/**
+				 * initialize a new document with its dimensions
+				 */
 				Document document = new Document(PageSize.A4, 50, 50, 50, 50);
+				/**
+				 * for creating a pdf file
+				 */
 				PdfWriter writer = null;
 				try {
 				//	File reportFile = new File("C:/VCP/ReportTest.pdf");
@@ -99,9 +113,21 @@ public class SnapShotReport extends AbstractGUIComponent {
 		lblNewLabel.setBounds(79, 26, 188, 14);
 		add(lblNewLabel);
 	}
-
+/**
+ * This method puts the data in the pdf file according to the mapping of the parking lot
+ * @param document the pdf file which the data will be created inside 
+ * @param str the document title of the first page
+ * @param writer needed for the creation of the pdf file
+ * @throws DocumentException
+ */
 	public static void snapShotGen (Document document,String str,PdfWriter writer) throws DocumentException{
+		/**
+		 * xAxis initiate a value for the beginning point 
+		 */
 		int xAxis=75;
+		/**
+		 * yAxis initiate a value for the beginning point
+		 */
 		int yAxis=560;
 		Paragraph title1 = new Paragraph(str,FontFactory.getFont(FontFactory.COURIER,16, Font.BOLD, new CMYKColor(0, 255, 255,17)));
 		Paragraph paragraph1 = new Paragraph();

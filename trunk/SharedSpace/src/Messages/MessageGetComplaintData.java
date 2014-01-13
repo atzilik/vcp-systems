@@ -12,15 +12,39 @@ import javax.swing.JOptionPane;
 
 import DataObjects.FullComplaint;
 import DataObjects.Reservation;
-
+/**
+ * This message is responsible of collecting the complaints from the DB for generating the complaints report
+ * @author Alon
+ *
+ */
 public class MessageGetComplaintData extends Message {
 	
-
+	/**
+	 * sql connection
+	 */
 	private Connection sqlConn;
+	/**
+	 * complaints array
+	 */
 	private ArrayList<FullComplaint> complaintsArray = new ArrayList<>();
+	/**
+	 * the start date for the report
+	 */
 	private Date from;
+	/**
+	 * the end date for the report
+	 */
 	private Date to;
+	/**
+	 * parking lot id
+	 */
 	private int parkingLotID;
+	/**
+	 * loads the details for the report
+	 * @param from start date
+	 * @param to`end date
+	 * @param parkingLotID
+	 */
 	
 	public MessageGetComplaintData(Date from, Date to, int parkingLotID) {
 		this.from = from;
@@ -29,6 +53,9 @@ public class MessageGetComplaintData extends Message {
 	}
 
 	@Override
+	/**
+	 * gets the relevant complaints data according to the date range
+	 */
 	public Message doAction() {
 		// TODO Auto-generated method stub
 		

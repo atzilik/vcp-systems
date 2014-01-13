@@ -12,6 +12,11 @@ import DataObjects.Worker;
 
 import client.Client;
 
+/**
+ * This class implements the IGUINaviator class which is needed for navigation between the various panels 
+ * @author Alon
+ *
+ */
 public class Frame extends JFrame implements IGUINavigator {	
 
 	private AddCarMenu addCarMenu;
@@ -38,7 +43,6 @@ public class Frame extends JFrame implements IGUINavigator {
 	private SnapShotReport snapShotReport;
 	private CEOChoosePLReport CEOChoosePLReport;
 	private CheckReservation checkReservation;
-	
 	public Frame(){
 		//		login = new Login(this);
 		//		setContentPane(login);	
@@ -214,7 +218,6 @@ public class Frame extends JFrame implements IGUINavigator {
 		setContentPane(rr);
 		validate();	
 	}
-	
 	@Override
     public void goToAddCarMenu(Customer customer, Map<String,Integer> mp, int type) {
             // TODO Auto-generated method stub
@@ -293,7 +296,7 @@ public class Frame extends JFrame implements IGUINavigator {
 	}
 
 	@Override
-	public void goToComplaintReportMenu(Worker wkr , Worker workerToBack) {
+	public void goToComplaintReportMenu(Worker wkr, Worker workerToBack) {
 		// TODO Auto-generated method stub
 		lastScreen = (JPanel) getContentPane();
 		ComplaintReportMenu crm = new ComplaintReportMenu(this, wkr, workerToBack);
@@ -318,7 +321,6 @@ public class Frame extends JFrame implements IGUINavigator {
 		setTitle("Reservation Data");
 		validate();
 	}
-
 	@Override
 	public void goToDisabledReport(Worker wkr , Worker workerToBack) {
 		// TODO Auto-generated method stub

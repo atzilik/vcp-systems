@@ -1,15 +1,35 @@
 package DataObjects;
 
 import java.io.Serializable;
-
+/**
+ * This class holds the complaint details
+ * @author Alon
+ *
+ */
 public class Complaint implements Serializable {
-
+	/**
+	 * complaint ID
+	 */
 	private String complaintID;
+	/**
+	 * customer ID
+	 */
 	private String customerID;
+	/**
+	 * customer complaint details
+	 */
 	private String details;
+	/**
+	 * date of customer complaint
+	 */
 	private String date;
+	/**
+	 * parking lot Id which the complaint belongs to
+	 */
 	private String parkingLotID;
-	
+/**
+ * loads the customer's complaint details
+ */
 	public Complaint(String comID, String custID, String det, String dat, String parkingLotID) {
 		this.complaintID = comID;
 		this.customerID = custID;
@@ -17,8 +37,8 @@ public class Complaint implements Serializable {
 		this.date = dat;
 		this.parkingLotID = parkingLotID;
 	}
-	
-	
+
+
 	public String getComplaintID() {
 		return complaintID;
 	}
@@ -53,6 +73,6 @@ public class Complaint implements Serializable {
 	public void setParkingLotID(String parkingLotID) {
 		this.parkingLotID = parkingLotID;
 	}
-	
-	
+
+
 }

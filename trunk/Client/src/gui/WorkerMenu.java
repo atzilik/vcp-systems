@@ -30,7 +30,8 @@ public class WorkerMenu extends AbstractGUIComponent {
 	private IGUINavigator navigator;
 	/**
 	 * 
-	 * @param wkr
+	 * @param wkr variable which will help indicate the relevant worker using the program
+	 * @param navigator for navigating between the panels
 	 */
 	public WorkerMenu(final IGUINavigator navigator, Worker wkr){
 
@@ -41,7 +42,9 @@ public class WorkerMenu extends AbstractGUIComponent {
 		JLabel lblNewLabel = new JLabel("Hello" + " " +wkr.getfName() + " " + wkr.getlName());
 		lblNewLabel.setBounds(121, 11, 123, 14);
 		add(lblNewLabel);
-
+		/**
+		 * wkrType is used for displaying the type of each worker on its main menu
+		 */
 		String wkrType = null;
 
 		if (wkr instanceof ParkingLotManager)
@@ -86,7 +89,9 @@ public class WorkerMenu extends AbstractGUIComponent {
 
 	}
 
-
+	/**
+	 * open the regular worker menu
+	 */
 	public void openWorkerMenu(){
 
 		JButton btn_ReserveLocalParkingSpace = new JButton("<html>Reserve Local<br />Parking Space</html>");
@@ -141,7 +146,9 @@ public class WorkerMenu extends AbstractGUIComponent {
 		btnSetupParkingLot.setBounds(166, 179, 123, 61);
 		add(btnSetupParkingLot);
 	}
-
+	/**
+	 * open the parking lot manager menu
+	 */
 	public void openParkingLotManagerMenu(){
 
 		JButton btnChangeRates = new JButton("<html>Open Change<br />Rates Menu</html> ");
@@ -155,7 +162,7 @@ public class WorkerMenu extends AbstractGUIComponent {
 
 		JButton btnreservationreport = new JButton("<html>Reservation<br />report</html> ");
 		btnreservationreport.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				navigator.goToReservationDataMenuParkingLot(wkr,null);
@@ -166,12 +173,12 @@ public class WorkerMenu extends AbstractGUIComponent {
 
 		JButton btncomplaintsreport = new JButton("<html>Complaints<br />report</html> ");
 		btncomplaintsreport.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				navigator.goToComplaintReportMenu(wkr,null);
-				
+
 			}
 		});
 		btncomplaintsreport.setBounds(38, 161, 106, 45);
@@ -179,7 +186,7 @@ public class WorkerMenu extends AbstractGUIComponent {
 
 		JButton btndisabledreport = new JButton("<html>Disabled<br />report</html> ");
 		btndisabledreport.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
@@ -190,6 +197,9 @@ public class WorkerMenu extends AbstractGUIComponent {
 		add(btndisabledreport);
 
 	}
+	/**
+	 * opens the CS menu
+	 */
 	public void openCSMenu(){
 		JButton btnReserveParkingSpace = new JButton("<html>Reserve<br />parking space</html>");
 		btnReserveParkingSpace.addActionListener(new ActionListener() {
@@ -212,14 +222,17 @@ public class WorkerMenu extends AbstractGUIComponent {
 		add(btncomplaintmenu);
 
 	}
+	/**
+	 * Opens the CEOMenu
+	 */
 	public void openCEOMenu(){
 		JButton btnActivityReport = new JButton("<html>Activity<br />report</html>");
 		btnActivityReport.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				navigator.goToActivityReportMenu(wkr);
-				
+
 			}
 		});
 		btnActivityReport.setBounds(137, 186, 84, 52);
@@ -237,14 +250,17 @@ public class WorkerMenu extends AbstractGUIComponent {
 		btnSnapShot.setBounds(10, 102, 155, 52);
 		add(btnSnapShot);
 
+		JButton btnexceptionsreport = new JButton("<html>Exceptions<br />report</html>");
+		btnexceptionsreport.setBounds(176, 97, 130, 62);
+		add(btnexceptionsreport);
 
 		JButton btnperformancereport = new JButton("<html>Performance<br />report</html>");
 		btnperformancereport.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				navigator.goToPerformenceReportMenu(wkr);
-				
+
 			}
 		});
 		btnperformancereport.setBounds(316, 107, 124, 52);
