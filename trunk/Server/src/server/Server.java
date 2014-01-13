@@ -96,6 +96,9 @@ public class Server extends AbstractServer {
 		}).start();
 	}
 	
+	/**
+	 * this method is activating a thread that run every minute and chack for a 30 min late customers
+	 */
 	public void minuteCheckUP(){
 		new Thread(new Runnable() {
 

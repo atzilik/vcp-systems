@@ -11,6 +11,11 @@ import DataObjects.FullMember;
 import DataObjects.Reservation;
 import DataObjects.STDMember;
 
+/**
+ * 
+ * @author Boaz
+ *This class is responsible for insert the reservation into the parking_lot table.
+ */
 public class MessageInsertPc extends Message{
 	Reservation res = null;
 	Customer mem = null;
@@ -18,15 +23,30 @@ public class MessageInsertPc extends Message{
 	Time currTime = DateConvert.getCurrentSqlTime();
 	private boolean late;
 	private int pl;
+	
+	/**
+	 * 
+	 * @param res reservation details
+	 * @param late late or not
+	 */
 	public MessageInsertPc(Reservation res, boolean late){
 		this.res = res;	
 		this.late = late;
 	}
 
+	/**
+	 * 
+	 * @param mem member details
+	 */
 	public MessageInsertPc(Customer mem){
 		this.mem = mem;	
 	}
 
+	/**
+	 * 
+	 * @param mem member details
+	 * @param pl number of the parkinglot
+	 */
 	public MessageInsertPc(Customer mem,int pl){
 		this.mem = mem;	
 		this.pl = pl;	}
@@ -34,11 +54,11 @@ public class MessageInsertPc extends Message{
 	@Override
 	public Message doAction() {
 		con = this.sqlConnection.getConnection();
-
+		// insert the detailes into the parking_control table
 		try {
-			if (res != null)
+			if (res != null)  // there is a reservation => std customer
 			{
-				PreparedStatement ps = con.prepareStatement("INSERT INTO parking_control (customerID,carNum,parkingLotID,cinDate,cinHour,cotDate,cotHour,late) VALUES(?,?,?,?,?,?,?,?);");
+				PreparedStatement ps = con.prepareStatement("INSERT INTO parking_control (customerID,carNum,parkingLotID,cinDate,cinHour,cotDate,cotHour,late,reservationID) VALUES(?,?,?,?,?,?,?,?,?);");
 				ps.setString(1,res.getCid());
 				ps.setInt(2,res.getCarId());
 				ps.setString(3,res.getPl());
@@ -47,6 +67,7 @@ public class MessageInsertPc extends Message{
 				ps.setDate(6,res.getEstCoutDate());
 				ps.setTime(7,res.getEstCoutHour());
 				ps.setBoolean(8, late);
+				ps.setString(9,res.getRid());
 				ps.executeUpdate();
 				ps.close();
 

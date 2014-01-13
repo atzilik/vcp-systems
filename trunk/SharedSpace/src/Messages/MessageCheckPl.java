@@ -10,6 +10,11 @@ import DataObjects.DateConvert;
 import DataObjects.Reservation;
 import DataObjects.STDMember;
 
+/**
+ * 
+ * @author Boaz
+ *This class is responsible for the check in restriction of the customer.
+ */
 public class MessageCheckPl extends Message{
 	private String carNum;
 	private String id;
@@ -18,6 +23,13 @@ public class MessageCheckPl extends Message{
 	Date todayDate = new java.sql.Date(new java.util.Date().getTime());
 	int day;
 	
+	/**
+	 * 
+	 * @param id id of the customer
+	 * @param carNum car num of the customer
+	 * @param pl parkinglot number
+	 * @param mpl parkinglot of the std member
+	 */
 	public MessageCheckPl(String id, String carNum, int pl,int mpl) {
 		this.carNum = carNum;
 		this.id = id;
@@ -33,7 +45,7 @@ public class MessageCheckPl extends Message{
 		con = this.sqlConnection.getConnection();			
 		try{
 			if (day == 6||day == 7)
-				return new MessageCheckPlReply(3);  // weekend
+				return new MessageCheckPlReply(3);  // check weekend
 			ResultSet rs = findCheckIn(); // chack id carNum and date of today 
 			if (rs == null)   // member not already park 
 			{
@@ -53,6 +65,12 @@ public class MessageCheckPl extends Message{
 		return null;
 	} // doAction
 	
+	
+	/**
+	 * 
+	 * @return result of all of the customers that make check in
+	 * @throws SQLException
+	 */
 	public ResultSet findCheckIn() throws SQLException {
 		PreparedStatement ps = con.prepareStatement("SELECT * FROM parking_control where customerId=? and carNum=? and cinDate=?;");
 		ps.setString(1, id);

@@ -36,11 +36,26 @@ import java.util.Set;
 
 import client.Client;
 
+/**
+ * 
+ * @author Boaz
+ *This class is responsible for the check in of the customer.
+ */
 public class CheckInMenu extends AbstractGUIComponent {
+	/**
+	 * Map is used to match parking lot name to its id.  The worker will know which parkinglot he's dealing with
+	 */
 	private Customer cst;
 	private JTextField textField_1;
 	private Map<String,Integer> parkingLots;
 	private JComboBox comboBox;
+	
+	/**
+	 * 
+	 * @param navigator nevigate between panels
+	 * @param cst to know the customer that checked in
+	 * @param mp for the map discribe above
+	 */
 
 	public CheckInMenu(final IGUINavigator navigator, final Customer cst, Map<String,Integer> mp) {
 		this.cst = cst;
@@ -197,11 +212,6 @@ public class CheckInMenu extends AbstractGUIComponent {
 			comboBox.addItem(i.next());
 		}
 		add(comboBox);
-	}
-
-	public void robot(final MessageInsertPcReply  ipr)
-	{	
-
 	}
 
 }

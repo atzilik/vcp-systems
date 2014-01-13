@@ -6,11 +6,21 @@ import java.sql.SQLException;
 import java.util.Random;
 
 import DataObjects.DateConvert;
-
+/**
+ * 
+ * @author Gal
+ *This class is responsible for register a customer to member.
+ */
 public class MessageMemberRegister extends Message {
 	protected String[] details;
 	protected String type;
-
+/**
+ * 
+ * @param details of the customer
+ * @param type of the customer
+ * 2 - std
+ * 3 - full
+ */
 	public MessageMemberRegister(String[] details, String type){
 		this.details = details;
 		this.type = type;
@@ -58,7 +68,7 @@ public class MessageMemberRegister extends Message {
 
 			//new member
 
-			switch (type)
+			switch (type) 
 			{
 			case "2": ps = con.prepareStatement("INSERT INTO members (memberID,carID,id,fName,lName,email,startDate,ParkingLotId,StandardCheckOut,type) VALUES(?,?,?,?,?,?,?,?,?,?);");
 			break;

@@ -77,7 +77,7 @@ public class CustomerMenu extends AbstractGUIComponent {
 			JButton btnCheckReservation = new JButton("Check Reservation");
 			btnCheckReservation.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					navigator.goToCheckReservation(cst.getId());	
+					navigator.goToCheckReservation(cst);	
 				}
 			});
 			btnCheckReservation.setBounds(197, 298, 175, 42);

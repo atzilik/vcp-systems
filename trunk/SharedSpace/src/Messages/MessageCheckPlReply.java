@@ -6,8 +6,22 @@ import javax.swing.JOptionPane;
 
 import DataObjects.Reservation;
 
+/**
+ * 
+ * @author Boaz
+ *This class is responsible for the check in restriction of the customer.
+ */
 public class MessageCheckPlReply extends Message {
-	int ans;	
+	int ans;
+	
+	/**
+	 * 
+	 * @param ans refer for all of the customers restriction
+	 * 0 - good and can park
+	 * 1 - not his parking lot
+	 * 2 - already park
+	 * 3 - can't park on a weekend
+	 */
 	
 	public MessageCheckPlReply(int ans){
 		this.ans = ans;

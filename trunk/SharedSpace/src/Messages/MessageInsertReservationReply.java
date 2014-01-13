@@ -2,6 +2,11 @@ package Messages;
 
 import javax.swing.JOptionPane;
 
+/**
+ * 
+ * @author Gal
+ *This class is responsible for insert the customer to reservation.
+ */
 public class MessageInsertReservationReply extends Message {
 	private String reservationNum;
 	private boolean completed;
@@ -11,6 +16,11 @@ public class MessageInsertReservationReply extends Message {
 		completed = false;
 	}
 	
+	/**
+	 * 
+	 * @param reservationNum
+	 * @param bill the price that the customer have to pay for the reservation
+	 */
 	public MessageInsertReservationReply(String reservationNum, double bill){
 		this.reservationNum = reservationNum;
 		this.bill = bill;

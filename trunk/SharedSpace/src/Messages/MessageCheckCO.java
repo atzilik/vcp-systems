@@ -7,9 +7,20 @@ import java.sql.SQLException;
 import DataObjects.DateConvert;
 import DataObjects.Reservation;
 
+/**
+ * 
+ * @author Boaz
+ *This class is responsible for the check out checking .
+ */
 public class MessageCheckCO extends Message{
 	private String carNum;
 	private String id;
+	
+	/**
+	 * 
+	 * @param id id of the customer
+	 * @param carNum car number of the customer
+	 */
 	
 	public MessageCheckCO(String id, String carNum) {
 		this.carNum = carNum;
@@ -35,6 +46,12 @@ public class MessageCheckCO extends Message{
 		}catch (SQLException e) {e.printStackTrace();}
 		return null;
 	} // doAction
+	
+	/**
+	 * 
+	 * @return result of the customer that has been checked in in this date 
+	 * @throws SQLException
+	 */
 	
 	public ResultSet findPl() throws SQLException {
 		PreparedStatement ps = con.prepareStatement("SELECT * FROM parking_control where customerId=? and carNum=? and realCotDate is NULL and realCotHour is NULL;");

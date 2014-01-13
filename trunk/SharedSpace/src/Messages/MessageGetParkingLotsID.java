@@ -8,6 +8,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 
+ * @author Gal
+ *This class is responsible for converting the combo box choice into string.
+ *mp contains a hash of the name of the parking lot and the number of them
+ */
 public class MessageGetParkingLotsID extends Message {
 
 	@Override
