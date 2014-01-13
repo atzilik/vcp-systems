@@ -8,6 +8,8 @@ import java.util.concurrent.TimeUnit;
 
 import DataObjects.DateConvert;
 import Messages.Message;
+import Messages.MessageChackLate;
+import Messages.MessageCheckCOReply;
 import Messages.MessageCheckValidMember;
 import Messages.MessageUpdateStatistics;
 import ocsf.server.*;
@@ -59,6 +61,8 @@ public class Server extends AbstractServer {
 			System.exit(1);
 		}
 //		serv.DailyCheckUP();
+		serv.minuteCheckUP();
+		
 		
 	}
 
@@ -87,6 +91,27 @@ public class Server extends AbstractServer {
 					//build statistics
 					new MessageUpdateStatistics().doAction();
 					new MessageCheckValidMember().doAction();
+				}
+			}
+		}).start();
+	}
+	
+	public void minuteCheckUP(){
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				while (true)
+				{
+		
+					try {
+					Thread.sleep(TimeUnit.MINUTES.toMillis(1));
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					new MessageChackLate().doAction();
 				}
 			}
 		}).start();
