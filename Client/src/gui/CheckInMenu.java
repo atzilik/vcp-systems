@@ -52,7 +52,7 @@ public class CheckInMenu extends AbstractGUIComponent {
 	
 	/**
 	 * 
-	 * @param navigator nevigate between panels
+	 * @param navigator navigate between panels
 	 * @param cst to know the customer that checked in
 	 * @param mp for the map discribe above
 	 */

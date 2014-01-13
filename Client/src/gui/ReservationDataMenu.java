@@ -15,10 +15,19 @@ import Messages.MessageGetReservationDataReply;
 import Messages.MessageGetWorkersData;
 import Messages.MessageGetWorkersDataReply;
 
+/**
+ * 
+ * @author Boaz
+ *This class is responsible for the report of the reservation.
+ */
 public class ReservationDataMenu extends AbstractGUIComponent {
 	
 	private Worker wkr;
-	
+	/**
+	 * 
+	 * @param navigator navigate between panels
+	 * @param worker
+	 */
 	public ReservationDataMenu(final IGUINavigator navigator,  Worker worker) {
 		super();	
 		setLayout(null);
@@ -45,6 +54,13 @@ public class ReservationDataMenu extends AbstractGUIComponent {
 			navigator.goToWorkerMenu(wkr);
 	}
 	
+	/**
+	 * 
+	 * @param navigator navigate between panels
+	 * @param reservations
+	 * 
+	 * array list is all the data of the reservation
+	 */
 	private void PrintTable(final IGUINavigator navigator,ArrayList<Reservation> reservations) {
 		
 		

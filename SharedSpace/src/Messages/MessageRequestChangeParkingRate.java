@@ -7,6 +7,11 @@ import java.util.Random;
 
 import javax.swing.JOptionPane;
 
+/**
+ * 
+ * @author omri
+ *This class is responsible for request to change a rate for pl by employer.
+ */
 public class MessageRequestChangeParkingRate extends Message {
 	
 	private Connection sqlConn;
@@ -18,7 +23,13 @@ public class MessageRequestChangeParkingRate extends Message {
 	
 	
 	//private MessageRequestChangeParkingRateReplay msgCPFreply = new MessageRequestChangeParkingRateReplay();
-
+/**
+ * 
+ * @param pId parking lot number
+ * @param occ rate of occasional customer
+ * @param res reserved
+ * @param mngId maneger id
+ */
 	public MessageRequestChangeParkingRate(int pId, float occ, float res, String mngId) {
 		parkingLotId = pId;
 		occasional = occ;

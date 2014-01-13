@@ -17,12 +17,20 @@ import Messages.MessageGetMessage;
 import Messages.MessageWorkerLogin;
 import Messages.MessageWorkerLoginReply;
 
+/**
+ * 
+ * @author omri
+ *This class is responsible for the worker login.
+ */
 public class WorkerLogin extends AbstractGUIComponent {
 
 	private JTextField UserName;
 	private JTextField pass;
 
-
+/**
+ * 
+ * @param navigator navigate between panels
+ */
 	public WorkerLogin(final IGUINavigator navigator){
 		setLayout(null);
 
@@ -78,6 +86,10 @@ public class WorkerLogin extends AbstractGUIComponent {
 
 	}
 	
+	/**
+	 * 
+	 * @param args host from the user
+	 */
 	public static void main(String args[]) {
 		String host = null;
 		try

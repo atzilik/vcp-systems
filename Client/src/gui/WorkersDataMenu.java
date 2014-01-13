@@ -12,10 +12,20 @@ import DataObjects.Worker;
 import Messages.MessageGetWorkersData;
 import Messages.MessageGetWorkersDataReply;
 
+/**
+ * 
+ * @author omri
+ *This class is responsible for generate a worker report.
+ */
+
 public class WorkersDataMenu extends AbstractGUIComponent {
 	
 	private Worker wkr;
-	
+	/**
+	 * 
+	 * @param navigator navigate between panels
+	 * @param worker
+	 */
 	public WorkersDataMenu(final IGUINavigator navigator,  Worker worker) {
 		super();	
 		setLayout(null);
@@ -41,7 +51,12 @@ public class WorkersDataMenu extends AbstractGUIComponent {
 		else
 			navigator.goToWorkerMenu(wkr);
 	}
-	
+	/**
+	 * 
+	 * @param navigator navigate between panels
+	 * @param workers
+	 * array list contains all of the workers data
+	 */
 	private void PrintTable(final IGUINavigator navigator,ArrayList<Worker> workers) {
 		
 		

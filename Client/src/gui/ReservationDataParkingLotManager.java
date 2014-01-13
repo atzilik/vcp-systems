@@ -24,12 +24,20 @@ import Messages.MessageGetReservationData;
 import Messages.MessageGetReservationDataReply;
 
 import com.toedter.calendar.JDateChooser;
-
+/**
+ * 
+ * @author omri
+ *This class is responsible for generate report for pl manager of the reservation.
+ */
 public class ReservationDataParkingLotManager extends AbstractGUIComponent {
 
 	private Worker wkr;
 	private ArrayList<Reservation> reservationsArray;
-
+/**
+ * 
+ * @param navigator navigate between panels
+ * @param wkr
+ */
 	public ReservationDataParkingLotManager(final IGUINavigator navigator, final Worker wkr)
 	{
 		super();	
@@ -137,9 +145,15 @@ public class ReservationDataParkingLotManager extends AbstractGUIComponent {
 		add(btnGoBack);
 	}
 	
-
+/**
+ * 
+ * @param reservations
+ * @param from from date
+ * @param to to date
+ * 
+ * array list is all the data of the reservation
+ */
 	private void PrintTableALL(ArrayList<Reservation> reservations, Date from, Date to) {
-		
 		
 		int length = reservations.size();
 		Object[][] data = new Object[length+1][12];
@@ -208,7 +222,12 @@ public class ReservationDataParkingLotManager extends AbstractGUIComponent {
 		this.revalidate();
 		this.repaint();
 	}
-	
+	/**
+	 * 
+	 * @param reservations  /same as above
+	 * @param from			/
+	 * @param to			/
+	 */
 	private void PrintTableInAdvance(ArrayList<Reservation> reservations, Date from, Date to) {
 		
 		
@@ -280,7 +299,12 @@ public class ReservationDataParkingLotManager extends AbstractGUIComponent {
 		this.revalidate();
 		this.repaint();
 	}
-	
+	/**
+	 * 
+	 * @param reservations	/ same as above
+	 * @param from			/
+	 * @param to			/
+	 */
 	private void PrintTableCasual(ArrayList<Reservation> reservations, Date from, Date to) {
 		
 		

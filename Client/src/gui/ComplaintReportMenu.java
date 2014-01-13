@@ -25,10 +25,19 @@ import Messages.MessageGetReservationDataReply;
 
 import com.toedter.calendar.JDateChooser;
 
+/**
+ * 
+ * @author alon
+ *This class is responsible for report of the complaint.
+ */
 public class ComplaintReportMenu extends AbstractGUIComponent {
 
 	private Worker wkr;
-
+/**
+ * 
+ * @param navigator navigate between panels
+ * @param wkr
+ */
 	public ComplaintReportMenu(final IGUINavigator navigator, final Worker wkr)
 	{
 		super();	
@@ -95,7 +104,11 @@ public class ComplaintReportMenu extends AbstractGUIComponent {
 		});
 		add(btnGoBack);
 	}
-	
+	/**
+	 * 
+	 * @param complaints
+	 * array list is all the data of the complaints
+	 */
 private void PrintTable(ArrayList<FullComplaint> complaints) {
 		
 		

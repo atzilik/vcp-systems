@@ -7,6 +7,11 @@ import java.util.Random;
 
 import DataObjects.DataObjectMessageToUser;
 
+/**
+ * 
+ * @author omri
+ *This class is responsible for sending messages to the users.
+ */
 public class MessageSendMessage extends Message {
 
 	private Connection sqlConn;
@@ -15,6 +20,10 @@ public class MessageSendMessage extends Message {
 	private String to;
 	private String msg;
 	
+	/**
+	 * 
+	 * @param msg to user
+	 */
 	public MessageSendMessage(DataObjectMessageToUser msg) {
 		this.from = msg.getFrom();
 		this.to = msg.getTo();

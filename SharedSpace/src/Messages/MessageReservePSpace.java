@@ -7,6 +7,11 @@ import java.sql.Time;
 
 import DataObjects.DateConvert;
 
+/**
+ * 
+ * @author omri
+ *This class is responsible for reserving a parking space for a customer by the worker.
+ */
 public class MessageReservePSpace extends Message {
 	private String carNum;
 	private int parkingLotID;
@@ -16,7 +21,16 @@ public class MessageReservePSpace extends Message {
 	private Date checkOutDate;
 	private Time checkOutTime;
 	
-
+/**
+ * 
+ * @param parkingLotID number of pl
+ * @param floor	\
+ * @param row	\  cordinate
+ * @param depth \
+ * @param carNum
+ * @param checkOutDate
+ * @param checkOutTime
+ */
 	public MessageReservePSpace(int parkingLotID, int floor,int row, int depth,String carNum, Date checkOutDate, Time checkOutTime) {
 		this.carNum = carNum;
 		this.parkingLotID = parkingLotID;

@@ -4,6 +4,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import DataObjects.Worker;
 
+/**
+ * 
+ * @author omri
+ *This class is responsible for login of the worker.
+ */
 
 
 public class MessageWorkerLoginReply extends Message {
@@ -13,7 +18,10 @@ public class MessageWorkerLoginReply extends Message {
 	public MessageWorkerLoginReply(){
 		wrk = null;
 	}
-	
+	/**
+	 * 
+	 * @param wrk instans of the worker
+	 */
 	public MessageWorkerLoginReply(Worker wrk){
 		this.wrk = wrk;
 	}
