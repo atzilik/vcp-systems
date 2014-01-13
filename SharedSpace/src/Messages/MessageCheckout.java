@@ -15,6 +15,8 @@ import DataObjects.STDMember;
 public class MessageCheckout extends Message {
 	private Customer customer;
 	private int parkingLotID;
+	Time estCheckOutTime;
+	Date estCheckOutDate;
 	
 	public MessageCheckout(Customer customer, int parkingLotID){
 		this.customer = customer;
@@ -45,11 +47,13 @@ public class MessageCheckout extends Message {
 			if (rs.isBeforeFirst() == false)
 			{
 				ps.close();
-				return new MessageCheckoutReply(customer);
+				return new MessageCheckoutReply(customer);  // customer didn't check in
 			}
 			rs.next();
 			Date CinDate = rs.getDate(4);
 			Time CinTime = rs.getTime(5);
+			estCheckOutTime = rs.getTime(7);
+			estCheckOutDate = rs.getDate(6);
 			ps.close();
 			
 			//update details in table
@@ -107,15 +111,21 @@ public class MessageCheckout extends Message {
 				rs = ps1.executeQuery();
 				rs.next();
 				double rate;
+				double fineRate = 0;
+				double diff = DateConvert.timeDifference(realCotDate, realCotTime, estCheckOutDate, estCheckOutTime);
 				if (inAdvance)
 				{
+					if (diff > 0)
+						fineRate = rs.getDouble(2);
 					rate = rs.getDouble(2);
 				}
 				else
 				{
 					rate = rs.getDouble(1);
 				}
-				bill = DateConvert.timeDifference(realCotDate, realCotTime, CinDate, CinTime) * (rate / 60);
+				bill = DateConvert.timeDifference(estCheckOutDate, estCheckOutTime, CinDate, CinTime) * (rate / 60);
+				if ( fineRate != 0)
+					bill = bill + diff * (fineRate / 60);
 				ps.setDouble(6, bill);
 				ps.executeUpdate();
 				ps.close();

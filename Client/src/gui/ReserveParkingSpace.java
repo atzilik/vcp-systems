@@ -6,6 +6,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 
 import DataObjects.CustomerService;
+import DataObjects.DateConvert;
 import DataObjects.ParkingLot;
 import DataObjects.ParkingSpace;
 import DataObjects.Robot;
@@ -72,7 +73,10 @@ public class ReserveParkingSpace extends AbstractGUIComponent {
 					JOptionPane.showMessageDialog(null, "Parking Lot is Full! Customers are redirected to alt parking lot", "Error", JOptionPane.ERROR_MESSAGE);
 					return;
 				}
-				client.send(new MessageReservePSpace(parkingLotID,ps.getFloor(),ps.getRow(),ps.getDepth(),carNum));
+				parkinglots[parkingLotID].getParkingspace()[ps.getFloor()][ps.getRow()][ps.getDepth()].setCarNum(ps.getCarNum());
+				parkinglots[parkingLotID].getParkingspace()[ps.getFloor()][ps.getRow()][ps.getDepth()].setCheckOutdate(DateConvert.getCurrentSqlDate());
+				parkinglots[parkingLotID].getParkingspace()[ps.getFloor()][ps.getRow()][ps.getDepth()].setCheckOutTime(DateConvert.getCurrentSqlTime());
+				client.send(new MessageReservePSpace(parkingLotID,ps.getFloor(),ps.getRow(),ps.getDepth(),carNum, parkinglots[parkingLotID].getParkingspace()[ps.getFloor()][ps.getRow()][ps.getDepth()].getCheckOutdate(), parkinglots[parkingLotID].getParkingspace()[ps.getFloor()][ps.getRow()][ps.getDepth()].getCheckOutTime()));
 				MessageReservePSpaceReply mrps = (MessageReservePSpaceReply)client.getMessage();
 				mrps.doAction();
 				parkinglots[parkingLotID].getRobot().setFreespace(parkinglots[parkingLotID].getRobot().getFreespace()- 1);

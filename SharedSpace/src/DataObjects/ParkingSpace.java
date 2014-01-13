@@ -86,7 +86,7 @@ public class ParkingSpace implements Serializable{
 	public void setCheckOutdate(Date checkOutdate) {
 		this.checkOutdate = checkOutdate;
 	}
-	
+
 	
 	public Time getCheckOutTime() {
 		return checkOutTime;
@@ -95,7 +95,7 @@ public class ParkingSpace implements Serializable{
 	public void setCheckOutTime(Time checkOutTime) {
 		this.checkOutTime = checkOutTime;
 	}
-	
+
 	
 	public int getFloor() {
 		return floor;
@@ -133,5 +133,10 @@ public class ParkingSpace implements Serializable{
 		return false;
 	}
 	
+	public boolean isParkable(){
+		if (isDisabled() == false && isOccupied() == false)
+			return true;
+		return false;
+	}
 	
 }

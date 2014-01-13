@@ -71,7 +71,7 @@ public class MessageGetReservation extends Message{
 	} // doAction
 
 	public ResultSet findReservation() throws SQLException {
-		PreparedStatement ps = con.prepareStatement("SELECT * FROM reservations where customerId=? and carId=? and parkingLotId=?;");
+		PreparedStatement ps = con.prepareStatement("SELECT * FROM reservations where customerId=? and carId=? and parkingLotId=? and used=0;");
 		ps.setString(1, id);
 		ps.setString(2, carNum);
 		ps.setString(3, pl);

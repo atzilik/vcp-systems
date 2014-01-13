@@ -3,6 +3,10 @@ package gui;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Date;
+import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Random;
@@ -15,10 +19,15 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import DataObjects.Customer;
+import DataObjects.DateConvert;
+import DataObjects.ParkingLot;
+import DataObjects.ParkingSpace;
 import Messages.MessageInsertReservation;
 import Messages.MessageInsertReservationReply;
 import Messages.MessageGenerateValidID;
-import Messages.MessageGenerateValidIDReply;;
+import Messages.MessageGenerateValidIDReply;
+import Messages.MessageReservePSpace;
+import Messages.MessageReservePSpaceReply;
 
 public class ReservationMenu extends AbstractGUIComponent {
 	private Customer cst;
@@ -78,6 +87,7 @@ public class ReservationMenu extends AbstractGUIComponent {
 						arr[4] = new java.sql.Date(new java.util.Date().getTime()).toString();
 						arr[5] = new java.sql.Time(new java.util.Date().getTime()).toString();
 						arr[6] = arr[4];
+						arr[7] = textField_estCotHour.getText();
 						arr[8] = "0";
 					}
 					else
@@ -85,9 +95,18 @@ public class ReservationMenu extends AbstractGUIComponent {
 						arr[4] = textField_CinDate.getText();
 						arr[5] = textField_CinHour.getText();
 						arr[6] = textField_estCotDate.getText();
+						arr[7] = textField_estCotHour.getText();
 						arr[8] = "1";
+						ParkingSpace parkingspace = search_legal_space(parkingLots.get(comboBoxParkLot.getSelectedItem()),DateConvert.stringToSQLDate(arr[6]),DateConvert.stringToSQLTime(arr[7]));
+						parkingspace.setReserved(true);
+						parkingspace.setCarNum(Integer.parseInt(cst.getCarId()));
+						parkingspace.setCheckOutdate(DateConvert.stringToSQLDate(arr[6]));
+						parkingspace.setCheckOutTime(DateConvert.stringToSQLTime(arr[7]));
+						client.send(new MessageReservePSpace(parkingLots.get(comboBoxParkLot.getSelectedItem()),parkingspace.getFloor(),parkingspace.getRow(),parkingspace.getDepth(),cst.getCarId(), parkingspace.getCheckOutdate(), parkingspace.getCheckOutTime()));
+						MessageReservePSpaceReply mrps = (MessageReservePSpaceReply)client.getMessage();
+						mrps.doAction();
 					}
-					arr[7] = textField_estCotHour.getText();
+					
 							
 					client.send(new MessageInsertReservation(arr));
 					MessageInsertReservationReply irr = (MessageInsertReservationReply)client.getMessage();
@@ -146,5 +165,22 @@ public class ReservationMenu extends AbstractGUIComponent {
 		add(btnCancel);
 
 
+	}
+	
+	public ParkingSpace search_legal_space(int parkingLotID, Date checkOutDate, Time checkOutTime){
+		for (int i=ParkingLot.FLOORS_SIZE-1;i>=0;i--)
+		{
+			for (int j=ParkingLot.ROWS_SIZE-1;j>=0;j--)
+			{
+				for (int k=parkinglots[parkingLotID].getDepthSize()-1;k>=0;k--)
+				{
+					if (parkinglots[parkingLotID].getParkingspace()[i][j][k].isAvailable())
+					{
+						return parkinglots[parkingLotID].getParkingspace()[i][j][k];
+					}
+				}
+			}
+		}
+		return null;
 	}
 }

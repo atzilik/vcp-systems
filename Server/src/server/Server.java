@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 import DataObjects.DateConvert;
 import Messages.Message;
+import Messages.MessageCheckValidMember;
 import Messages.MessageUpdateStatistics;
 import ocsf.server.*;
 
@@ -57,10 +58,11 @@ public class Server extends AbstractServer {
 			System.out.println("ERROR - Could not listen for clients!");
 			System.exit(1);
 		}
-		serv.buildDailyStatistics();
+//		serv.DailyCheckUP();
+		
 	}
 
-	public void buildDailyStatistics(){
+	public void DailyCheckUP(){
 		new Thread(new Runnable() {
 
 			@Override
@@ -84,6 +86,7 @@ public class Server extends AbstractServer {
 					}
 					//build statistics
 					new MessageUpdateStatistics().doAction();
+					new MessageCheckValidMember().doAction();
 				}
 			}
 		}).start();
