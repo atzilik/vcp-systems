@@ -73,7 +73,7 @@ public class WorkerMenu extends AbstractGUIComponent {
 				navigator.goToWorkerLogin();
 			}
 		});
-		btnCancel.setBounds(173, 265, 89, 23);
+		btnCancel.setBounds(250, 265, 89, 23);
 		add(btnCancel);
 
 		// check if user have message and print
@@ -158,7 +158,7 @@ public class WorkerMenu extends AbstractGUIComponent {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				navigator.goToReservationDataMenuParkingLot(wkr);
+				navigator.goToReservationDataMenuParkingLot(wkr,null);
 			}
 		});
 		btnreservationreport.setBounds(157, 94, 106, 45);
@@ -170,7 +170,7 @@ public class WorkerMenu extends AbstractGUIComponent {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				navigator.goToComplaintReportMenu(wkr);
+				navigator.goToComplaintReportMenu(wkr,null);
 				
 			}
 		});
@@ -183,7 +183,7 @@ public class WorkerMenu extends AbstractGUIComponent {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				navigator.goToDisabledReport(wkr);
+				navigator.goToDisabledReport(wkr,null);
 			}
 		});
 		btndisabledreport.setBounds(157, 161, 106, 45);
@@ -214,6 +214,14 @@ public class WorkerMenu extends AbstractGUIComponent {
 	}
 	public void openCEOMenu(){
 		JButton btnActivityReport = new JButton("<html>Activity<br />report</html>");
+		btnActivityReport.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				navigator.goToActivityReportMenu(wkr);
+				
+			}
+		});
 		btnActivityReport.setBounds(137, 186, 84, 52);
 		add(btnActivityReport);
 
@@ -229,9 +237,6 @@ public class WorkerMenu extends AbstractGUIComponent {
 		btnSnapShot.setBounds(10, 102, 155, 52);
 		add(btnSnapShot);
 
-		JButton btnexceptionsreport = new JButton("<html>Exceptions<br />report</html>");
-		btnexceptionsreport.setBounds(176, 97, 130, 62);
-		add(btnexceptionsreport);
 
 		JButton btnperformancereport = new JButton("<html>Performance<br />report</html>");
 		btnperformancereport.addActionListener(new ActionListener() {

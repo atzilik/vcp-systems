@@ -21,7 +21,7 @@ public class DisabledParkingSpaceReport extends AbstractGUIComponent {
 	
 	private Worker wkr;
 	
-	public DisabledParkingSpaceReport(final IGUINavigator navigator, final Worker wkr)
+	public DisabledParkingSpaceReport(final IGUINavigator navigator, final Worker wkr, final Worker workerToBack)
 	{
 		super();	
 		setLayout(null);
@@ -68,7 +68,7 @@ public class DisabledParkingSpaceReport extends AbstractGUIComponent {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				navigator.goToComplaintReportMenu(wkr);
+				navigator.goToComplaintReportMenu(wkr,workerToBack);
 				
 			}
 		});
@@ -82,7 +82,10 @@ public class DisabledParkingSpaceReport extends AbstractGUIComponent {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				navigator.goToWorkerMenu(wkr);
+				if(workerToBack == null)
+					navigator.goToWorkerMenu(wkr);
+				else
+					navigator.goToWorkerMenu(workerToBack);
 			}
 		});
 		add(btnGoBack);

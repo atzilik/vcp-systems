@@ -38,7 +38,7 @@ public class ComplaintReportMenu extends AbstractGUIComponent {
  * @param navigator navigate between panels
  * @param wkr
  */
-	public ComplaintReportMenu(final IGUINavigator navigator, final Worker wkr)
+	public ComplaintReportMenu(final IGUINavigator navigator, final Worker wkr, final Worker workerToBack)
 	{
 		super();	
 		setLayout(null);
@@ -85,7 +85,7 @@ public class ComplaintReportMenu extends AbstractGUIComponent {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				navigator.goToComplaintReportMenu(wkr);
+				navigator.goToComplaintReportMenu(wkr,workerToBack);
 				
 			}
 		});
@@ -99,7 +99,10 @@ public class ComplaintReportMenu extends AbstractGUIComponent {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				navigator.goToWorkerMenu(wkr);
+				if(workerToBack == null)
+					navigator.goToWorkerMenu(wkr);
+				else
+					navigator.goToWorkerMenu(workerToBack);
 			}
 		});
 		add(btnGoBack);

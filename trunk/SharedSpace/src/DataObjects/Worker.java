@@ -21,6 +21,10 @@ public class Worker implements Serializable {
 		
 	}
 
+	public Worker() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public String getId() {
 		return id;
 	}

@@ -293,10 +293,10 @@ public class Frame extends JFrame implements IGUINavigator {
 	}
 
 	@Override
-	public void goToComplaintReportMenu(Worker wkr) {
+	public void goToComplaintReportMenu(Worker wkr , Worker workerToBack) {
 		// TODO Auto-generated method stub
 		lastScreen = (JPanel) getContentPane();
-		ComplaintReportMenu crm = new ComplaintReportMenu(this, wkr);
+		ComplaintReportMenu crm = new ComplaintReportMenu(this, wkr, workerToBack);
 		setContentPane(crm);
 		setTitle("Complaint Report Menu");
 		validate();
@@ -310,20 +310,20 @@ public class Frame extends JFrame implements IGUINavigator {
 		validate();
 	}
 
-	public void goToReservationDataMenuParkingLot(Worker wkr) {
+	public void goToReservationDataMenuParkingLot(Worker wkr, Worker workerToBack) {
 		// TODO Auto-generated method stub
 		lastScreen = (JPanel) getContentPane();
-		ReservationDataParkingLotManager rdplm = new ReservationDataParkingLotManager(this, wkr);
+		ReservationDataParkingLotManager rdplm = new ReservationDataParkingLotManager(this, wkr, workerToBack);
 		setContentPane(rdplm);
 		setTitle("Reservation Data");
 		validate();
 	}
 
 	@Override
-	public void goToDisabledReport(Worker wkr) {
+	public void goToDisabledReport(Worker wkr , Worker workerToBack) {
 		// TODO Auto-generated method stub
 		lastScreen = (JPanel) getContentPane();
-		DisabledParkingSpaceReport dpsr = new DisabledParkingSpaceReport(this, wkr);
+		DisabledParkingSpaceReport dpsr = new DisabledParkingSpaceReport(this, wkr, workerToBack);
 		setContentPane(dpsr);
 		setTitle("Disable Parking Space Report");
 		validate();
@@ -338,6 +338,16 @@ public class Frame extends JFrame implements IGUINavigator {
 		setTitle("Performence Report");
 		validate();
 		
+	}
+
+	@Override
+	public void goToActivityReportMenu(Worker wkr) {
+		// TODO Auto-generated method stub
+		lastScreen = (JPanel) getContentPane();
+		ActivityReportMenu arm = new ActivityReportMenu(this, wkr);
+		setContentPane(arm);
+		setTitle("Activity Report");
+		validate();
 	}
 }
 

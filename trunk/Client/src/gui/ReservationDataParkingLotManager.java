@@ -38,7 +38,7 @@ public class ReservationDataParkingLotManager extends AbstractGUIComponent {
  * @param navigator navigate between panels
  * @param wkr
  */
-	public ReservationDataParkingLotManager(final IGUINavigator navigator, final Worker wkr)
+	public ReservationDataParkingLotManager(final IGUINavigator navigator, final Worker wkr, final Worker workerToBack)
 	{
 		super();	
 		setLayout(null);
@@ -80,7 +80,7 @@ public class ReservationDataParkingLotManager extends AbstractGUIComponent {
 					
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						navigator.goToReservationDataMenuParkingLot(wkr);
+						navigator.goToReservationDataMenuParkingLot(wkr,workerToBack);
 						
 					}
 				});
@@ -139,7 +139,10 @@ public class ReservationDataParkingLotManager extends AbstractGUIComponent {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				navigator.goToWorkerMenu(wkr);
+				if(workerToBack == null)
+					navigator.goToWorkerMenu(wkr);
+				else
+					navigator.goToWorkerMenu(workerToBack);
 			}
 		});
 		add(btnGoBack);
