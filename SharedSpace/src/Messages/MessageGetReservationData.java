@@ -1,5 +1,7 @@
 package Messages;
-
+/**
+ * This message prepares the reservation data for showing them to the CEO
+ */
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,6 +22,9 @@ public class MessageGetReservationData extends Message {
 
 
 	@Override
+	/**
+	 * get the reservation date for generation the report
+	 */
 	public Message doAction() {
 		// TODO Auto-generated method stub
 		

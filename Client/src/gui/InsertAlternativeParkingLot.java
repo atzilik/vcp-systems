@@ -16,10 +16,23 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-
+/**
+ * The class gives the worker an option for changing the default alt parking space
+ * @author Alon
+ *
+ */
 public class InsertAlternativeParkingLot extends AbstractGUIComponent {
+	/**
+	 * Map is used to match parking lot name to its id.  The worker will know which parkinglot he's dealing with
+	 */
 	private Map<String,Integer> parkingLots;	
 	private final JComboBox comboBoxParkLot;
+	/**
+	 * 
+	 * @param navigator to navigate between panels
+	 * @param mp for the map as described above
+	 * @param worker will be a regular worker
+	 */
 	public InsertAlternativeParkingLot(final IGUINavigator navigator,Map<String,Integer> mp, final Worker worker) {
 		setLayout(null);
 		this.parkingLots=mp;				

@@ -17,11 +17,19 @@ import java.awt.Rectangle;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
-
+/**
+ * This class let's the CEO approve or disapprove parking lot managers requests
+ * @author Alon
+ *
+ */
 public class RateRequests extends AbstractGUIComponent {
 	
 	Worker wkr;
-	
+	/**
+	 * 
+	 * @param navigator for navigating between the panels
+	 * @param worker
+	 */
 	public RateRequests(final IGUINavigator navigator,  Worker worker) {
 		super();	
 		setLayout(null);
@@ -46,13 +54,21 @@ public class RateRequests extends AbstractGUIComponent {
 		else
 			navigator.goToWorkerMenu(wkr);
 	}
-	
+	/**
+	 * Prints the table with the data
+	 * @param navigator navigating between panels
+	 * @param requests the rate requests
+	 */
 	private void PrintTable(final IGUINavigator navigator,ArrayList<RateRequest> requests) {
-		
+		/**
+		 * buttons arraylist holds buttons according to the num of requests
+		 */
 		ArrayList<JButton> Buttons = new ArrayList<>();
 		Buttons.add(0, new JButton("empty"));
 
-		
+		/**
+		 * holds the number of requests
+		 */
 		int length = requests.size();
 		Object[][] data = new Object[length+1][5];
 		int i=0;

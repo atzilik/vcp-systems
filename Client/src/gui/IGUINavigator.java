@@ -7,7 +7,11 @@ import javax.swing.JPanel;
 
 import DataObjects.Customer;
 import DataObjects.Worker;
-
+/**
+ * Interface class for the navigation between panels navigation
+ * @author Alon
+ *
+ */
 public interface IGUINavigator {
 	
 	public void goToLoginMenu();
@@ -35,9 +39,9 @@ public interface IGUINavigator {
 	public void goToWorkerDataMenu(Worker wkr);
 	public void goToreservationsDataMenu(Worker wkr);
 	public void goToSnapShotReport(Map<String,Integer> mp);
-	public void goToComplaintReportMenu(Worker wkr, Worker workerToBack);
+	public void goToComplaintReportMenu(Worker wkr);
 	public void goToCEOChoosePLReport(Map<String,Integer> mp, Worker worker);
-	public void goToReservationDataMenuParkingLot(Worker wkr, Worker workerToBack);
+	public void goToReservationDataMenuParkingLot(Worker wkr);
 	public void goToCheckReservation(String id);
 	public void goToDisabledReport(Worker wkr, Worker workerToBack);
 	public void goToPerformenceReportMenu(Worker wkr);

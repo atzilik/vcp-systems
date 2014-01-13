@@ -17,7 +17,11 @@ import java.awt.event.ActionListener;
  */
 public class EnableDisableFacility extends AbstractGUIComponent {
 	private Worker wkr;
-
+/**
+ * 
+ * @param navigator for navigating between panels
+ * @param worker will be a regular worker
+ */
 	public EnableDisableFacility(final IGUINavigator navigator, final Worker worker) {
 		setLayout(null);
 		this.wkr=worker;

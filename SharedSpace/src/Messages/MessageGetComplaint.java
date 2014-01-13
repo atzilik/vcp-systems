@@ -8,13 +8,25 @@ import java.util.ArrayList;
 
 import DataObjects.Complaint;
 import DataObjects.RateRequest;
-
+/**
+ * This message is responsible of collecting the complaints data
+ * @author Alon
+ *
+ */
 public class MessageGetComplaint extends Message {
-	
+	/**
+	 * sql connection
+	 */
 	private Connection sqlConn;
+	/**
+	 * all the complaints
+	 */
 	private ArrayList<Complaint> ComplaintsArray = new ArrayList<>();
 
 	@Override
+	/**
+	 * loads the complaints from the db to the array
+	 */
 	public Message doAction() {
 		
 		sqlConn = this.sqlConnection.getConnection();

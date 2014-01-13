@@ -4,7 +4,11 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import DataObjects.FullComplaint;
-
+/**
+ * This message indicates if the complaint data was received and sends the complaints data to the gui
+ * @author Alon
+ *
+ */
 public class MessageGetCompaintDataReply extends Message {
 
 	private ArrayList<FullComplaint> complaintsArray = new ArrayList<>();

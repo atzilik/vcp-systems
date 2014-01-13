@@ -2,18 +2,50 @@ package DataObjects;
 
 import java.io.Serializable;
 import java.util.Date;
-
+/**
+ * This class represents a full complaint with all the details
+ * @author Alon
+ *
+ */
 public class FullComplaint implements Serializable {
-	
+	/**
+	 * complaint number
+	 */
 	private int complaintID;
+	/**
+	 * customer ID
+	 */
 	private int customerID;
+	/**
+	 * the complaint details
+	 */
 	private String details;
+	/**
+	 * the date the complaint was received
+	 */
 	private Date dateRecv;
+	/**
+	 * refund ammount
+	 */
 	private String refund;
+	/**
+	 * date the complaint was handled
+	 */
 	private Date dateHandled;
+	
 	private String workerID;
 	private String answer;
-	
+	/**
+	 * loads the compaint data
+	 * @param complaintID
+	 * @param customerID
+	 * @param details
+	 * @param dateRecv
+	 * @param refund
+	 * @param dateHandled
+	 * @param workerID
+	 * @param answer of the cutomer service
+	 */
 	public FullComplaint (int complaintID, int customerID, String details, Date dateRecv, String refund, Date dateHandled, String workerID, String answer) {
 		this.complaintID = complaintID;
 		this.customerID = customerID;

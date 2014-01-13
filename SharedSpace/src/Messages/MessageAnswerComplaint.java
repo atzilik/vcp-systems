@@ -6,15 +6,39 @@ import java.sql.SQLException;
 
 import DataObjects.Complaint;
 import DataObjects.Worker;
-
+/**
+ * This message is responsible of updating the details of the answer for the complaint
+ * @author Alon
+ *
+ */
 public class MessageAnswerComplaint extends Message {
-	
+	/**
+	 * connection to db
+	 */
 	private Connection sqlConn;
+	/**
+	 * The complaint itself
+	 */
 	private Complaint complaint;
+	/**
+	 * the refund decided
+	 */
 	private String refund;
+	/**
+	 * answer of customer service
+	 */
 	private String answer;
+	/**
+	 * worker
+	 */
 	private Worker wkr;
-
+/**
+ * loads the message details
+ * @param comp the complaint itself
+ * @param ref refund
+ * @param ans answer
+ * @param wkr worker
+ */
 	public MessageAnswerComplaint(Complaint comp, String ref, String ans, Worker wkr){
 		this.complaint = comp;
 		this.refund = ref;

@@ -1,5 +1,9 @@
 package DataObjects;
-
+/**
+ * This class represents a parking lot manager
+ * @author Alon
+ *
+ */
 public class ParkingLotManager extends Worker {
 
 	public ParkingLotManager(String id, String fName, String lName,

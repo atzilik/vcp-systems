@@ -15,8 +15,15 @@ import Messages.MessageReportDisabledPSpaceReply;
 
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
-
+/**
+ * This class gives the option for reporting a disabled parking space. A local for the regular worker.  If it's a ceo worker then he can disable a parking space in any parking lot in the chain
+ * @author Alon
+ *
+ */
 public class ReportDisabledParkingSpace extends AbstractGUIComponent {
+	/**
+	 * i for adding the depth size according to the parking lot to comboBox_2
+	 */
 	private int i=0;
 	public ReportDisabledParkingSpace(final IGUINavigator navigator, final Worker worker) {
 		super();		
@@ -43,7 +50,9 @@ public class ReportDisabledParkingSpace extends AbstractGUIComponent {
 		JLabel lblNewLabel = new JLabel("ParkingLot:" +worker.getParkingLotID());
 		lblNewLabel.setBounds(69, 11, 95, 14);
 		add(lblNewLabel);
-
+/**
+ * comboBox has the parking lot id
+ */
 		final JComboBox comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"0", "1", "2"}));
 		comboBox.setSelectedIndex(0);
@@ -59,7 +68,9 @@ public class ReportDisabledParkingSpace extends AbstractGUIComponent {
 		JLabel lblDepth = new JLabel("Depth:");
 		lblDepth.setBounds(86, 118, 65, 14);
 		add(lblDepth);
-
+/**
+ * comBox_2 holds the parking lot depth size
+ */
 		final JComboBox comboBox_2 = new JComboBox();
 		comboBox_2.setBounds(161, 113, 86, 20);
 		add(comboBox_2);
