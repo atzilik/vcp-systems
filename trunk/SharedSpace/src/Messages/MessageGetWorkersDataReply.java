@@ -9,11 +9,20 @@ import java.util.ArrayList;
 import DataObjects.RateRequest;
 import DataObjects.Worker;
 
+/**
+ * 
+ * @author omri
+ *This class is responsible for ahowing all worker date.
+ */
 public class MessageGetWorkersDataReply extends Message {
 	
 	private ArrayList<Worker> workerArray;
 	private Worker wkr;
 	
+	/**
+	 * 
+	 * @param workerArray array list of all the worker data
+	 */
 	public MessageGetWorkersDataReply(ArrayList<Worker> workerArray) {
 		
 		this.setWorkerArray(workerArray);

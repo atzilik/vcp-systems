@@ -6,6 +6,11 @@ import java.sql.SQLException;
 import DataObjects.DateConvert;
 import DataObjects.ParkingLot;
 
+/**
+ * 
+ * @author omri
+ *This class is responsible for report a disable parking space.
+ */
 public class MessageReportDisabledPSpace extends Message {
 	/**
 	 * details = [parkingLotID,floor,row,depth]

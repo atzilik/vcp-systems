@@ -10,9 +10,17 @@ import javax.swing.JOptionPane;
 
 import DataObjects.Worker;
 
+/**
+ * 
+ * @author omri
+ *This class is responsible for ahowing all worker date.
+ */
 public class MessageGetWorkersData extends Message {
 	
 	private Connection sqlConn;
+	/**
+	 *  array list of all the worker data
+	 */
 	private ArrayList<Worker> workerArray = new ArrayList<>();
 
 	@Override

@@ -5,14 +5,21 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import DataObjects.*;
 
-
-
+/**
+ * 
+ * @author omri
+ *This class is responsible for login of the worker.
+ */
 
 public class MessageWorkerLogin extends Message {
 
 	private String userName;
 	private String password;
-	
+	/**
+	 * 
+	 * @param userName of the worker
+	 * @param password of the worker
+	 */
 	public MessageWorkerLogin(String userName, String password) {
 		this.userName = userName;
 		this.password = password;
@@ -44,7 +51,7 @@ public class MessageWorkerLogin extends Message {
 				ps.setString(1, user.getString(3));
 				ResultSet wkr = ps.executeQuery();
 				wkr.next();
-				switch(wkr.getString(6))
+				switch(wkr.getString(6)) // 6 type of workers
 				{
 				case "1": {
 					MessageWorkerLoginReply wlr= new MessageWorkerLoginReply(new CeoWorker(wkr.getString(1), wkr.getString(2), wkr.getString(3), wkr.getString(4), wkr.getInt(5))); 

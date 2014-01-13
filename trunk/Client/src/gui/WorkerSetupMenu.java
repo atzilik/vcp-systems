@@ -10,12 +10,22 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+/**
+ * 
+ * @author omri
+ *This class is responsible for initiate parking lot => set as active and insert depth.
+ */
 public class WorkerSetupMenu extends AbstractGUIComponent {
 	private int depthSize;
 	private int parkingLotID;
 	private Worker worker;
 	private JTextField textFieldDepthSize;
-	
+	/**
+	 * 
+	 * @param navigator navigate between panels
+	 * @param parkingLotID
+	 * @param worker
+	 */
 	public WorkerSetupMenu(final IGUINavigator navigator, final int parkingLotID, final Worker worker){
 		setLayout(null);
 		this.parkingLotID = parkingLotID;
