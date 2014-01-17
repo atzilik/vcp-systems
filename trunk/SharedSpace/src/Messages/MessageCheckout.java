@@ -11,8 +11,15 @@ import DataObjects.DateConvert;
 import DataObjects.FullMember;
 import DataObjects.STDCustomer;
 import DataObjects.STDMember;
-
+/**
+ * handles a check out of a customer
+ * @author Gal
+ *
+ */
 public class MessageCheckout extends Message {
+	/**
+	 * customer instance
+	 */
 	private Customer customer;
 	private int parkingLotID;
 	Time estCheckOutTime;
@@ -22,6 +29,10 @@ public class MessageCheckout extends Message {
 		this.customer = customer;
 		this.parkingLotID = parkingLotID;
 	}
+	/**
+	 * check first that the customer actually did a check in before trying to check out.
+	 * update DB with check out details and calculate customer bill.
+	 */
 	@Override
 	public Message doAction() {
 		// TODO Auto-generated method stub

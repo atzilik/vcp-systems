@@ -39,10 +39,10 @@ public interface IGUINavigator {
 	public void goToWorkerDataMenu(Worker wkr);
 	public void goToreservationsDataMenu(Worker wkr);
 	public void goToSnapShotReport(Map<String,Integer> mp);
-	public void goToComplaintReportMenu(Worker wkr);
+	public void goToComplaintReportMenu(Worker wkr, Worker workerToBack);
 	public void goToCEOChoosePLReport(Map<String,Integer> mp, Worker worker);
-	public void goToReservationDataMenuParkingLot(Worker wkr);
-	public void goToCheckReservation(String id);
+	public void goToReservationDataMenuParkingLot(Worker wkr, Worker workerToBack);
+	public void goToCheckReservation(Customer cst);
 	public void goToDisabledReport(Worker wkr, Worker workerToBack);
 	public void goToPerformenceReportMenu(Worker wkr);
 	public void goToActivityReportMenu(Worker wkr);

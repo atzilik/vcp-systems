@@ -35,7 +35,6 @@ import java.util.Map;
 import java.util.Set;
 
 import client.Client;
-
 /**
  * 
  * @author Boaz
@@ -49,14 +48,12 @@ public class CheckInMenu extends AbstractGUIComponent {
 	private JTextField textField_1;
 	private Map<String,Integer> parkingLots;
 	private JComboBox comboBox;
-	
 	/**
 	 * 
-	 * @param navigator navigate between panels
+	 * @param navigator nevigate between panels
 	 * @param cst to know the customer that checked in
 	 * @param mp for the map discribe above
 	 */
-
 	public CheckInMenu(final IGUINavigator navigator, final Customer cst, Map<String,Integer> mp) {
 		this.cst = cst;
 		this.parkingLots = mp;
@@ -213,6 +210,7 @@ public class CheckInMenu extends AbstractGUIComponent {
 		}
 		add(comboBox);
 	}
+
 
 }
 

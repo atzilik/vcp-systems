@@ -1,5 +1,10 @@
 package DataObjects;
 
+/**
+ * represents a standard customer
+ * @author Gal
+ *
+ */
 public class STDCustomer extends Customer {
 	private String memberID;
 	private boolean registeredToMember;

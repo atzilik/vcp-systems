@@ -18,12 +18,24 @@ import Messages.MessageGetMessage;
 import Messages.MessageGetMessageReply;
 import Messages.MessageGetParkingLotsID;
 import Messages.MessageGetParkingLotsIDReply;
+/**
+ * customer main menu with customer function according to customer type
+ * @author Gal
+ *
+ */
 public class CustomerMenu extends AbstractGUIComponent {
+	/**
+	 * customer instance
+	 */
 	private Customer cst;	
+	/**
+	 * navigator to switch panels
+	 */
 	private IGUINavigator navigator;
 	/**
 	 * 
-	 * @param cst 
+	 * @param navigator to navigate between panels
+	 * @param cst customer instance
 	 */
 	public CustomerMenu(final IGUINavigator navigator, final Customer cst){
 		this.cst = cst;	
@@ -172,6 +184,10 @@ public class CustomerMenu extends AbstractGUIComponent {
 			 
 	}
 
+	/**
+	 * shared method for both immediate reservation and in advance
+	 * @param type immediate reservation or in advance
+	 */
 	public void reserve(int type){
 		client.send(new MessageGetParkingLotsID());
 		MessageGetParkingLotsIDReply gpir = (MessageGetParkingLotsIDReply)client.getMessage();

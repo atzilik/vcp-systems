@@ -13,12 +13,27 @@ import Messages.MessageWorkerLoginReply;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
+/**
+ * change parking lot rates
+ * @author Gal
+ *
+ */
 public class ChangeRateMenu extends AbstractGUIComponent {
+	/**
+	 * occasional rate
+	 */
 	private JTextField textField_1;
+	/**
+	 * reserve rate
+	 */
 	private JTextField textField_2;
 	Worker wrk;
 
+	/**
+	 * 
+	 * @param navigator to navigate between panels
+	 * @param worker 
+	 */
 	public ChangeRateMenu(final IGUINavigator navigator, Worker worker) {
 		super();
 		setLayout(null);

@@ -18,9 +18,21 @@ import Messages.MessageSTDToFullRegisterReply;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.Random;
-
+/**
+ * register as a new full member
+ * @author Gal
+ *
+ */
 public class FullMemberRegistration extends AbstractGUIComponent {
+	/**
+	 * customer instance
+	 */
 	protected Customer cst;
+	/**
+	 * 
+	 * @param navigator to navigate between panels
+	 * @param cst customer instance
+	 */
 	public FullMemberRegistration(final IGUINavigator navigator, final Customer cst) {
 		this.cst = cst;
 		setLayout(null);

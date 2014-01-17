@@ -11,12 +11,19 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import client.Client;
 
-
+/**
+ * loging window for a customer
+ * @author Gal
+ *
+ */
 public class CustomerLogin extends AbstractGUIComponent {
 	private JTextField Id;
 	private JTextField carNum;
 
-
+	/**
+	 * 
+	 * @param navigator to navigate between panels
+	 */
 	public CustomerLogin(final IGUINavigator navigator){
 		setLayout(null);
 

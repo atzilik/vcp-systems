@@ -18,12 +18,28 @@ import Messages.MessageGenerateValidID;
 import Messages.MessageGenerateValidIDReply;
 import Messages.MessageMemberRegister;
 import Messages.MessageMemberRegisterReply;
-
+/**
+ * register ad a standard member
+ * @author Gal
+ *
+ */
 public class STDMemberRegistration extends AbstractGUIComponent {
 	private JTextField textField_hour;
+	/**
+	 * customer instance
+	 */
 	private Customer cst;
+	/**
+	 * map used to get the parking lot id from the comboBox
+	 */
 	private Map<String,Integer> parkingLots;
 	private JComboBox comboBox;
+	/**
+	 * 
+	 * @param navigator to navigate between panels
+	 * @param cst customer instance
+	 * @param mp used to get the parking lot id from the comboBox
+	 */
 	public STDMemberRegistration(final IGUINavigator navigator, final Customer cst, Map<String,Integer> mp) {
 		this.cst = cst;
 		this.parkingLots = mp;

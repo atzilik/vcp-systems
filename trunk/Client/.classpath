@@ -2,7 +2,10 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
-	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/OCSF"/>
-	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/SharedSpace"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/OCSF"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/SharedSpace"/>
+	<classpathentry kind="lib" path="C:/Users/Gal/Dropbox/מעבדה בהנדסת תכנה/הסברים/PDF with JAVA/itextpdf-5.3.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Gal/Dropbox/מעבדה בהנדסת תכנה/הסברים/JcalFin/jcalendar-1.4.1.v201109071408.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Gal/Dropbox/מעבדה בהנדסת תכנה/הסברים/JcalFin/jdatepicker-1.3.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

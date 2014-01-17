@@ -4,10 +4,17 @@ import javax.swing.JOptionPane;
 
 import DataObjects.Customer;
 import DataObjects.STDCustomer;
-
+/**
+ * a reply to a check out of a customer
+ * @author Gal
+ *
+ */
 public class MessageCheckoutReply extends Message {
 	private Customer customer;
 	private int parkingLotID;
+	/**
+	 * if something went wrong
+	 */
 	private boolean empty;
 	private double bill;
 	private int floor;
@@ -66,6 +73,9 @@ public class MessageCheckoutReply extends Message {
 		return depth;
 	}
 
+	/**
+	 * pop up a matching window and keep car indexes for the robot
+	 */
 	@Override
 	public Message doAction() {
 		// TODO Auto-generated method stub

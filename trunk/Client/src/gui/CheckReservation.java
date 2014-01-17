@@ -28,7 +28,6 @@ public class CheckReservation extends AbstractGUIComponent{
 	 * @param navigator nevigate between panels
 	 * @param id get the id of the customer that we want to show his reservation 
 	 */
-	
 	public CheckReservation(final IGUINavigator navigator, final String id){
 		this.id = id;	
 		this.navigator = navigator;
@@ -63,7 +62,6 @@ public class CheckReservation extends AbstractGUIComponent{
 		
 
 	}
-	
 	/**
 	 * this method shows the report of the customer reservation
 	 * 
@@ -112,9 +110,7 @@ private void PrintTable(ArrayList<Reservation> res) {
 		
 		JTable reservationTable = new JTable(data , columnNames);
 		reservationTable.setBounds(new Rectangle(10, 100, 620, i*23));
-	//	complaintTable.getColumnModel().getColumn(1).setPreferredWidth(35);
-	//	complaintTable.setRowHeight(23);
-		
+	
 
 		reservationTable.setVisible(true);
 		

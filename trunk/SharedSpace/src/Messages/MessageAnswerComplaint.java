@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import DataObjects.Complaint;
+import DataObjects.DateConvert;
 import DataObjects.Worker;
 /**
  * This message is responsible of updating the details of the answer for the complaint
@@ -60,10 +61,20 @@ public class MessageAnswerComplaint extends Message {
 			ps.setString(5, complaint.getComplaintID());
 			ps.executeUpdate();
 			
-	
+			ps.close();
+			ps = sqlConn.prepareStatement("INSERT INTO customer_bill (customerID,carID,date,time,sum) VALUES (?,?,?,?,?);");
+			ps.setString(1, complaint.getCustomerID());
+			ps.setString(2, complaint.getCarID());
+			ps.setDate(3, DateConvert.getCurrentSqlDate());
+			ps.setTime(4, DateConvert.getCurrentSqlTime());
+			ps.setString(5, refund);
+			ps.executeUpdate();
+			ps.close();
+			
 			return new MessageAnswerComplaintReply(true);	
 		}
 		catch (SQLException e) {
+			e.printStackTrace();
 			return new MessageAnswerComplaintReply(false);
 		}
 	}

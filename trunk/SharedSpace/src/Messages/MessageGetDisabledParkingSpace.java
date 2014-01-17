@@ -25,7 +25,7 @@ public class MessageGetDisabledParkingSpace extends Message {
 			ResultSet rs = ps.executeQuery();
 			
 			while(rs.next())
-				disabledArray.add(new DisabledParkingSpace(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), java.sql.Date.valueOf(rs.getString(5)),rs.getTime(6),java.sql.Date.valueOf(rs.getString(7)),rs.getTime(8)));
+				disabledArray.add(new DisabledParkingSpace(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getDate(5),rs.getTime(6),rs.getDate(7),rs.getTime(8)));
 			
 			return new MessageGetDisabledParkingSpaceReply(disabledArray);
 			

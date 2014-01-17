@@ -7,8 +7,16 @@ import java.sql.SQLException;
 import DataObjects.ParkingLot;
 import DataObjects.ParkingSpace;
 
+/**
+ * update DB after each insert or remove of a car by the robot.
+ * @author Gal
+ *
+ */
 public class MessageUpdatePLMap extends Message {
 	private int parkingLotID;
+	/**
+	 * the mapping of the given parking lot.
+	 */
 	private ParkingSpace[][][] parkingSpace;
 	
 	

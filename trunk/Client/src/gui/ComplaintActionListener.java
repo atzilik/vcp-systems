@@ -13,7 +13,11 @@ import DataObjects.Worker;
 import Messages.MessageAnswerComplaint;
 import Messages.MessageAnswerComplaintReply;
 import Messages.MessageSendMessage;
-
+/**
+ * listens to customer service send.
+ * @author Gal
+ *
+ */
 public class ComplaintActionListener extends AbstractGUIComponent implements ActionListener {
 
 	private IGUINavigator navigator;

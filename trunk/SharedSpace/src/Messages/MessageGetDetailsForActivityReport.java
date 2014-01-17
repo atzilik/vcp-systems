@@ -10,6 +10,7 @@ import java.util.Date;
 
 import javax.swing.JOptionPane;
 
+import DataObjects.DateConvert;
 import DataObjects.FullComplaint;
 /**
  * handle getting details for activity report
@@ -64,8 +65,12 @@ public class MessageGetDetailsForActivityReport extends Message {
 				
 				rs.next();
 				
-				while(rs.getDate(1).compareTo(from) != 0)
+				
+				
+				while(DateConvert.timeDifference(rs.getDate(1), new java.sql.Date(from.getTime())) != 0)
+				{
 					rs.next();
+				}
 				
 				row = countRows(rs) + 1;
 				
@@ -75,8 +80,10 @@ public class MessageGetDetailsForActivityReport extends Message {
 					
 					rs.next();
 					
-					while(rs.getDate(1).compareTo(from) != 0)
+					while(DateConvert.timeDifference(rs.getDate(1), new java.sql.Date(from.getTime())) != 0)
+					{
 						rs.next();
+					}
 					
 					for(int j=0 ; j<NumOfDays ; j++)
 					{

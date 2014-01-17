@@ -11,11 +11,19 @@ import Messages.MessageGetDisabledParkingSpace;
 import Messages.MessageGetDisabledParkingSpaceReply;
 import Messages.MessageGetMembersNum;
 import Messages.MessageGetMembersNumReply;
-
+/**
+ * performance report window
+ * @author Gal
+ *
+ */
 public class PerformenceReportMenu extends AbstractGUIComponent {
 	
 	Worker wkr;
-	
+	/**
+	 * 
+	 * @param navigator to navigate between panels
+	 * @param worker 
+	 */
 	public PerformenceReportMenu(final IGUINavigator navigator, final Worker wkr) {
 		super();	
 		setLayout(null);

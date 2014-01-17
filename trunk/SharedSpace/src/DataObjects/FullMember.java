@@ -1,7 +1,11 @@
 package DataObjects;
 
 import java.sql.Date;
-
+/**
+ * represents a full member
+ * @author Gal
+ *
+ */
 public class FullMember extends Customer {
 	protected String memberId;
 	protected Date startDate;

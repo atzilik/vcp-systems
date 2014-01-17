@@ -2,7 +2,11 @@ package DataObjects;
 
 import java.sql.Date;
 import java.sql.Time;
-
+/**
+ * represents a standard member
+ * @author Gal
+ *
+ */
 public class STDMember extends FullMember {
 	private int parkingLotId;
 	private Time stdCheckOut;

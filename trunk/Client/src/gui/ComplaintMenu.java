@@ -16,12 +16,26 @@ import DataObjects.DataObjectMessageToUser;
 import DataObjects.Worker;
 import Messages.MessageGetComplaint;
 import Messages.MessageGetComplaintReply;
-
+/**
+ * show customer's complaint window
+ * @author Gal
+ *
+ */
 public class ComplaintMenu extends AbstractGUIComponent {
 	
+	/**
+	 *  worker instance
+	 */
 	Worker wkr;
+	/**
+	 * complaints
+	 */
 	private ArrayList<Complaint> complaintsArray;
-	
+	/**
+	 * 
+	 * @param navigator to navigate between panels
+	 * @param worker customer service instance
+	 */
 	public ComplaintMenu(final IGUINavigator navigator,  Worker worker) {
 		super();	
 		wkr = worker;
@@ -45,7 +59,7 @@ public class ComplaintMenu extends AbstractGUIComponent {
 		}
 	
 	}
-	
+
 	private void PrintTable(final IGUINavigator navigator,ArrayList<Complaint> complaints) {
 			
 		int length = complaints.size();

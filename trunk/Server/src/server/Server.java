@@ -10,10 +10,18 @@ import DataObjects.DateConvert;
 import Messages.Message;
 import Messages.MessageChackLate;
 import Messages.MessageCheckCOReply;
+import Messages.MessageCheck14DayPark;
 import Messages.MessageCheckValidMember;
-import Messages.MessageUpdateStatistics;
+import Messages.MessageDailyStatistics;
+import Messages.MessageGetParkingLotsID;
+import Messages.MessageGetParkingLotsIDReply;
+import Messages.MessageWeeklyStatistics;
 import ocsf.server.*;
-
+/**
+ * server class to start a server and run and automated tasks
+ * @author Gal
+ *
+ */
 public class Server extends AbstractServer {
 
 	final public static int DEFAULT_PORT = 5555;
@@ -60,13 +68,13 @@ public class Server extends AbstractServer {
 			System.out.println("ERROR - Could not listen for clients!");
 			System.exit(1);
 		}
-//		serv.DailyCheckUP();
+		serv.dailyCheckUP();
 		serv.minuteCheckUP();
-		
-		
 	}
-
-	public void DailyCheckUP(){
+	/**
+	 * thread which runs every day at midnight in order to perform the automated daily check up
+	 */
+	public void dailyCheckUP(){
 		new Thread(new Runnable() {
 
 			@Override
@@ -83,21 +91,24 @@ public class Server extends AbstractServer {
 					cal.set(Calendar.MILLISECOND, 0);
 					try {
 						//wait until midnight
-						wait(DateConvert.timeDifference(new java.util.Date(cal.getTimeInMillis()), DateConvert.buildFullDate(DateConvert.getCurrentSqlDate(), DateConvert.getCurrentSqlTime())));
+
+						Thread.sleep(TimeUnit.MINUTES.toMillis(DateConvert.timeDifference(new java.util.Date(cal.getTimeInMillis()), DateConvert.buildFullDate(DateConvert.getCurrentSqlDate(), DateConvert.getCurrentSqlTime()))));
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					//build statistics
-					new MessageUpdateStatistics().doAction();
+					MessageGetParkingLotsID gpli = new MessageGetParkingLotsID();
+					MessageGetParkingLotsIDReply gplir = (MessageGetParkingLotsIDReply)gpli.doAction();
+					new MessageDailyStatistics(gplir.getMp()).doAction();
+					//check member valid and one week notice
 					new MessageCheckValidMember().doAction();
 				}
 			}
 		}).start();
 	}
-	
 	/**
-	 * this method is activating a thread that run every minute and chack for a 30 min late customers
+	 * thread which runs every minute  in order to perform the automated minute check up
 	 */
 	public void minuteCheckUP(){
 		new Thread(new Runnable() {
@@ -107,38 +118,19 @@ public class Server extends AbstractServer {
 				// TODO Auto-generated method stub
 				while (true)
 				{
-		
+
 					try {
-					Thread.sleep(TimeUnit.MINUTES.toMillis(1));
+						Thread.sleep(TimeUnit.MINUTES.toMillis(1));
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
+					//					new MessageChackLate().doAction();
+					//					new MessageCheck14DayPark().doAction();
 					new MessageChackLate().doAction();
 				}
 			}
 		}).start();
 	}
-	
-	
-	//		new Thread(new Runnable() {
-	//			
-	//			@Override
-	//			public void run() {
-	//				// TODO Auto-generated method stub
-	//				while (true)
-	//				{
-	//					
-	//					
-	//					//wait a day
-	//					try {
-	//						wait(24*60*60*1000);
-	//					} catch (InterruptedException e) {
-	//						// TODO Auto-generated catch block
-	//						e.printStackTrace();
-	//					}
-	//				}
-	//				
-	//			}
-	//		}).start();
+
 }

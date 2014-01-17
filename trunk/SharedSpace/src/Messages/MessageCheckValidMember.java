@@ -9,8 +9,16 @@ import java.util.concurrent.TimeUnit;
 import DataObjects.DataObjectMessageToUser;
 import DataObjects.DateConvert;
 
+/**
+ * check validity of the current member dates
+ * @author Gal
+ *
+ */
 public class MessageCheckValidMember extends Message {
 
+	/**
+	 * checks members that did check in but still didn't do check out and check if 14 days passed and fine them.
+	 */
 	@Override
 	public Message doAction() {
 		// TODO Auto-generated method stub

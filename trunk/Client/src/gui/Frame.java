@@ -12,11 +12,6 @@ import DataObjects.Worker;
 
 import client.Client;
 
-/**
- * This class implements the IGUINaviator class which is needed for navigation between the various panels 
- * @author Alon
- *
- */
 public class Frame extends JFrame implements IGUINavigator {	
 
 	private AddCarMenu addCarMenu;
@@ -24,7 +19,6 @@ public class Frame extends JFrame implements IGUINavigator {
 	private CheckInMenu checkInMenu;
 	private CheckOutMenu checkoutMenu;
 	private CancelReservation checkReservationStatus;
-	private ClientGui clientGui;
 	private ComplaintMenu complaintMenu;
 	private CustomerComplaintMenu customerComplaintMenu;
 	private CustomerMenu customerMenu;
@@ -41,12 +35,12 @@ public class Frame extends JFrame implements IGUINavigator {
 	private JPanel lastScreen;
 	private EnableDisableFacility enableDisableFacility; 
 	private SnapShotReport snapShotReport;
-	private CEOChoosePLReport CEOChoosePLReport;
 	private CheckReservation checkReservation;
+	
 	public Frame(){
 		//		login = new Login(this);
 		//		setContentPane(login);	
-		setSize(new Dimension(1366,768));
+		setSize(new Dimension(1366, 768));
 		setResizable(false);
 		setVisible(true);		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
@@ -63,10 +57,10 @@ public class Frame extends JFrame implements IGUINavigator {
 	}
 
 	@Override
-	public void goToCheckReservation(String id) {
+	public void goToCheckReservation(Customer cst) {
 		// TODO Auto-generated method stub
 		lastScreen = (JPanel) getContentPane();
-		CheckReservation cr = new CheckReservation(this, id);
+		CheckReservation cr = new CheckReservation(this, cst.getId());
 		setContentPane(cr);		
 		validate();
 	}
@@ -218,6 +212,7 @@ public class Frame extends JFrame implements IGUINavigator {
 		setContentPane(rr);
 		validate();	
 	}
+	
 	@Override
     public void goToAddCarMenu(Customer customer, Map<String,Integer> mp, int type) {
             // TODO Auto-generated method stub
@@ -304,6 +299,7 @@ public class Frame extends JFrame implements IGUINavigator {
 		setTitle("Complaint Report Menu");
 		validate();
 	}
+
 	@Override
 	public void goToCEOChoosePLReport(Map<String,Integer> mp, Worker worker){
 		lastScreen = (JPanel) getContentPane();
@@ -312,17 +308,17 @@ public class Frame extends JFrame implements IGUINavigator {
 		setTitle("ParkingLots Reports");
 		validate();
 	}
-
+	
 	public void goToReservationDataMenuParkingLot(Worker wkr, Worker workerToBack) {
 		// TODO Auto-generated method stub
 		lastScreen = (JPanel) getContentPane();
-		ReservationDataParkingLotManager rdplm = new ReservationDataParkingLotManager(this, wkr, workerToBack);
+		ReservationDataParkingLotManager rdplm = new ReservationDataParkingLotManager(this, wkr,  workerToBack);
 		setContentPane(rdplm);
 		setTitle("Reservation Data");
 		validate();
 	}
 	@Override
-	public void goToDisabledReport(Worker wkr , Worker workerToBack) {
+	public void goToDisabledReport(Worker wkr, Worker workerToBack) {
 		// TODO Auto-generated method stub
 		lastScreen = (JPanel) getContentPane();
 		DisabledParkingSpaceReport dpsr = new DisabledParkingSpaceReport(this, wkr, workerToBack);
@@ -341,7 +337,6 @@ public class Frame extends JFrame implements IGUINavigator {
 		validate();
 		
 	}
-
 	@Override
 	public void goToActivityReportMenu(Worker wkr) {
 		// TODO Auto-generated method stub

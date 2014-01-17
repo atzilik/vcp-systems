@@ -4,15 +4,33 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Time;
 
-
+/**
+ * represents a parking lot robot
+ * @author Gal
+ *
+ */
 public class Robot implements Serializable{
+	/**
+	 * parking lot map
+	 */
 	private ParkingSpace[][][] parkingSpace;
+	/**
+	 * spaceleft on each floor of the parking 
+	 */
 	private int[] spaceLeft;
 	private int floorSize;
 	private int rowSize;
 	private int depthSize;
+	/**
+	 * free space in the entire parking lot
+	 */
 	private int freespace;
 	private boolean parkingLotFull;
+	/**
+	 * constructor which calculate free space
+	 * @param parkingSpace
+	 * @param depthSize
+	 */
 	public Robot(ParkingSpace[][][] parkingSpace, int depthSize) {
 		this.parkingSpace = parkingSpace;
 		floorSize = ParkingLot.FLOORS_SIZE;
@@ -40,24 +58,33 @@ public class Robot implements Serializable{
 		else
 			parkingLotFull = false;
 	}
-	
-	//check reserve and car id
+
+	/**
+	 * park a car
+	 * @param carNumber
+	 * @param checkOutdate
+	 * @param checkOutTime
+	 */
 	public synchronized void parkCar(int carNumber, Date checkOutdate, Time checkOutTime){
 		ParkingSpace ps = findParkingSpace(carNumber, checkOutdate, checkOutTime);
 		spaceLeft[ps.getFloor()]--;
 		freespace--;
-		System.out.println("Insert");
-		System.out.println("freespace = " + freespace);
-		System.out.println("spaceLeft[" + ps.getFloor() +"]= " + spaceLeft[ps.getFloor()]);
 		if (freespace == 0)
 		{
 			parkingLotFull = true;
 		}
 		ps.setOccupied(true);
 	}
-	
+
+	/**
+	 * unpark a car
+	 * @param carNumber
+	 * @param floor
+	 * @param row
+	 * @param depth
+	 */
 	public synchronized void unPark(int carNumber, int floor, int row, int depth){
-		
+
 		parkingSpace[floor][row][depth].setOccupied(false);
 		parkingSpace[floor][row][depth].setCarNum(0);
 		parkingSpace[floor][row][depth].setCheckOutdate(null);
@@ -87,16 +114,21 @@ public class Robot implements Serializable{
 						spaceLeft[i]++;
 						if (parkingLotFull)
 							parkingLotFull = false;
-						System.out.println("Remove");
-						System.out.println("freespace = " + freespace);
-						System.out.println("spaceLeft[" + i +"]= " + spaceLeft[i]);
+
 						return;
 					}
 				}
 			}
 		}
 	}
-	
+
+	/**
+	 * find a proper parking space
+	 * @param carNumber
+	 * @param checkOutDate
+	 * @param checkOutTime
+	 * @return the chosen parking space
+	 */
 	public ParkingSpace findParkingSpace(int carNumber, Date checkOutDate, Time checkOutTime){
 		int index = 1;
 		while (floorSize - index >= 0)
@@ -126,11 +158,11 @@ public class Robot implements Serializable{
 								parkingSpace[floorSize - index][i][j].setCheckOutdate(null);
 								parkingSpace[floorSize - index][i][j].setCheckOutTime(null);
 								return findParkingSpace(carNumber, checkOutDate, checkOutTime);
-								
-//								parkingSpace[floorSize - index][i][j].setCarNum(carNumber);
-//								parkingSpace[floorSize - index][i][j].setCheckOutdate(checkOutDate);
-//								parkingSpace[floorSize - index][i][j].setCheckOutTime(checkOutTime);
-//								parkingSpace[floorSize - index][i][j].setReserved(false);
+
+								//								parkingSpace[floorSize - index][i][j].setCarNum(carNumber);
+								//								parkingSpace[floorSize - index][i][j].setCheckOutdate(checkOutDate);
+								//								parkingSpace[floorSize - index][i][j].setCheckOutTime(checkOutTime);
+								//								parkingSpace[floorSize - index][i][j].setReserved(false);
 							}
 						}
 						else if (parkingSpace[floorSize - index][i][j].isOccupied())
@@ -151,7 +183,7 @@ public class Robot implements Serializable{
 			}
 		}
 		return null;
-		
+
 	}
 
 
@@ -164,7 +196,14 @@ public class Robot implements Serializable{
 		this.parkingLotFull = parkingLotFull;
 	}
 
-
+	/**
+	 * switch cars between 2 parking spaces
+	 * @param carNumber
+	 * @param checkOutdate
+	 * @param checkOutTime
+	 * @param parkingSpace
+	 * @return parking space
+	 */
 	public ParkingSpace switchCars(int carNumber, Date checkOutdate, Time checkOutTime, ParkingSpace parkingSpace){
 		int carNum = parkingSpace.getCarNum();
 		Date date = parkingSpace.getCheckOutdate();
@@ -182,7 +221,7 @@ public class Robot implements Serializable{
 	public void setFreespace(int freespace) {
 		this.freespace = freespace;
 	}
-	
-	
-	
+
+
+
 }
