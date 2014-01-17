@@ -1,4 +1,5 @@
 package DataObjects;
+
 /**
  * This class represents the CEO Worker
  * @author Alon

@@ -3,19 +3,40 @@ package DataObjects;
 import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Time;
-
+/**
+ * represents a single parking space in parking lot
+ * @author Gal
+ *
+ */
 public class ParkingSpace implements Serializable{
+	/**
+	 * floor index
+	 */
 	private int floor;
+	/**
+	 * row index
+	 */
 	private int row;
+	/**
+	 * depth index
+	 */
 	private int depth;
 	private boolean disabled;
 	private boolean reserved;
 	private boolean occupied;
+	/**
+	 * car number if the parking space is occupied
+	 */
 	private int carNum;
 	private Date checkOutdate;
 	private Time checkOutTime;
 	
-	
+	/**
+	 * constructor when receiving only index parameters, used when mapping an empty parking space
+	 * @param floor index
+	 * @param row index
+	 * @param depth index
+	 */
 	public ParkingSpace(int floor, int row, int depth) {
 		this.floor = floor;
 		this.row = row;
@@ -26,6 +47,18 @@ public class ParkingSpace implements Serializable{
 		
 	}
 	
+	/**
+	 * constructor when mapping a non empty parking space
+	 * @param floor index
+	 * @param row index
+	 * @param depth index
+	 * @param disabled 
+	 * @param reserved
+	 * @param occupied
+	 * @param carNum
+	 * @param checkOutdate
+	 * @param checkOutTime
+	 */
 	public ParkingSpace(int floor, int row, int depth, boolean disabled, boolean reserved, boolean occupied,
 			int carNum, Date checkOutdate, Time checkOutTime) {
 		this.floor = floor;
@@ -121,6 +154,7 @@ public class ParkingSpace implements Serializable{
 		this.depth = depth;
 	}
 
+	
 	public boolean isAvailable(){
 		if (isDisabled() == false && isReserved() == false && isOccupied() == false)
 			return true;

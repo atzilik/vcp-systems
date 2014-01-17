@@ -9,8 +9,16 @@ import client.Client;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
+/**
+ * choose which login you want to do
+ * @author Gal
+ *
+ */
 public class LoginMenu extends AbstractGUIComponent {
+	/**
+	 * 
+	 * @param navigator to navigate between panels
+	 */
 	public LoginMenu(final IGUINavigator navigator){
 		setLayout(null);
 		

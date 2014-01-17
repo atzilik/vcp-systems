@@ -60,7 +60,7 @@ public class MessageChackLate extends Message{
 							rsc.next();	
 							// prepering and sending the mail
 							String subject = "You are been late to your Order";
-							String text = "Dir " + rsc.getString(3) + " " + rsc.getString(4) + ".\n"+ "You are been late to your order. Do you want to abort your order?";
+							String text = "Dear " + rsc.getString(3) + " " + rsc.getString(4) + ".\n"+ "You are late to your order. Do you want to cancel your reservation?";
 							String text2 = rsc.getString(5);
 							SendMail sendMail = new SendMail();
 							sendMail.sendMail(rsc.getString(5), subject, text); 

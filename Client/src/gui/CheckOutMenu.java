@@ -20,10 +20,27 @@ import java.util.Set;
 
 import javax.swing.JComboBox;
 
+/**
+ * used for customer check out from the parking lot
+ * @author Gal
+ *
+ */
 public class CheckOutMenu extends AbstractGUIComponent {
+	/**
+	 * cst Customer instance with the current customer details
+	 */
 	private Customer cst;
+	/**
+	 * Map is used to match parking lot name to its id.  
+	 */
 	private Map<String,Integer> parkingLots;
 	JComboBox comboBox;
+	/**
+	 * 
+	 * @param navigator to navigate between panels
+	 * @param cst customer instance
+	 * @param mp for the map as described above
+	 */
 	public CheckOutMenu(final IGUINavigator navigator, final Customer cst, Map<String,Integer> mp) {
 		this.cst = cst;
 		this.parkingLots = mp;

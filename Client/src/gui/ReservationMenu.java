@@ -29,14 +29,32 @@ import Messages.MessageGenerateValidIDReply;
 import Messages.MessageReservePSpace;
 import Messages.MessageReservePSpaceReply;
 
+/**
+ * order a reservation, immediate one or in advance
+ * @author Gal
+ *
+ */
 public class ReservationMenu extends AbstractGUIComponent {
+	/**
+	 * customer instance
+	 */
 	private Customer cst;
+	/**
+	 * map for getting the right parking lot id from the comboBox
+	 */
 	private Map<String,Integer> parkingLots;	
 	private final JComboBox comboBoxParkLot;
 	private JTextField textField_estCotDate;
 	private JTextField textField_estCotHour;
 	private JTextField textField_CinDate;
 	private JTextField textField_CinHour;
+	/**
+	 * 
+	 * @param navigator to navigate between panels
+	 * @param cst customer instance
+	 * @param mp map for getting the right parking lot id from the comboBox
+	 * @param type immediate reservation or in advance reservation
+	 */
 	public ReservationMenu(final IGUINavigator navigator, final Customer cst, Map<String,Integer> mp, final int type) {
 
 		this.cst = cst;
@@ -166,7 +184,13 @@ public class ReservationMenu extends AbstractGUIComponent {
 
 
 	}
-	
+	/**
+	 * 
+	 * @param parkingLotID id of the parking lot the customer want to reserve to
+	 * @param checkOutDate customer check out date
+	 * @param checkOutTime customer check out time
+	 * @return parking space in order to notify the robot current parking lot map
+	 */
 	public ParkingSpace search_legal_space(int parkingLotID, Date checkOutDate, Time checkOutTime){
 		for (int i=ParkingLot.FLOORS_SIZE-1;i>=0;i--)
 		{

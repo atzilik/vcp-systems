@@ -3,9 +3,17 @@ package Messages;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-
+/**
+ * changes the Full status of a parking lot
+ * @author Gal
+ *
+ */
 public class MessageFullPLStatus extends Message {
 	private int parkingLotID;
+	/**
+	 * true = if need to update its full.
+	 * false = if need to update from full to not.
+	 */
 	private boolean full;
 	
 	public MessageFullPLStatus(int parkingLotID, boolean full){
@@ -14,6 +22,9 @@ public class MessageFullPLStatus extends Message {
 	}
 	
 	
+	/**
+	 * 
+	 */
 	@Override
 	public Message doAction() {
 		// TODO Auto-generated method stub

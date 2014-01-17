@@ -11,10 +11,22 @@ import DataObjects.Customer;
 import Messages.MessageCancelReservation;
 import Messages.MessageCancelReservationReply;
 
-
+/**
+ * used for canceling a customer reservation
+ * @author Gal
+ *
+ */
 public class CancelReservation extends AbstractGUIComponent {
+	/**
+	 *  cst Customer instance with the current customer details
+	 */
 	private Customer cst;
 	private JTextField textField_resNum;
+	/**
+	 * 
+	 * @param navigator to navigate between panels
+	 * @param cst customer instance
+	 */
 	public CancelReservation(final IGUINavigator navigator, final Customer cst) {
 		this.cst = cst;
 		setLayout(null);

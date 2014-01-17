@@ -3,7 +3,11 @@ package Messages;
 import javax.swing.JOptionPane;
 
 import DataObjects.Customer;
-
+/**
+ * holds customer details if login went ok.
+ * @author Gal
+ *
+ */
 public class MessageCustomerLoginReply extends Message {
 	private Customer customer;
 	
@@ -20,7 +24,9 @@ public class MessageCustomerLoginReply extends Message {
 	public Customer getCustomer() {
 		return customer;
 	}
-
+ /**
+  * pop up a window according to the transaction
+  */
 	@Override
 	public Message doAction() {
 		// TODO Auto-generated method stub

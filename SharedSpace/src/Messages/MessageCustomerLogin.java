@@ -8,6 +8,11 @@ import DataObjects.FullMember;
 import DataObjects.STDCustomer;
 import DataObjects.STDMember;
 
+/**
+ * check login details of a customer
+ * @author Gal
+ *
+ */
 public class MessageCustomerLogin extends Message {
 	private String id;
 	private String carNum;
@@ -19,6 +24,9 @@ public class MessageCustomerLogin extends Message {
 		this.carNum = carNum;
 	}
 	@Override
+	/**
+	 * checking customer login details and create a matching instance of it with all the customer details from DB.
+	 */
 	public Message doAction() {
 		// TODO Auto-generated method stub
 		con = this.sqlConnection.getConnection();

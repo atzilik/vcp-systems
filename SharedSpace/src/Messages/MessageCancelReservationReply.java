@@ -1,7 +1,11 @@
 package Messages;
 
 import javax.swing.JOptionPane;
-
+/**
+ * a reply to cancel reservation request
+ * @author Gal
+ *
+ */
 public class MessageCancelReservationReply extends Message {
 	private String reservationNum;
 	private boolean completed;
@@ -22,6 +26,9 @@ public class MessageCancelReservationReply extends Message {
 	}
 
 
+	/**
+	 * check the transaction and pop up a matching answer
+	 */
 	@Override
 	public Message doAction() {
 		// TODO Auto-generated method stub

@@ -1,5 +1,10 @@
 package Messages;
 
+/**
+ * return and valid generated id.
+ * @author Gal
+ *
+ */
 public class MessageGenerateValidIDReply extends Message {
 	private String iD;
 	

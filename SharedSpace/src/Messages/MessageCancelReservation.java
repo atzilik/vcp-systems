@@ -7,6 +7,11 @@ import java.util.concurrent.TimeUnit;
 
 import DataObjects.DateConvert;
 
+/**
+ * message that handle a cancel reservation request
+ * @author Gal
+ *
+ */
 public class MessageCancelReservation extends Message {
 
 	private String reservationNum;
@@ -21,6 +26,9 @@ public class MessageCancelReservation extends Message {
 	}
 
 
+	/**
+	 * get a cancel reservation request, check if a fine require and update db
+	 */
 	@Override
 	public Message doAction() {
 		// TODO Auto-generated method stub

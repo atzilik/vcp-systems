@@ -9,9 +9,21 @@ import Messages.MessageGetParkingLotsIDReply;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
+/**
+ * choose a membership option
+ * @author Gal
+ *
+ */
 public class MemberRegistration extends AbstractGUIComponent {
+	/**
+	 * Customer instance
+	 */
 	private Customer cst;
+	/**
+	 * 
+	 * @param navigator to navigate between panels
+	 * @param cst customer instance
+	 */
 	public MemberRegistration(final IGUINavigator navigator, final Customer cst){
 		this.cst = cst;
 		setLayout(null);

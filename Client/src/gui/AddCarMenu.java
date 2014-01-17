@@ -19,12 +19,30 @@ import java.util.Set;
 
 import javax.swing.JComboBox;
 
+/**
+ * the class used for adding another car for member registration
+ * @author Gal
+ *
+ */
 public class AddCarMenu extends AbstractGUIComponent{
 	private JTextField textFieldCarNum;
+	/**
+	 * Customer instance with the current customer details
+	 */
 	private Customer cst;
 	private JTextField textField;
+	/**
+	 * Map is used to match parking lot name to its id.  The customer will know which parkinglot he's dealing with
+	 */
 	private Map<String,Integer> parkingLots;
 	private JComboBox comboBox;
+	/**
+	 * 
+	 * @param navigator to navigate between panels
+	 * @param cst customer instance
+	 * @param mp for the map as described above
+	 * @param type used to distinguish if we are dealing with STDMember or FullMember registration
+	 */
 	public AddCarMenu(final IGUINavigator navigator, final Customer cst, Map<String,Integer> mp, final int type) {
 		this.cst = cst;
 		this.parkingLots = mp;
@@ -157,9 +175,5 @@ public class AddCarMenu extends AbstractGUIComponent{
 		}
 		
 	}
-	@Override
-	public void show() {
-		// TODO Auto-generated method stub
-		setVisible(true);
-	}
+
 }

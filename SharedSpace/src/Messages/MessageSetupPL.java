@@ -6,10 +6,20 @@ import java.sql.SQLException;
 
 import DataObjects.ParkingLot;
 
-
+/**
+ * this message make the given parking lot active and update its depth if given.
+ * @author Gal
+ *
+ */
 public class MessageSetupPL extends Message {
 	private int parkingLotID;
+	/**
+	 * new depth size
+	 */
 	private int depthSize;
+	/**
+	 * if needs to insert a new depth
+	 */
 	private boolean updateDepthSize;
 	
 	public MessageSetupPL(int parkingLotID){

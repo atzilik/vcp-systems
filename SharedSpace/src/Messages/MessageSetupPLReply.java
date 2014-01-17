@@ -5,11 +5,18 @@ import javax.swing.JOptionPane;
 import DataObjects.ParkingLot;
 import DataObjects.Robot;
 
-
+/**
+ * a reply to the setup message
+ * @author Gal
+ *
+ */
 public class MessageSetupPLReply extends Message {
 	private int parkingLotID;
 	private int depthSize;
 	private boolean updateDepthSize;
+	/**
+	 * if trying to active an arleady active parking lot.
+	 */
 	private boolean error = false;
 	
 	public MessageSetupPLReply() {
@@ -27,6 +34,9 @@ public class MessageSetupPLReply extends Message {
 		updateDepthSize = true;
 	}
 	
+	/**
+	 * pop up a matching window according to the transaction.
+	 */
 	@Override
 	public Message doAction() {
 		// TODO Auto-generated method stub

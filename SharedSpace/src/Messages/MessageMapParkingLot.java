@@ -7,10 +7,17 @@ import java.sql.SQLException;
 import DataObjects.ParkingLot;
 
 import DataObjects.ParkingSpace;
-
+/**
+ * map the given parking lot according to the DB.
+ * @author Gal
+ *
+ */
 public class MessageMapParkingLot extends Message {
-
+	
 	private ParkingLot[] parkinglots;
+	/**
+	 * number of parking lots.
+	 */
 	private int size;
 	
 	public MessageMapParkingLot(int size){

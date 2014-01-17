@@ -27,15 +27,21 @@ public class Complaint implements Serializable {
 	 * parking lot Id which the complaint belongs to
 	 */
 	private String parkingLotID;
+	
+	/**
+	 * customer car id
+	 */
+	private String carID;
 /**
  * loads the customer's complaint details
  */
-	public Complaint(String comID, String custID, String det, String dat, String parkingLotID) {
+	public Complaint(String comID, String custID, String det, String dat, String parkingLotID, String carID) {
 		this.complaintID = comID;
 		this.customerID = custID;
 		this.details = det;
 		this.date = dat;
 		this.parkingLotID = parkingLotID;
+		this.carID = carID;
 	}
 
 
@@ -73,6 +79,18 @@ public class Complaint implements Serializable {
 	public void setParkingLotID(String parkingLotID) {
 		this.parkingLotID = parkingLotID;
 	}
+
+
+	public String getCarID() {
+		return carID;
+	}
+
+
+	public void setCarID(String carID) {
+		this.carID = carID;
+	}
+	
+	
 
 
 }
