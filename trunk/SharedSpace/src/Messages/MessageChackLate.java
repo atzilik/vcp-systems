@@ -3,13 +3,14 @@ package Messages;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Random;
 
 import DataObjects.DateConvert;
 
 /**
  * 
  * @author Boaz
- *This class is responsible for the check 30 min late of customers
+ *This class is responsible for the check 10 min late of customers
  *and to send them a mail about this.
  */
 public class MessageChackLate extends Message{
@@ -50,8 +51,8 @@ public class MessageChackLate extends Message{
 					ResultSet rsp = psp.executeQuery();
 					if (rsp.isBeforeFirst()==false)  // there is no check in record
 					{
-						// if it has been over a 30 min late
-						if ((DateConvert.timeDifference(DateConvert.getCurrentSqlDate(), DateConvert.getCurrentSqlTime(), rsr.getDate(5), rsr.getTime(6))==30)||(DateConvert.timeDifference(DateConvert.getCurrentSqlDate(), DateConvert.getCurrentSqlTime(), rsr.getDate(5), rsr.getTime(6))>30))
+						// if it has been over a 10 min late
+						if ((DateConvert.timeDifference(DateConvert.getCurrentSqlDate(), DateConvert.getCurrentSqlTime(), rsr.getDate(5), rsr.getTime(6))==10)||(DateConvert.timeDifference(DateConvert.getCurrentSqlDate(), DateConvert.getCurrentSqlTime(), rsr.getDate(5), rsr.getTime(6))>10))
 						{
 							PreparedStatement psc = con.prepareStatement("SELECT * FROM customers where id=? and carID=?;"); 
 							psc.setInt(1,rsr.getInt(2));
@@ -64,11 +65,29 @@ public class MessageChackLate extends Message{
 							String text2 = rsc.getString(5);
 							SendMail sendMail = new SendMail();
 							sendMail.sendMail(rsc.getString(5), subject, text); 
-							// delete the reservation from res table
-							PreparedStatement psd = con.prepareStatement("DELETE FROM reservations WHERE reservationId=?");
-							psd.setString(1, rsr.getString(1));
-							psd.executeUpdate();
-							psd.close();
+							
+							Random rand = new Random(); 
+							int value = rand.nextInt(2); 
+//							int value = 1;
+							if (value == 0)  // delete the reservation from res table
+							{
+								PreparedStatement psd = con.prepareStatement("DELETE FROM reservations WHERE reservationId=?");
+								psd.setString(1, rsr.getString(1));
+								psd.executeUpdate();
+								psd.close();
+							}
+							else  // add fine to the reservation
+							{
+								PreparedStatement psb = con.prepareStatement("INSERT INTO customer_bill (customerId,carId,date,time,reservationId,sum) VALUES(?,?,?,?,?,?);");
+								psb.setInt(1,rsr.getInt(3));
+								psb.setInt(2,rsr.getInt(2));
+								psb.setDate(3,DateConvert.getCurrentSqlDate());
+								psb.setTime(4,DateConvert.getCurrentSqlTime());
+								psb.setInt(5,rsr.getInt(1));
+								psb.setDouble(6,(rsr.getInt(10)*0.2));
+								psb.executeUpdate();
+								psb.close();
+							}
 						}
 					}
 				}while(rsr.next());
