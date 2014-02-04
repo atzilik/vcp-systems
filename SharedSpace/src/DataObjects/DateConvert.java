@@ -65,6 +65,15 @@ public class DateConvert {
 		return new Date(cal.getTimeInMillis());
 	}
 
+	
+	public static Time addHours(Time time, int amount){
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(time);
+		cal.add(Calendar.HOUR_OF_DAY, amount);
+		cal.set(Calendar.SECOND, 0);
+		cal.set(Calendar.MILLISECOND, 0);
+		return new Time(cal.getTimeInMillis());
+	}
 
 	/**
 	 * 
