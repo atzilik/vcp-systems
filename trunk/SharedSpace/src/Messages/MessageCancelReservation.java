@@ -8,6 +8,7 @@ import java.sql.Time;
 import java.util.concurrent.TimeUnit;
 
 import DataObjects.DateConvert;
+import DataObjects.Reservation;
 
 /**
  * message that handle a cancel reservation request
@@ -19,12 +20,18 @@ public class MessageCancelReservation extends Message {
 	private String reservationNum;
 	private String customerId;
 	private String carNumber;
+	private Reservation res;
 
 	public MessageCancelReservation(String reservationNum, String customerId, String carNumber) {
 		super();
 		this.reservationNum = reservationNum;
 		this.customerId = customerId;
 		this.carNumber = carNumber;
+	}
+	
+	public MessageCancelReservation(Reservation res) {
+		super();
+		this.res = res;	
 	}
 
 
@@ -89,7 +96,12 @@ public class MessageCancelReservation extends Message {
 		{
 			return rate * 0.5;
 		}
+		res.setCancel(3);
 		return 0;
+	}
+	
+	public Reservation getRes() {
+		return res;
 	}
 
 }
