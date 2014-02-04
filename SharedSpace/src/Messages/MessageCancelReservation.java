@@ -1,8 +1,10 @@
 package Messages;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.concurrent.TimeUnit;
 
 import DataObjects.DateConvert;
@@ -53,21 +55,7 @@ public class MessageCancelReservation extends Message {
 					return new MessageCancelReservationReply(reservationNum, false, 0);
 				}
 				//if not then insert to cancel_reservation table and delete it from reservation table
-				double refund = 0;
-				//check if it is more than 3 hours before cancel, customer get full refund
-				if (DateConvert.timeDifference(DateConvert.buildFullDate(rs.getDate(5), rs.getTime(6)),DateConvert.buildFullDate(DateConvert.getCurrentSqlDate(), DateConvert.getCurrentSqlTime())) > TimeUnit.HOURS.toMinutes(3))
-				{
-					refund = rs.getDouble(10);
-				}
-				//if it is between 1 and 3 hours customer get 50% refund
-				else if (DateConvert.timeDifference(DateConvert.buildFullDate(rs.getDate(5), rs.getTime(6)),DateConvert.buildFullDate(DateConvert.getCurrentSqlDate(), DateConvert.getCurrentSqlTime())) < TimeUnit.HOURS.toMinutes(3) && DateConvert.timeDifference(DateConvert.buildFullDate(rs.getDate(5), rs.getTime(6)),DateConvert.buildFullDate(DateConvert.getCurrentSqlDate(), DateConvert.getCurrentSqlTime())) > TimeUnit.HOURS.toMinutes(1))
-				{
-					refund = rs.getDouble(10) * 0.5;
-				}
-				else
-				{
-					refund = 0;
-				}
+				double refund = calculateRefund(rs.getDate(5), rs.getTime(6), rs.getDouble(10));
 				PreparedStatement ps1 = con.prepareStatement("INSERT INTO cancel_reservation (reservationId,date,customerID,carNumner,refund) VALUES (?,?,?,?,?);");
 				ps1.setString(1, rs.getString(1));
 				ps.setDate(2, DateConvert.getCurrentSqlDate());
@@ -85,6 +73,23 @@ public class MessageCancelReservation extends Message {
 			}
 		}catch (SQLException e) {e.printStackTrace();}
 		return null;
+	}
+	
+	public double calculateRefund(Date checkInDate, Time CheckInTime, double rate){
+		java.util.Date currentTime = DateConvert.buildFullDate(DateConvert.getCurrentSqlDate(), DateConvert.getCurrentSqlTime());
+		java.util.Date checkInTime = DateConvert.buildFullDate(checkInDate, CheckInTime);
+		long timeDifference = DateConvert.timeDifference(currentTime, checkInTime);
+		//check if it is more than 3 hours before cancel, customer get full refund
+		if (timeDifference > TimeUnit.HOURS.toMinutes(3))
+		{
+			return rate;
+		}
+		//if it is between 1 and 3 hours customer get 50% refund
+		if (timeDifference < TimeUnit.HOURS.toMinutes(3) && timeDifference > TimeUnit.HOURS.toMinutes(1))
+		{
+			return rate * 0.5;
+		}
+		return 0;
 	}
 
 }
