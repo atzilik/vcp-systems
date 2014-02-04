@@ -57,6 +57,13 @@ public class DateConvert {
 		cal.add(Calendar.DAY_OF_MONTH, amount);
 		return new Date(cal.getTimeInMillis());
 	}
+	
+	public static Date addHours(Date date, int amount){
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		cal.add(Calendar.HOUR_OF_DAY, amount);
+		return new Date(cal.getTimeInMillis());
+	}
 
 
 	/**
