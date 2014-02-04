@@ -19,6 +19,7 @@ public class Reservation implements Serializable{
 	protected double estBill;
 	protected boolean used;
 	protected java.sql.Date reservationDate;
+	protected int cancel;
 
 	
 	public Reservation (String rid, int carId, String cid, String pl, java.sql.Date estCinDate, 
@@ -35,6 +36,7 @@ public class Reservation implements Serializable{
 		this.estBill = estBill;
 		this.used = used;
 		this.reservationDate = reservationDate;
+		this.cancel = cancel;
 	}
 	
 
@@ -87,5 +89,36 @@ public class Reservation implements Serializable{
 	public void setReservationDate(java.sql.Date reservationDate) {
 		this.reservationDate = reservationDate;
 	}
+	public void setCid(String cid) {
+		this.cid=cid;
+	}
+	public void setEstCinDate(java.sql.Date estCinDate) {
+		estCinDate=estCinDate;
+	}
+	public void setEstCinHour(Time estCinHour) {
+		estCinHour=estCinHour;
+	}
+	public void setEstCoutDate(java.sql.Date estCoutDate) {
+		estCoutDate=estCoutDate;
+	}
+	public void setEstCoutHour(Time estCoutHour) {
+		estCoutHour=estCoutHour;
+	}
+	public void setCarId(int carId) {
+		carId=carId;
+	}
+	public void setPl(String pl) {
+		pl=pl;
+	}
+	public void setRid(String rid) {
+		rid=rid;
+	}
+	public void setCancel(int c) {
+		cancel=c;
+	}
+	public int getCancel() {
+		return cancel;
+	}
+	
 
 }
