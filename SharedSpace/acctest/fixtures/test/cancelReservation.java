@@ -1,4 +1,4 @@
-package VCPTest;
+package test;
 import java.sql.SQLException;
 import java.sql.Time;
 
@@ -9,10 +9,10 @@ import fit.ActionFixture;
 
 
 
-public class CancelReservation extends ActionFixture {
+public class cancelReservation extends ActionFixture {
 	private Reservation res;
 	private MessageCancelReservation msg;
-	public CancelReservation(){
+	public cancelReservation(){
 		res.setRid("100000");
 	}
 	public void customerId(String cusID) throws Exception
@@ -30,8 +30,8 @@ public class CancelReservation extends ActionFixture {
 
 	public void addHours(int hours)
 	{
-		Time currentTimePlus = DateConvert.addHours(DateConvert.getCurrentSqlTime(), hours);
-		Time currentTimeOut = DateConvert.addHours(DateConvert.getCurrentSqlTime(), hours+1);
+		Time currentTimePlus = DateConvert.addMinutes(DateConvert.getCurrentSqlTime(), hours*60);
+		Time currentTimeOut = DateConvert.addMinutes(DateConvert.getCurrentSqlTime(), (hours+1)*60);
 		res.setEstCinDate(DateConvert.getCurrentSqlDate()); // add the date to the reservation
 		res.setEstCinHour(currentTimePlus); // add the time to the reservation
 		res.setEstCoutDate(DateConvert.getCurrentSqlDate());

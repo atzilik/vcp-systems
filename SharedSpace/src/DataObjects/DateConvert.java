@@ -58,18 +58,18 @@ public class DateConvert {
 		return new Date(cal.getTimeInMillis());
 	}
 	
-	public static Date addHours(Date date, int amount){
+	public static Date addMinutes(Date date, int amount){
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
-		cal.add(Calendar.HOUR_OF_DAY, amount);
+		cal.add(Calendar.MINUTE, amount);
 		return new Date(cal.getTimeInMillis());
 	}
 
 	
-	public static Time addHours(Time time, int amount){
+	public static Time addMinutes(Time time, int amount){
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(time);
-		cal.add(Calendar.HOUR_OF_DAY, amount);
+		cal.add(Calendar.MINUTE, amount);
 		cal.set(Calendar.SECOND, 0);
 		cal.set(Calendar.MILLISECOND, 0);
 		return new Time(cal.getTimeInMillis());
