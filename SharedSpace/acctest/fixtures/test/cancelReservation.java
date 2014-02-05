@@ -1,4 +1,5 @@
 package test;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Time;
 
@@ -13,11 +14,13 @@ public class cancelReservation extends ActionFixture {
 	private Reservation res;
 	private MessageCancelReservation msg;
 	public cancelReservation(){
+		res = new Reservation();
 		res.setRid("100000");
 	}
 	public void customerId(String cusID) throws Exception
 	{
 		res.setCid(cusID);
+		res.setCancel(1);
 	}
 	public void carNo(int carNo)
 	{
@@ -28,26 +31,31 @@ public class cancelReservation extends ActionFixture {
 		res.setPl(plot);
 	}
 
-	public void addHours(int hours)
+	public void addMinutes(int minutes)
 	{
-		Time currentTimePlus = DateConvert.addMinutes(DateConvert.getCurrentSqlTime(), hours*60);
-		Time currentTimeOut = DateConvert.addMinutes(DateConvert.getCurrentSqlTime(), (hours+1)*60);
-		res.setEstCinDate(DateConvert.getCurrentSqlDate()); // add the date to the reservation
-		res.setEstCinHour(currentTimePlus); // add the time to the reservation
-		res.setEstCoutDate(DateConvert.getCurrentSqlDate());
-		res.setEstCoutHour(currentTimeOut);
+		Date checkInDate = DateConvert.addMinutes(DateConvert.getCurrentSqlDate(), minutes);
+		Time checkInHour = DateConvert.addMinutes(DateConvert.getCurrentSqlTime(), minutes);
+		Date checkOutDate = DateConvert.addMinutes(DateConvert.getCurrentSqlDate(), minutes + 60);
+		Time checkOutTime = DateConvert.addMinutes(DateConvert.getCurrentSqlTime(), minutes + 60);
+		res.setEstCinDate(checkInDate); // add the date to the reservation
+		res.setEstCinHour(checkInHour); // add the time to the reservation
+		res.setEstCoutDate(checkOutDate);
+		res.setEstCoutHour(checkOutTime);
 	}
 
 
 	public void createNewReservation() throws Exception
 	{
-		res = new Reservation(res.getRid(),res.getCarId(),res.getCid(),res.getPl(),res.getEstCinDate(),res.getEstCinHour(),res.getEstCoutDate(),res.getEstCoutHour(),true,5,false,DateConvert.getCurrentSqlDate());
-		res.setCancel(1);
+		res.setInAdvance(true);
+		res.setEstBill(5);
+		res.setUsed(false);
+		res.setReservationDate(res.getEstCinDate());
 	}
 
 	public double cancel() throws SQLException
 	{
 		msg = new MessageCancelReservation(res);
+		
 		double fine = msg.calculateRefund(res.getEstCinDate(), res.getEstCinHour(), res.getEstBill());
 		return fine;
 	}

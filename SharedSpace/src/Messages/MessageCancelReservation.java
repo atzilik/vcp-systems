@@ -85,8 +85,9 @@ public class MessageCancelReservation extends Message {
 	public double calculateRefund(Date checkInDate, Time CheckInTime, double rate){
 		java.util.Date currentTime = DateConvert.buildFullDate(DateConvert.getCurrentSqlDate(), DateConvert.getCurrentSqlTime());
 		java.util.Date checkInTime = DateConvert.buildFullDate(checkInDate, CheckInTime);
-		long timeDifference = DateConvert.timeDifference(currentTime, checkInTime);
+		long timeDifference = DateConvert.timeDifference(checkInTime, currentTime);
 		//check if it is more than 3 hours before cancel, customer get full refund
+		res.setCancel(3);
 		if (timeDifference > TimeUnit.HOURS.toMinutes(3))
 		{
 			return rate;
@@ -96,7 +97,6 @@ public class MessageCancelReservation extends Message {
 		{
 			return rate * 0.5;
 		}
-		res.setCancel(3);
 		return 0;
 	}
 	
