@@ -1,5 +1,8 @@
 package gui;
 
+import gui.Question.QType;
+
+import java.awt.Dimension;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -12,21 +15,23 @@ import java.util.ArrayList;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 
+import javax.swing.ButtonGroup;
+import javax.swing.JCheckBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.text.MaskFormatter;
 
 import logObjects.SingleLineFormatter;
-import dataObjects.AbsQData;
-import dataObjects.AbsQData.QType;
-import dataObjects.QDataBirthDate;
-import dataObjects.QDataFreeText;
 
 public abstract class AbsPanel extends JPanel {
+	public AbsPanel() {
+	}
 
 	private static final long serialVersionUID = 2367996910235371070L;
 	protected static Logger logger = null;
-	protected ArrayList<AbsQData> DataQuestions;	
 	protected ArrayList<Question> guiQuestions;
 	protected QuestionsPanel qPanel;
 	
@@ -37,15 +42,14 @@ public abstract class AbsPanel extends JPanel {
       String splitBy = ",";
       String[] splitLine;
       BufferedReader br = null;
-      String line = null;
-      QType qType = null;
+      String line = null;      
       
       try {
 			br = new BufferedReader(new FileReader(pathToCsv));
-									
+			guiQuestions = new ArrayList<Question>();
+			 
 			while ((line = br.readLine()) !=null) 
-			{
-				   AbsQData q = null;
+			{				   
 				   splitLine = line.split(splitBy);
 				   if(splitLine.length<2)
 				   {
@@ -54,23 +58,74 @@ public abstract class AbsPanel extends JPanel {
 				   }
 				   else	
 				   {
+					   String qText = splitLine[0];
 				   	   switch(splitLine[1])
 					   {				   
 					   		case "single_selection":
-					   			qType = QType.SINGLE_SELECTION;
+					   			
+					   			ButtonGroup bg1 = new ButtonGroup();
+					   			JPanel tmpPanel1 = new JPanel();
+					   			for(int i=2; i<splitLine.length;i++)
+					   			{
+					   				JRadioButton rbtn = new JRadioButton(splitLine[i]);
+					   				bg1.add(rbtn);
+					   				tmpPanel1.add(rbtn);
+					   			}
+					   					
+					   			
+					   			Question q1 = new Question(qText,QType.SINGLE_SELECTION,tmpPanel1);
+					   			guiQuestions.add(q1);					   								   			
 					   		break;
 					   		
 					   		case "multi_selection":
-					   			qType = QType.MULTI_SELECTION;
+					   			JPanel tmpPanel2 = new JPanel();
+					   			for(int i=2; i<splitLine.length;i++)
+					   			{
+					   				JCheckBox chkbox = new JCheckBox(splitLine[i]);					   				
+					   				tmpPanel2.add(chkbox);
+					   			}
+					   			
+					   			Question q2 = new Question(qText,QType.MULTI_SELECTION,tmpPanel2);
+					   			guiQuestions.add(q2);
 					   		break;
 					   		
 					   		case "birth_date":
-					   			qType = QType.BIRTH_DATE;
-					   			q = new QDataBirthDate(splitLine[0], qType);
+					   			DateFormat df = new SimpleDateFormat("dd/mm/yyyy");
+								JFormattedTextField tf = new JFormattedTextField(df);
+
+						        tf.setColumns(5);								        
+						        try {
+						            MaskFormatter dateMask = new MaskFormatter("##/##/####");
+						            dateMask.install(tf);
+						        } catch (ParseException ex) {
+						            logger.severe("Unable to format date for text field");
+						            ex.printStackTrace();
+						        }
+						        
+						        Question q3 = new Question(qText,QType.BIRTH_DATE,tf);						
+						        guiQuestions.add(q3);
+						    break;
 					   			
 					   		case "free_text":
-					   			qType = QType.FREE_TEXT;
-					   			q = new QDataFreeText(splitLine[0], qType, Integer.parseInt(splitLine[2]));
+					   			int width = Integer.parseInt(splitLine[2]);
+					   			int height = Integer.parseInt(splitLine[3]);
+					   			JTextArea textArea = new JTextArea();
+					   			textArea.setLineWrap(true);
+					   			textArea.setWrapStyleWord(true);
+					   			textArea.setPreferredSize(new Dimension(width,height));
+					   			
+					   			Question q4;
+					   			if(splitLine.length==5)
+					   			{
+					   				String qExtraText = splitLine[4];
+					   				q4 = new Question(qText,QType.FREE_TEXT,textArea,qExtraText);
+					   			}					   				
+					   			else
+					   			{
+					   				q4 = new Question(qText,QType.FREE_TEXT,textArea);
+					   			}
+					   			
+					   			guiQuestions.add(q4);
 					   		break;
 					   		
 					   		default:
@@ -78,10 +133,7 @@ public abstract class AbsPanel extends JPanel {
 					   			throw new IllegalArgumentException(splitLine[1]+" is not a valid question type");    	   		    	   		    	   
 					   }
 				   }
-				   				   
-				   if(DataQuestions == null)
-					   DataQuestions = new ArrayList<AbsQData>();
-				   DataQuestions.add(q);
+				   				   				   					  				  
 			  }
 			
 			try { 
@@ -89,7 +141,11 @@ public abstract class AbsPanel extends JPanel {
 			} catch (IOException e) {
 				
 				logger.severe(pathToCsv+" failed to be closed");
-			}				
+			}
+			
+			qPanel = new QuestionsPanel(guiQuestions);
+			qPanel.setBounds(0, 88, 1000, 500);
+			add(qPanel);	
       	}	
 		catch (IOException e) {
 			logger.severe(pathToCsv+" failed to be opened");
@@ -105,58 +161,6 @@ public abstract class AbsPanel extends JPanel {
 	
 	}
 
-	protected void buildQuestions() {
-		
-		{			
-			for(AbsQData qData: DataQuestions) {
-				
-				String qText = qData.getqText();
-				
-				switch(qData.getqType())
-				{
-				
-					case BIRTH_DATE:																																				
-						
-						DateFormat df = new SimpleDateFormat("dd/mm/yyyy");
-						JFormattedTextField tf = new JFormattedTextField(df);
-
-				        tf.setColumns(5);			        			        
-				        try {
-				            MaskFormatter dateMask = new MaskFormatter("##/##/####");
-				            dateMask.install(tf);
-				        } catch (ParseException ex) {
-				            logger.severe("Unable to format date for text field");
-				            ex.printStackTrace();
-				        }
-				        
-				        Question q = new Question(qText, tf);
-				        
-				        if(guiQuestions==null)
-				        	guiQuestions = new ArrayList<Question>();
-				        guiQuestions.add(q);			        			        			        																																
-					break;
-					
-					case FREE_TEXT:
-						
-						QDataFreeText qDataFreeText = (QDataFreeText) qData;
-						
-						
-					break;
-					case MULTI_SELECTION:
-					break;
-					case SINGLE_SELECTION:
-					break;
-					default:
-					break;			
-				}			
-			}
-						
-		}
-		
-		qPanel = new QuestionsPanel(guiQuestions);
-		qPanel.setBounds(781, 88, 192, 650);
-		add(qPanel);	
-	}
 	
 	protected void initLogger(String className) {
 
