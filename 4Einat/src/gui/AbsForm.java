@@ -21,30 +21,33 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.text.MaskFormatter;
 
 import logObjects.SingleLineFormatter;
+import dataObjects.Answer;
 
-public abstract class AbsPanel extends JPanel {
-	public AbsPanel() {
-	}
+public abstract class AbsForm extends JPanel {
+
 
 	private static final long serialVersionUID = 2367996910235371070L;
 	protected static Logger logger = null;
 	protected ArrayList<Question> guiQuestions;
 	protected QuestionsPanel qPanel;
+	protected ArrayList<Answer> answers;
 	
 	
-	protected void parseQuestions(String pathToCsv) {
+	protected void parseQuestions() {
 		
-	  
+		  
+	  String pathToCsv = ".\\formCsv\\"+this.getClass().getSimpleName()+".csv";
       String splitBy = ",";
       String[] splitLine;
       BufferedReader br = null;
-      String line = null;      
+      String line = null;
+       
       
       try {
+    	  	 
 			br = new BufferedReader(new FileReader(pathToCsv));
 			guiQuestions = new ArrayList<Question>();
 			 
@@ -64,28 +67,30 @@ public abstract class AbsPanel extends JPanel {
 					   		case "single_selection":
 					   			
 					   			ButtonGroup bg1 = new ButtonGroup();
-					   			JPanel tmpPanel1 = new JPanel();
+					   			RadioButtonPanel rbtnPanel = new RadioButtonPanel();
 					   			for(int i=2; i<splitLine.length;i++)
 					   			{
 					   				JRadioButton rbtn = new JRadioButton(splitLine[i]);
 					   				bg1.add(rbtn);
-					   				tmpPanel1.add(rbtn);
+					   				rbtnPanel.add(rbtn);
+					   				rbtnPanel.addRbtnToList(rbtn);
 					   			}
 					   					
 					   			
-					   			Question q1 = new Question(qText,QType.SINGLE_SELECTION,tmpPanel1);
+					   			Question q1 = new Question(qText,QType.SINGLE_SELECTION,rbtnPanel);
 					   			guiQuestions.add(q1);					   								   			
 					   		break;
 					   		
 					   		case "multi_selection":
-					   			JPanel tmpPanel2 = new JPanel();
+					   			CheckBoxPanel chkBoxPanel = new CheckBoxPanel();
 					   			for(int i=2; i<splitLine.length;i++)
 					   			{
-					   				JCheckBox chkbox = new JCheckBox(splitLine[i]);					   				
-					   				tmpPanel2.add(chkbox);
+					   				JCheckBox chkBox = new JCheckBox(splitLine[i]);	
+					   				chkBoxPanel.addCheckBox(chkBox);
+					   				chkBoxPanel.add(chkBox);
 					   			}
 					   			
-					   			Question q2 = new Question(qText,QType.MULTI_SELECTION,tmpPanel2);
+					   			Question q2 = new Question(qText,QType.MULTI_SELECTION,chkBoxPanel);
 					   			guiQuestions.add(q2);
 					   		break;
 					   		
@@ -109,10 +114,7 @@ public abstract class AbsPanel extends JPanel {
 					   		case "free_text":
 					   			int width = Integer.parseInt(splitLine[2]);
 					   			int height = Integer.parseInt(splitLine[3]);
-					   			JTextArea textArea = new JTextArea();
-					   			textArea.setLineWrap(true);
-					   			textArea.setWrapStyleWord(true);
-					   			textArea.setPreferredSize(new Dimension(width,height));
+					   			TextArea textArea = new TextArea(width,height);			
 					   			
 					   			Question q4;
 					   			if(splitLine.length==5)
@@ -161,6 +163,44 @@ public abstract class AbsPanel extends JPanel {
 	
 	}
 
+	protected void getAnswers() throws Exception {
+		
+		answers = new ArrayList<Answer>();
+		for(Question q: guiQuestions)
+		{
+			switch(q.getqType())
+			{
+				case FREE_TEXT:
+					String qText1 = q.getQtext();
+					JTextArea textArea = (JTextArea) q.getQcomponent();
+					Answer answer1 = new Answer(qText1, textArea.getText());
+					answers.add(answer1);					
+				break;
+				case BIRTH_DATE:
+					String qText2 = q.getQtext();
+					JFormattedTextField dateField = (JFormattedTextField) q.getQcomponent();
+					Answer Answer2 = new Answer(qText2, dateField.getText());
+					answers.add(Answer2);										
+				break;
+				case MULTI_SELECTION:
+					String qText3 = q.getQtext();
+					CheckBoxPanel chkBoxPanel = (CheckBoxPanel) q.getQcomponent();
+					ArrayList<String> checkedBoxes = chkBoxPanel.getCheckedBoxes();
+					Answer answer3 = new Answer(qText3, checkedBoxes);
+					answers.add(answer3);					
+				break;
+				case SINGLE_SELECTION:
+					String qText4 = q.getQtext();
+					RadioButtonPanel rbtnPanel = (RadioButtonPanel) q.getQcomponent();
+					Answer answer4 = new Answer(qText4, rbtnPanel.getSelected());
+					answers.add(answer4);					
+				break;
+				default:
+				break;
+			
+			}
+		}
+	}
 	
 	protected void initLogger(String className) {
 
