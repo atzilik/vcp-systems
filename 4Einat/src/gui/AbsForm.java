@@ -2,7 +2,9 @@ package gui;
 
 import gui.Question.QType;
 
-import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -16,8 +18,11 @@ import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 
 import javax.swing.ButtonGroup;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFormattedTextField;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
@@ -26,7 +31,7 @@ import javax.swing.text.MaskFormatter;
 import logObjects.SingleLineFormatter;
 import dataObjects.Answer;
 
-public abstract class AbsForm extends JPanel {
+public class AbsForm extends JPanel {
 
 
 	private static final long serialVersionUID = 2367996910235371070L;
@@ -35,6 +40,39 @@ public abstract class AbsForm extends JPanel {
 	protected QuestionsPanel qPanel;
 	protected ArrayList<Answer> answers;
 	
+	private INavigator navigator;		
+	private AbsForm instance = this;		
+	
+	public AbsForm(INavigator navigator) {
+		
+		this.navigator = navigator;
+		
+		initLogger(Form1.class.getName());
+		setLayout(null);		
+		
+		parseQuestions();						
+		
+		JButton button = new JButton("\u05E9\u05DE\u05D5\u05E8");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				try 
+				{
+					getAnswers();
+					JOptionPane.showMessageDialog(instance, "הנתונים נשמרו בהצלחה", "הודעה", JOptionPane.INFORMATION_MESSAGE);
+					instance.navigator.toMainMenu();
+				} 
+				catch (Exception ex) 
+				{
+					JOptionPane.showMessageDialog(instance, "שגיאה בשמירת הנתונים:"+ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+					ex.printStackTrace();					
+				}														
+				
+			}
+		});
+		button.setBounds(863, 666, 97, 25);
+		add(button);
+	}
 	
 	protected void parseQuestions() {
 		

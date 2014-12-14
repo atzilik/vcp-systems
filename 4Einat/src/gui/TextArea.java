@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.ComponentOrientation;
 import java.awt.Dimension;
 
 import javax.swing.BorderFactory;
@@ -14,6 +15,7 @@ public class TextArea extends JTextArea {
 		setLineWrap(true);
    		setWrapStyleWord(true);
    		setPreferredSize(new Dimension(width,height));
+   		setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
    		setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		
 	}

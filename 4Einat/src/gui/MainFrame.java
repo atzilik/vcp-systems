@@ -1,5 +1,8 @@
 package gui;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
 import javax.swing.JFrame;
 
 /**
@@ -8,34 +11,44 @@ import javax.swing.JFrame;
  *
  */
 public class MainFrame extends JFrame implements INavigator {
-
-
 	
 	private static final long serialVersionUID = 4185989615854832714L;
 	private Form1 form1;
+	private MainMenu mainMenu;
 	
 
 	public MainFrame() {
 		
 		form1 = new Form1(this);
+		mainMenu = new MainMenu(this);
 		add(form1);
+		add(mainMenu);
 		
+		setContentPane(mainMenu);
 		setSize(1024, 768);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
 		setVisible(true);
 		setResizable(false);
 				
 	}
 
 	@Override
-	public void back() {
-		// TODO Auto-generated method stub
+	public void toMainMenu() {
+
+		setContentPane(mainMenu);
+		repaint();
+		revalidate();
 		
 	}
 
 	@Override
 	public void toForm1() {
-		// TODO Auto-generated method stub
+
+		setContentPane(form1);
+		repaint();
+		revalidate();
 		
 	}
 
