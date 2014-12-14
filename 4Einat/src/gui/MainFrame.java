@@ -14,14 +14,15 @@ public class MainFrame extends JFrame implements INavigator {
 	
 	private static final long serialVersionUID = 4185989615854832714L;
 	private Form1 form1;
+	private Form2 form2;
 	private MainMenu mainMenu;
 	
 
 	public MainFrame() {
 		
 		form1 = new Form1(this);
+		form2 = new Form2(this);
 		mainMenu = new MainMenu(this);
-		add(form1);
 		add(mainMenu);
 		
 		setContentPane(mainMenu);
@@ -54,7 +55,9 @@ public class MainFrame extends JFrame implements INavigator {
 
 	@Override
 	public void toForm2() {
-		// TODO Auto-generated method stub
+		setContentPane(form2);
+		repaint();
+		revalidate();
 		
 	}
 

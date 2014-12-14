@@ -1,8 +1,6 @@
 package gui;
 
-import java.awt.Dimension;
 import java.util.ArrayList;
-
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
@@ -13,7 +11,7 @@ public class QuestionsPanel extends JPanel {
 
 	public QuestionsPanel(ArrayList<Question> guiQuestions) {
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));			
-		setBorder(BorderFactory.createBevelBorder(1));
+		setBorder(BorderFactory.createBevelBorder(1));		
 		
 		for(Question q: guiQuestions) 
 		{

@@ -2,6 +2,8 @@ package gui;
 
 import gui.Question.QType;
 
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,6 +19,7 @@ import java.util.ArrayList;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 
+import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -88,18 +91,19 @@ public class AbsForm extends JPanel {
     	  	 
 			br = new BufferedReader(new FileReader(pathToCsv));
 			guiQuestions = new ArrayList<Question>();
-			 
+			Question q;
 			while ((line = br.readLine()) !=null) 
 			{				   
 				   splitLine = line.split(splitBy);
 				   if(splitLine.length<2)
 				   {
 					   br.close();
-					   throw new Exception("Invalid format in line:"+line);
+					   throw new IllegalArgumentException("Invalid format in line:"+line);
 				   }
 				   else	
 				   {
 					   String qText = splitLine[0];
+					   int width, height;					  
 				   	   switch(splitLine[1])
 					   {				   
 					   		case "single_selection":
@@ -115,8 +119,8 @@ public class AbsForm extends JPanel {
 					   			}
 					   					
 					   			
-					   			Question q1 = new Question(qText,QType.SINGLE_SELECTION,rbtnPanel);
-					   			guiQuestions.add(q1);					   								   			
+					   			q = new Question(qText,QType.SINGLE_SELECTION,rbtnPanel);
+					   			guiQuestions.add(q);					   								   			
 					   		break;
 					   		
 					   		case "multi_selection":
@@ -128,13 +132,14 @@ public class AbsForm extends JPanel {
 					   				chkBoxPanel.add(chkBox);
 					   			}
 					   			
-					   			Question q2 = new Question(qText,QType.MULTI_SELECTION,chkBoxPanel);
-					   			guiQuestions.add(q2);
+					   			q = new Question(qText,QType.MULTI_SELECTION,chkBoxPanel);
+					   			guiQuestions.add(q);
 					   		break;
 					   		
 					   		case "birth_date":
 					   			DateFormat df = new SimpleDateFormat("dd/mm/yyyy");
 								JFormattedTextField tf = new JFormattedTextField(df);
+								tf.setBorder(BorderFactory.createLineBorder(Color.black));
 
 						        tf.setColumns(5);								        
 						        try {
@@ -145,29 +150,54 @@ public class AbsForm extends JPanel {
 						            ex.printStackTrace();
 						        }
 						        
-						        Question q3 = new Question(qText,QType.BIRTH_DATE,tf);						
-						        guiQuestions.add(q3);
+						        q = new Question(qText,QType.BIRTH_DATE,tf);						
+						        guiQuestions.add(q);
 						    break;
 					   			
 					   		case "free_text":
-					   			int width = Integer.parseInt(splitLine[2]);
-					   			int height = Integer.parseInt(splitLine[3]);
-					   			TextArea textArea = new TextArea(width,height);			
-					   			
-					   			Question q4;
+					   			width = Integer.parseInt(splitLine[2]);
+					   			height = Integer.parseInt(splitLine[3]);
+					   			TextArea textArea1 = new TextArea(width,height);			
+					   								   			
 					   			if(splitLine.length==5)
 					   			{
 					   				String qExtraText = splitLine[4];
-					   				q4 = new Question(qText,QType.FREE_TEXT,textArea,qExtraText);
+					   				q = new Question(qText,QType.FREE_TEXT,textArea1,qExtraText);
 					   			}					   				
 					   			else
 					   			{
-					   				q4 = new Question(qText,QType.FREE_TEXT,textArea);
+					   				q = new Question(qText,QType.FREE_TEXT,textArea1);
 					   			}
 					   			
-					   			guiQuestions.add(q4);
+					   			guiQuestions.add(q);
 					   		break;
 					   		
+					   		case "free_text_range":
+					   			String qExtraText = splitLine[2];
+					   			width = Integer.parseInt(splitLine[3]);
+					   			height = Integer.parseInt(splitLine[4]);
+					   			TextArea textArea2 = new TextArea(width,height);
+					   			TextArea textArea3 = new TextArea(width, height);
+					   								   			
+					   			q = new Question(qText, QType.FREE_TEXT_RANGE, textArea2, textArea3, qExtraText);
+					   			guiQuestions.add(q);
+					   		break;			
+					   		
+					   		case "free_text_multi":					   
+					   			width = Integer.parseInt(splitLine[2]);
+					   			height = Integer.parseInt(splitLine[3]);
+					   			
+					   			MultiFreeTextPanel multiFreeTextPanel = new MultiFreeTextPanel();
+					   			for(int i=4; i<splitLine.length;i++)
+					   			{
+					   				multiFreeTextPanel.addQuestion(splitLine[i], width, height);
+					   			}
+					   			
+					   			q = new Question(qText, QType.FREE_TEXT_MULTI, multiFreeTextPanel);
+					   			guiQuestions.add(q);
+					   			
+					   		break;
+					   							   							   	
 					   		default:
 					   			logger.severe(splitLine[1]+" is not a valid question type");
 					   			throw new IllegalArgumentException(splitLine[1]+" is not a valid question type");    	   		    	   		    	   
@@ -191,7 +221,7 @@ public class AbsForm extends JPanel {
 			logger.severe(pathToCsv+" failed to be opened");
 			e.printStackTrace();
 		} 
-		catch (Exception e) {
+		catch (IllegalArgumentException e) {
 			
 			logger.severe("Invalid format line:"+line);
 			logger.severe("Terminating program...");
@@ -206,33 +236,56 @@ public class AbsForm extends JPanel {
 		answers = new ArrayList<Answer>();
 		for(Question q: guiQuestions)
 		{
+			String qText;
+			Answer answer;
 			switch(q.getqType())
 			{
 				case FREE_TEXT:
-					String qText1 = q.getQtext();
-					JTextArea textArea = (JTextArea) q.getQcomponent();
-					Answer answer1 = new Answer(qText1, textArea.getText());
-					answers.add(answer1);					
+					qText = q.getQtext();
+					
+					JTextArea textArea = (JTextArea) q.getQcomponents().get(0);
+					answer = new Answer(qText, textArea.getText());
+					answers.add(answer);					
 				break;
 				case BIRTH_DATE:
-					String qText2 = q.getQtext();
-					JFormattedTextField dateField = (JFormattedTextField) q.getQcomponent();
-					Answer Answer2 = new Answer(qText2, dateField.getText());
-					answers.add(Answer2);										
+					qText = q.getQtext();
+					JFormattedTextField dateField = (JFormattedTextField) q.getQcomponents().get(0);
+					answer = new Answer(qText, dateField.getText());
+					answers.add(answer);										
 				break;
 				case MULTI_SELECTION:
-					String qText3 = q.getQtext();
-					CheckBoxPanel chkBoxPanel = (CheckBoxPanel) q.getQcomponent();
+					qText = q.getQtext();
+					CheckBoxPanel chkBoxPanel = (CheckBoxPanel) q.getQcomponents().get(0);
 					ArrayList<String> checkedBoxes = chkBoxPanel.getCheckedBoxes();
-					Answer answer3 = new Answer(qText3, checkedBoxes);
-					answers.add(answer3);					
+					answer = new Answer(qText, checkedBoxes);
+					answers.add(answer);					
 				break;
 				case SINGLE_SELECTION:
-					String qText4 = q.getQtext();
-					RadioButtonPanel rbtnPanel = (RadioButtonPanel) q.getQcomponent();
-					Answer answer4 = new Answer(qText4, rbtnPanel.getSelected());
-					answers.add(answer4);					
+					qText = q.getQtext();
+					RadioButtonPanel rbtnPanel = (RadioButtonPanel) q.getQcomponents().get(0);
+					answer = new Answer(qText, rbtnPanel.getSelected());
+					answers.add(answer);					
 				break;
+				
+				case FREE_TEXT_RANGE:
+					qText = q.getQtext();
+					ArrayList<Component> comps = (ArrayList<Component>) q.getQcomponents();
+					TextArea txtArea1 = (TextArea) comps.get(0);
+					TextArea txtArea2 = (TextArea) comps.get(1);					
+					ArrayList<String> mulAnswers = new ArrayList<String>();
+					mulAnswers.add(txtArea1.getText());
+					mulAnswers.add(txtArea2.getText());					
+					answer = new Answer(qText, mulAnswers);
+					answers.add(answer);					
+				break;
+				
+				case FREE_TEXT_MULTI:
+					qText = q.getQtext();
+					MultiFreeTextPanel mulFreeTxtPanel = (MultiFreeTextPanel) q.getQcomponents().get(0);
+					answer = new Answer(qText, mulFreeTxtPanel.getQuestions(), mulFreeTxtPanel.getAnswers());
+					answers.add(answer);					
+				break;
+				
 				default:
 				break;
 			
@@ -249,10 +302,8 @@ public class AbsForm extends JPanel {
 			Path currentRelativePath = Paths.get("");
 			String log_dir = currentRelativePath.toAbsolutePath().toString() + "\\logs\\";
 			FileHandler fh = null;
-			int limit = 1000000; // 1 Mb
-			int numLogFiles = 3;
-			String pattern = className+"%g.log";
-			fh = new FileHandler(log_dir+pattern, limit ,numLogFiles);						    			 			
+			String pattern = className+".log";
+			fh = new FileHandler(log_dir+pattern);						    			 			
 			fh.setFormatter(new SingleLineFormatter());
 			logger.addHandler(fh);
 			logger.setUseParentHandlers(false);																				
