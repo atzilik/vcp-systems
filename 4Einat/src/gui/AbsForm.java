@@ -157,16 +157,18 @@ public class AbsForm extends JPanel {
 					   		case "free_text":
 					   			width = Integer.parseInt(splitLine[2]);
 					   			height = Integer.parseInt(splitLine[3]);
-					   			TextArea textArea1 = new TextArea(width,height);			
+					   			
+					   			TextArea textArea1 = new TextArea();
+					   			ScrollPane scrollPane = new ScrollPane(textArea1,width,height);
 					   								   			
 					   			if(splitLine.length==5)
 					   			{
 					   				String qExtraText = splitLine[4];
-					   				q = new Question(qText,QType.FREE_TEXT,textArea1,qExtraText);
+					   				q = new Question(qText,QType.FREE_TEXT,scrollPane,qExtraText);
 					   			}					   				
 					   			else
 					   			{
-					   				q = new Question(qText,QType.FREE_TEXT,textArea1);
+					   				q = new Question(qText,QType.FREE_TEXT,scrollPane);
 					   			}
 					   			
 					   			guiQuestions.add(q);
@@ -221,10 +223,10 @@ public class AbsForm extends JPanel {
 			logger.severe(pathToCsv+" failed to be opened");
 			e.printStackTrace();
 		} 
-		catch (IllegalArgumentException e) {
+		catch (Exception e) {
 			
-			logger.severe("Invalid format line:"+line);
-			logger.severe("Terminating program...");
+			e.printStackTrace();
+			logger.severe("An exception occured:"+e.getMessage());
 			   
 			System.exit(1);
 		}
@@ -243,8 +245,8 @@ public class AbsForm extends JPanel {
 				case FREE_TEXT:
 					qText = q.getQtext();
 					
-					JTextArea textArea = (JTextArea) q.getQcomponents().get(0);
-					answer = new Answer(qText, textArea.getText());
+					ScrollPane scrollPane = (ScrollPane) q.getQcomponents().get(0);
+					answer = new Answer(qText, scrollPane.getTextArea().getText());
 					answers.add(answer);					
 				break;
 				case BIRTH_DATE:
@@ -271,7 +273,9 @@ public class AbsForm extends JPanel {
 					qText = q.getQtext();
 					ArrayList<Component> comps = (ArrayList<Component>) q.getQcomponents();
 					TextArea txtArea1 = (TextArea) comps.get(0);
-					TextArea txtArea2 = (TextArea) comps.get(1);					
+					TextArea txtArea2 = (TextArea) comps.get(1);
+					//JTextArea txtArea1 = spTxtArea1.getTextArea();
+					//JTextArea txtArea2 = spTxtArea2.getTextArea();
 					ArrayList<String> mulAnswers = new ArrayList<String>();
 					mulAnswers.add(txtArea1.getText());
 					mulAnswers.add(txtArea2.getText());					

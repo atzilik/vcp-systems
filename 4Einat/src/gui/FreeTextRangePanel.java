@@ -1,22 +1,24 @@
 package gui;
 
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.text.JTextComponent;
 
 public class FreeTextRangePanel extends JPanel {
 
 	private String qText1;
 	private String qText2;
-	private TextArea textArea1;
-	private TextArea textArea2;
+	private TextArea spTextArea1;
+	private TextArea spTextArea2;
 	
 	public FreeTextRangePanel(String qText1, String qtext2, int width, int height) {
 		
 		this.qText1 = qText1;
 		this.qText2 = qtext2;
-		textArea1 = new TextArea(width,height);
-		textArea2 = new TextArea(width,height);
-		add(textArea1);
-		add(textArea2);
+		spTextArea1 = new TextArea(width,height);
+		spTextArea2 = new TextArea(width,height);
+		add(spTextArea1);
+		add(spTextArea2);
 		
 		
 	}
@@ -26,7 +28,10 @@ public class FreeTextRangePanel extends JPanel {
 	}
 	
 	public String getAtext1() {
-		return textArea1.getText();
+		
+		JTextArea textArea = spTextArea1.getTextArea();
+		
+		return textArea.getText();
 	}
 	
 	public String getQtext2() {
@@ -34,7 +39,10 @@ public class FreeTextRangePanel extends JPanel {
 	}
 	
 	public String getAtext2() {
-		return textArea2.getText();
+		
+		JTextArea textArea = spTextArea2.getTextArea();
+		
+		return textArea.getText();
 	}
 	
 	
