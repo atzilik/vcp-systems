@@ -16,6 +16,7 @@ public class MainFrame extends JFrame implements INavigator {
 	private Form1 form1;
 	private Form2 form2;
 	private MainMenu mainMenu;
+	private Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 	
 
 	public MainFrame() {
@@ -25,13 +26,13 @@ public class MainFrame extends JFrame implements INavigator {
 		mainMenu = new MainMenu(this);
 		add(mainMenu);
 		
-		setContentPane(mainMenu);
-		setSize(1024, 768);
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+		setContentPane(mainMenu);		
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);		
+		setSize(dim);				
 		setVisible(true);
 		setResizable(false);
+		pack();
+		setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
 				
 	}
 
@@ -40,8 +41,8 @@ public class MainFrame extends JFrame implements INavigator {
 
 		setContentPane(mainMenu);
 		repaint();
-		revalidate();
-		
+		pack();
+		setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
 	}
 
 	@Override
@@ -49,7 +50,8 @@ public class MainFrame extends JFrame implements INavigator {
 
 		setContentPane(form1);
 		repaint();
-		revalidate();
+		pack();
+		setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
 		
 	}
 
@@ -57,7 +59,8 @@ public class MainFrame extends JFrame implements INavigator {
 	public void toForm2() {
 		setContentPane(form2);
 		repaint();
-		revalidate();
+		pack();
+		setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
 		
 	}
 

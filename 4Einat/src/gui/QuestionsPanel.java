@@ -11,7 +11,7 @@ public class QuestionsPanel extends JPanel {
 
 	public QuestionsPanel(ArrayList<Question> guiQuestions) {
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));			
-		setBorder(BorderFactory.createBevelBorder(1));		
+		setBorder(BorderFactory.createEmptyBorder());
 		
 		for(Question q: guiQuestions) 
 		{

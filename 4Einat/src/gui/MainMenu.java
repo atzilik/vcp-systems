@@ -1,12 +1,17 @@
 package gui;
 
+import java.awt.ComponentOrientation;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.GridLayout;
 
-import javax.swing.JButton;
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
 
 public class MainMenu extends JPanel {
 	
@@ -15,40 +20,40 @@ public class MainMenu extends JPanel {
 	public MainMenu(final INavigator navigator) {
 		
 		this.navigator = navigator;
-		setLayout(null);
-		
-		JLabel title = new JLabel("ברוכים הבאים לתיקיית מעבר");
+		setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));					
+			
+		JLabel title = new JLabel("תיקיית מעבר");
 		title.setFont(new Font("Tahoma", Font.PLAIN, 22));
-		title.setBounds(360, 44, 296, 38);
-		add(title);
-		
-		JButton btnToForm1 = new JButton("1: שאלון היכרות");
-		btnToForm1.addActionListener(new ActionListener() {
+		title.setAlignmentX(CENTER_ALIGNMENT);		
 
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				
-				navigator.toForm1();				
-			}
-			
-			
-		});
-		btnToForm1.setBounds(762, 139, 196, 30);
-		add(btnToForm1);
 		
-		JButton btnToForm2 = new JButton("2: שאלון מטרות");
-		btnToForm2.addActionListener(new ActionListener() {
+		
+//		JPanel idPanel = new JPanel();
+//		idPanel.setLayout(new FlowLayout());
+//		idPanel.setPreferredSize(new Dimension(200,200));
+//		JTextField idTextField = new JTextField("הזן את מספר תעודת הזהות של המטופל");
+//		JLabel idLabel = new JLabel("מספר ת.ז:");
+//		idPanel.add(idTextField);
+//		idPanel.add(idLabel);	
+		
 
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				
-				navigator.toForm2();				
-			}
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+
+		Form1 form1 = new Form1(navigator);
+		tabbedPane.addTab("1 שאלון היכרות", form1);
+		Form2 form2 = new Form2(navigator);
+		tabbedPane.addTab("2 שאלות מטרות", form2);
+		tabbedPane.setPreferredSize(tabbedPane.getMaximumSize());
+
 			
-			
-		});
-		btnToForm2.setBounds(762, 207, 196, 30);
-		add(btnToForm2);
+		add(title);		
+		JPanel space = new JPanel();		
+		space.setPreferredSize(new Dimension(100,20));		
+		space.setMaximumSize(space.getPreferredSize());
+		add(space);			
+		add(tabbedPane);
+					
 		
 	}
 

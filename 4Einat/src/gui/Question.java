@@ -1,9 +1,11 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -15,8 +17,19 @@ public class Question extends JPanel {
 	private QType qType;
 	private ArrayList<Component> comps;
 	
-	public enum QType { FREE_TEXT, SINGLE_SELECTION, MULTI_SELECTION, BIRTH_DATE, FREE_TEXT_RANGE, FREE_TEXT_MULTI }
+	public enum QType { FREE_TEXT, SINGLE_SELECTION, MULTI_SELECTION, BIRTH_DATE, FREE_TEXT_RANGE, FREE_TEXT_MULTI, INFO_TEXT }
 	
+	//infotext "question"
+	public Question(String qText) {
+		
+		setLayout(new FlowLayout());	
+		qType = QType.INFO_TEXT;
+		add(new JLabel(qText));
+		
+	}
+	
+	
+	//freetext or birthdate question
 	public Question(String qText, QType qType , Component comp) {
 		
 		setLayout(new FlowLayout());
@@ -25,10 +38,12 @@ public class Question extends JPanel {
 		comps = new ArrayList<Component>();
 		comps.add(comp);
 		add(comp);		
-		add(new JLabel(qText));
+		add(new JLabel(qText));				
 		
 	}
+		
 	
+	//freetext with extra text question
 	public Question(String qText, QType qType , Component comp, String qExtraText) {
 		
 		setLayout(new FlowLayout());
@@ -43,6 +58,7 @@ public class Question extends JPanel {
 		
 	}
 	
+	//freetext range question
 	public Question(String qText, QType qType, Component comp1, Component comp2, String qExtraText) {
 		
 		setLayout(new FlowLayout());
@@ -59,6 +75,7 @@ public class Question extends JPanel {
 		
 	}
 	
+	//Radio button or multi select question
 	public Question(String qText, QType qType, ArrayList<Component> comps) {
 		
 		setLayout(new FlowLayout());

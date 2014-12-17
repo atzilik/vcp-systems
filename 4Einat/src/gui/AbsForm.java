@@ -2,7 +2,6 @@ package gui;
 
 import gui.Question.QType;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -12,14 +11,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 
-import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -28,8 +24,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.JTextArea;
-import javax.swing.text.MaskFormatter;
+import javax.swing.JScrollPane;
 
 import logObjects.SingleLineFormatter;
 import dataObjects.Answer;
@@ -46,35 +41,56 @@ public class AbsForm extends JPanel {
 	private INavigator navigator;		
 	private AbsForm instance = this;		
 	
-	public AbsForm(INavigator navigator) {
+	public AbsForm(INavigator navigator, String title, String subTitle) {
 		
-		this.navigator = navigator;
+		this.navigator = navigator;	
 		
-		initLogger(Form1.class.getName());
-		setLayout(null);		
+		setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
+		JPanel titlePanel = new JPanel();
+		JPanel subTitlePanel = new JPanel();
 		
-		parseQuestions();						
+		JLabel lbl_title = new JLabel(title);		
+		lbl_title.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lbl_title.setBounds(470, 24, 120, 16);
+		titlePanel.add(lbl_title);				
+											
+		JLabel label = new JLabel(subTitle);
+		label.setBounds(577, 53, 494, 16);
+		subTitlePanel.add(label);
 		
-		JButton button = new JButton("\u05E9\u05DE\u05D5\u05E8");
-		button.addActionListener(new ActionListener() {
+		titlePanel.setMaximumSize(titlePanel.getPreferredSize());
+		subTitlePanel.setMaximumSize(subTitlePanel.getPreferredSize());
+		add(titlePanel);
+		add(subTitlePanel);
+		
+		initLogger(Form1.class.getName());		
+		
+		parseQuestions();		
+		
+		JPanel btnPanel = new JPanel();
+		
+		JButton btn_save = new JButton("\u05E9\u05DE\u05D5\u05E8");
+		btn_save.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				try 
 				{
-					getAnswers();
-					JOptionPane.showMessageDialog(instance, "הנתונים נשמרו בהצלחה", "הודעה", JOptionPane.INFORMATION_MESSAGE);
-					instance.navigator.toMainMenu();
+					boolean isOK = getAnswers();
+					if(!isOK)
+						throw new Exception("בדוק את הלוג לפרטים נוספים");
+					JOptionPane.showMessageDialog(instance, "הנתונים נשמרו בהצלחה", "הודעה", JOptionPane.INFORMATION_MESSAGE);					
 				} 
 				catch (Exception ex) 
 				{
-					JOptionPane.showMessageDialog(instance, "שגיאה בשמירת הנתונים:"+ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(instance, "שגיאה בשמירת הנתונים! "+ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 					ex.printStackTrace();					
 				}														
 				
 			}
 		});
-		button.setBounds(863, 666, 97, 25);
-		add(button);
+		btn_save.setBounds(750, 666, 97, 25);
+		btnPanel.add(btn_save);
+		add(btnPanel);
 	}
 	
 	protected void parseQuestions() {
@@ -91,14 +107,16 @@ public class AbsForm extends JPanel {
     	  	 
 			br = new BufferedReader(new FileReader(pathToCsv));
 			guiQuestions = new ArrayList<Question>();
-			Question q;
+			int lineNum = 0;
 			while ((line = br.readLine()) !=null) 
-			{				   
+			{
+				   lineNum++;
+				   Question q = null;
 				   splitLine = line.split(splitBy);
 				   if(splitLine.length<2)
 				   {
 					   br.close();
-					   throw new IllegalArgumentException("Invalid format in line:"+line);
+					   throw new IllegalArgumentException("Invalid format in line:"+lineNum+" line text:"+line);
 				   }
 				   else	
 				   {
@@ -119,8 +137,7 @@ public class AbsForm extends JPanel {
 					   			}
 					   					
 					   			
-					   			q = new Question(qText,QType.SINGLE_SELECTION,rbtnPanel);
-					   			guiQuestions.add(q);					   								   			
+					   			q = new Question(qText,QType.SINGLE_SELECTION,rbtnPanel);					   								   								   		
 					   		break;
 					   		
 					   		case "multi_selection":
@@ -132,26 +149,26 @@ public class AbsForm extends JPanel {
 					   				chkBoxPanel.add(chkBox);
 					   			}
 					   			
-					   			q = new Question(qText,QType.MULTI_SELECTION,chkBoxPanel);
-					   			guiQuestions.add(q);
+					   			q = new Question(qText,QType.MULTI_SELECTION,chkBoxPanel);					   			
 					   		break;
 					   		
 					   		case "birth_date":
-					   			DateFormat df = new SimpleDateFormat("dd/mm/yyyy");
-								JFormattedTextField tf = new JFormattedTextField(df);
-								tf.setBorder(BorderFactory.createLineBorder(Color.black));
-
-						        tf.setColumns(5);								        
-						        try {
-						            MaskFormatter dateMask = new MaskFormatter("##/##/####");
-						            dateMask.install(tf);
-						        } catch (ParseException ex) {
-						            logger.severe("Unable to format date for text field");
-						            ex.printStackTrace();
-						        }
+//					   			DateFormat df = new SimpleDateFormat("dd/mm/yyyy");
+//								JFormattedTextField tf = new JFormattedTextField(df);
+//								tf.setBorder(BorderFactory.createLineBorder(Color.black));
+//
+//						        tf.setColumns(5);								        
+//						        try {
+//						            MaskFormatter dateMask = new MaskFormatter("##/##/####");
+//						            dateMask.install(tf);
+//						        } catch (ParseException ex) {
+//						            logger.severe("Unable to format date for text field");
+//						            ex.printStackTrace();
+//						        }
+					   			
+					   			BirthDatePanel bDatePanel = new BirthDatePanel();
 						        
-						        q = new Question(qText,QType.BIRTH_DATE,tf);						
-						        guiQuestions.add(q);
+						        q = new Question(qText,QType.BIRTH_DATE,bDatePanel);												        
 						    break;
 					   			
 					   		case "free_text":
@@ -169,9 +186,7 @@ public class AbsForm extends JPanel {
 					   			else
 					   			{
 					   				q = new Question(qText,QType.FREE_TEXT,scrollPane);
-					   			}
-					   			
-					   			guiQuestions.add(q);
+					   			}					   								   		
 					   		break;
 					   		
 					   		case "free_text_range":
@@ -182,7 +197,7 @@ public class AbsForm extends JPanel {
 					   			TextArea textArea3 = new TextArea(width, height);
 					   								   			
 					   			q = new Question(qText, QType.FREE_TEXT_RANGE, textArea2, textArea3, qExtraText);
-					   			guiQuestions.add(q);
+					   			
 					   		break;			
 					   		
 					   		case "free_text_multi":					   
@@ -196,14 +211,20 @@ public class AbsForm extends JPanel {
 					   			}
 					   			
 					   			q = new Question(qText, QType.FREE_TEXT_MULTI, multiFreeTextPanel);
-					   			guiQuestions.add(q);
+					   			
 					   			
 					   		break;
-					   							   							   	
-					   		default:
-					   			logger.severe(splitLine[1]+" is not a valid question type");
-					   			throw new IllegalArgumentException(splitLine[1]+" is not a valid question type");    	   		    	   		    	   
+					   		
+					   		case "infotext":
+					   			q = new Question(qText);
+					   			
+					   		break;
+					   		   							   							   	
+					   		default:					   			
+					   			throw new IllegalArgumentException("Form:"+this.getClass().getSimpleName()+" "+splitLine[1]+" is not a valid question type");    	   		    	   		    	   
 					   }
+				   	   if(q!=null)
+				   		   guiQuestions.add(q);
 				   }
 				   				   				   					  				  
 			  }
@@ -215,9 +236,11 @@ public class AbsForm extends JPanel {
 				logger.severe(pathToCsv+" failed to be closed");
 			}
 			
-			qPanel = new QuestionsPanel(guiQuestions);
-			qPanel.setBounds(0, 88, 1000, 500);
-			add(qPanel);	
+			qPanel = new QuestionsPanel(guiQuestions);			
+			JScrollPane scrollPane = new JScrollPane();
+			scrollPane.setViewportView(qPanel);								
+			//scrollPane.setMaximumSize(scrollPane.getPreferredSize());
+			add(scrollPane);	
       	}	
 		catch (IOException e) {
 			logger.severe(pathToCsv+" failed to be opened");
@@ -226,74 +249,84 @@ public class AbsForm extends JPanel {
 		catch (Exception e) {
 			
 			e.printStackTrace();
-			logger.severe("An exception occured:"+e.getMessage());
+			logger.severe(e.getMessage());
 			   
 			System.exit(1);
 		}
 	
 	}
 
-	protected void getAnswers() throws Exception {
+	protected boolean getAnswers() throws Exception {
 		
 		answers = new ArrayList<Answer>();
-		for(Question q: guiQuestions)
-		{
-			String qText;
-			Answer answer;
-			switch(q.getqType())
+		int aNum = 0;
+		try {
+			for(Question q: guiQuestions)
 			{
-				case FREE_TEXT:
-					qText = q.getQtext();
+				aNum++;
+				String qText;
+				Answer answer;
+				switch(q.getqType())
+				{
+					case FREE_TEXT:
+						qText = q.getQtext();
+						
+						ScrollPane scrollPane = (ScrollPane) q.getQcomponents().get(0);
+						answer = new Answer(qText, scrollPane.getTextArea().getText());
+						answers.add(answer);					
+					break;
+					case BIRTH_DATE:
+						qText = q.getQtext();
+						BirthDatePanel datePanel = (BirthDatePanel) q.getQcomponents().get(0);
+						answer = new Answer(qText, datePanel.getBirthDate());
+						answers.add(answer);										
+					break;
+					case MULTI_SELECTION:
+						qText = q.getQtext();
+						CheckBoxPanel chkBoxPanel = (CheckBoxPanel) q.getQcomponents().get(0);
+						ArrayList<String> checkedBoxes = chkBoxPanel.getCheckedBoxes();
+						answer = new Answer(qText, checkedBoxes);
+						answers.add(answer);					
+					break;
+					case SINGLE_SELECTION:
+						qText = q.getQtext();
+						RadioButtonPanel rbtnPanel = (RadioButtonPanel) q.getQcomponents().get(0);
+						answer = new Answer(qText, rbtnPanel.getSelected());
+						answers.add(answer);					
+					break;
 					
-					ScrollPane scrollPane = (ScrollPane) q.getQcomponents().get(0);
-					answer = new Answer(qText, scrollPane.getTextArea().getText());
-					answers.add(answer);					
-				break;
-				case BIRTH_DATE:
-					qText = q.getQtext();
-					JFormattedTextField dateField = (JFormattedTextField) q.getQcomponents().get(0);
-					answer = new Answer(qText, dateField.getText());
-					answers.add(answer);										
-				break;
-				case MULTI_SELECTION:
-					qText = q.getQtext();
-					CheckBoxPanel chkBoxPanel = (CheckBoxPanel) q.getQcomponents().get(0);
-					ArrayList<String> checkedBoxes = chkBoxPanel.getCheckedBoxes();
-					answer = new Answer(qText, checkedBoxes);
-					answers.add(answer);					
-				break;
-				case SINGLE_SELECTION:
-					qText = q.getQtext();
-					RadioButtonPanel rbtnPanel = (RadioButtonPanel) q.getQcomponents().get(0);
-					answer = new Answer(qText, rbtnPanel.getSelected());
-					answers.add(answer);					
-				break;
+					case FREE_TEXT_RANGE:
+						qText = q.getQtext();
+						ArrayList<Component> comps = (ArrayList<Component>) q.getQcomponents();
+						TextArea txtArea1 = (TextArea) comps.get(0);
+						TextArea txtArea2 = (TextArea) comps.get(1);
+						//JTextArea txtArea1 = spTxtArea1.getTextArea();
+						//JTextArea txtArea2 = spTxtArea2.getTextArea();
+						ArrayList<String> mulAnswers = new ArrayList<String>();
+						mulAnswers.add(txtArea1.getText());
+						mulAnswers.add(txtArea2.getText());					
+						answer = new Answer(qText, mulAnswers);
+						answers.add(answer);					
+					break;
+					
+					case FREE_TEXT_MULTI:
+						qText = q.getQtext();
+						MultiFreeTextPanel mulFreeTxtPanel = (MultiFreeTextPanel) q.getQcomponents().get(0);
+						answer = new Answer(qText, mulFreeTxtPanel.getQuestions(), mulFreeTxtPanel.getAnswers());
+						answers.add(answer);					
+					break;
+					
+					default:
+					break;
 				
-				case FREE_TEXT_RANGE:
-					qText = q.getQtext();
-					ArrayList<Component> comps = (ArrayList<Component>) q.getQcomponents();
-					TextArea txtArea1 = (TextArea) comps.get(0);
-					TextArea txtArea2 = (TextArea) comps.get(1);
-					//JTextArea txtArea1 = spTxtArea1.getTextArea();
-					//JTextArea txtArea2 = spTxtArea2.getTextArea();
-					ArrayList<String> mulAnswers = new ArrayList<String>();
-					mulAnswers.add(txtArea1.getText());
-					mulAnswers.add(txtArea2.getText());					
-					answer = new Answer(qText, mulAnswers);
-					answers.add(answer);					
-				break;
-				
-				case FREE_TEXT_MULTI:
-					qText = q.getQtext();
-					MultiFreeTextPanel mulFreeTxtPanel = (MultiFreeTextPanel) q.getQcomponents().get(0);
-					answer = new Answer(qText, mulFreeTxtPanel.getQuestions(), mulFreeTxtPanel.getAnswers());
-					answers.add(answer);					
-				break;
-				
-				default:
-				break;
-			
+				}
 			}
+			return true;
+		} catch (Exception e) {
+			
+			logger.severe("Answer #:"+aNum+" Exception:"+e.getMessage());
+			e.printStackTrace();
+			return false;
 		}
 	}
 	
