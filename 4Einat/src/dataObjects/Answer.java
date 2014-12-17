@@ -9,22 +9,25 @@ public class Answer {
 	private ArrayList<String> mulAText;
 	private ArrayList<String> mulAprefixText;
 	
+	// free_text or birth_date answer
 	public Answer(String qText, String aText) {
 		
-		this.setaText(aText);
+		this.setAtext(aText);
 		this.setqText(qText);
 		
 	}
 	
+	// free_text_range answer
 	public Answer(String qText, ArrayList<String> mulAText) {
 				
 		this.setqText(qText);
 		this.setMulAText(mulAText);
 	}
 	
+	// free_text_multi answer
 	public Answer(String qText, ArrayList<String> mulAprefixText, ArrayList<String> mulAText) {
 		
-		this.setaText(qText);
+		this.setAtext(qText);
 		this.setMulAprefixText(mulAprefixText);
 		this.setMulAText(mulAText);
 	}
@@ -42,7 +45,7 @@ public class Answer {
 		return aText;
 	}
 
-	public void setaText(String aText) {
+	public void setAtext(String aText) {
 		this.aText = aText;
 	}
 
